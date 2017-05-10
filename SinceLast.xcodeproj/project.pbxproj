@@ -16,6 +16,8 @@
 		1AA4FFE41EC15DA100F26BAB /* SinceLastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* SinceLastTests.swift */; };
 		1AA4FFEF1EC15DA100F26BAB /* SinceLastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */; };
 		1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFFC1EC161F100F26BAB /* Commit.swift */; };
+		1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE2A891EC2BD62009D1499 /* OAuth.swift */; };
+		1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastUITests.swift; sourceTree = "<group>"; };
 		1AA4FFF01EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFFC1EC161F100F26BAB /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		1AAE2A891EC2BD62009D1499 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
+		1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				1AA4FFDA1EC15DA100F26BAB /* Info.plist */,
 				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
 				1A7B5EA01EC1656200F9EC65 /* User.swift */,
+				1AAE2A891EC2BD62009D1499 /* OAuth.swift */,
+				1AAE2A8D1EC2C879009D1499 /* Secrets */,
 			);
 			path = SinceLast;
 			sourceTree = "<group>";
@@ -129,6 +135,14 @@
 				1AA4FFF01EC15DA100F26BAB /* Info.plist */,
 			);
 			path = SinceLastUITests;
+			sourceTree = "<group>";
+		};
+		1AAE2A8D1EC2C879009D1499 /* Secrets */ = {
+			isa = PBXGroup;
+			children = (
+				1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */,
+			);
+			name = Secrets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +257,7 @@
 			files = (
 				1AA4FFD91EC15DA100F26BAB /* LaunchScreen.storyboard in Resources */,
 				1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */,
+				1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */,
 				1AA4FFD41EC15DA100F26BAB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -272,6 +287,7 @@
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* ViewController.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
+				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
