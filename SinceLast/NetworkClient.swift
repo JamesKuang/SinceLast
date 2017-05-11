@@ -8,15 +8,14 @@
 
 import Foundation
 
-typealias JSON = [String: Any]
-
-protocol JSONInitializable {
-    init?(json: JSON)
+enum Result<T> {
+    case success(T)
+    case failure(Error)
 }
 
-struct NetworkResource<A: JSONInitializable> {
+struct NetworkResource<T> {
     let url: URL
-    let parse: (Data) -> A?
+    let parser: JSONParser<T>
 }
 
 final class NetworkClient {
@@ -26,14 +25,18 @@ final class NetworkClient {
         self.session = session
     }
 
-    func load<A>(resource: NetworkResource<A>, completion: @escaping (A?) -> ()) {
+    func load<T>(resource: NetworkResource<T>, completion: @escaping (Result<T>) -> ()) {
         let request = URLRequest(url: resource.url)
         session.dataTask(with: request, completionHandler: { data, response, error in
             guard let data = data else {
-                completion(nil)
+                completion(.failure(NilError()))
                 return
             }
-            completion(resource.parse(data))
+            if let stuff = resource.parser.parse(data: data) {
+                completion(.success(stuff))
+            } else {
+                completion(.failure(NilError()))
+            }
         }).resume()
     }
 }
