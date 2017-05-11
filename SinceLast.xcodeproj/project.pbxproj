@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */; };
+		1A7ABF4E1EC3FC3600752AF9 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */; };
+		1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */; };
+		1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */; };
 		1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B5EA01EC1656200F9EC65 /* User.swift */; };
 		1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */; };
 		1AA4FFD11EC15DA100F26BAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* ViewController.swift */; };
@@ -40,6 +43,9 @@
 
 /* Begin PBXFileReference section */
 		1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
+		1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParsing.swift; sourceTree = "<group>"; };
+		1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		1A7B5EA01EC1656200F9EC65 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1AA4FFCB1EC15DA100F26BAB /* SinceLast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinceLast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		1AA4FFC21EC15DA100F26BAB = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +106,7 @@
 				1AA4FFE21EC15DA100F26BAB /* SinceLastTests */,
 				1AA4FFED1EC15DA100F26BAB /* SinceLastUITests */,
 				1AA4FFCC1EC15DA100F26BAB /* Products */,
+				1A7ABF511EC4040E00752AF9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -117,6 +133,8 @@
 				1A7B5EA01EC1656200F9EC65 /* User.swift */,
 				1AAE2A891EC2BD62009D1499 /* OAuth.swift */,
 				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
+				1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */,
+				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
 				1AAE2A8D1EC2C879009D1499 /* Secrets */,
 			);
 			path = SinceLast;
@@ -158,6 +176,7 @@
 				1AA4FFC71EC15DA100F26BAB /* Sources */,
 				1AA4FFC81EC15DA100F26BAB /* Frameworks */,
 				1AA4FFC91EC15DA100F26BAB /* Resources */,
+				1A7ABF541EC4043600752AF9 /* Carthage Run Script */,
 			);
 			buildRules = (
 			);
@@ -281,6 +300,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A7ABF541EC4043600752AF9 /* Carthage Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
+			);
+			name = "Carthage Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		1AA4FFC71EC15DA100F26BAB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -288,10 +325,12 @@
 			files = (
 				1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */,
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
+				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* ViewController.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
 				1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */,
+				1A7ABF4E1EC3FC3600752AF9 /* Errors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,6 +483,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FPK49A3586;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SinceLast/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -459,6 +502,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = FPK49A3586;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = SinceLast/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
