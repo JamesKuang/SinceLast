@@ -9,6 +9,7 @@
 import Foundation
 
 protocol OAuthCredentials {
+    /// This is the raw URL. It should not be used directly.
     var authorizationURL: URL { get }
     var parameters: [String: String] { get }
 }
@@ -18,7 +19,9 @@ struct BitbucketOAuth: OAuthCredentials {
     let secretProvider: OAuthSecretProviding
 
     var parameters: [String: String] {
-        return ["clientId": secretProvider.clientId]
+        return ["client_id": secretProvider.clientId,
+                "response_type": "code",
+        ]
     }
 
     init(secretProvider: OAuthSecretProviding = PlistReader(fileName: "OAuth")) {

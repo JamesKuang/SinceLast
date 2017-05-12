@@ -13,12 +13,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        let isAuthenticated = false
 
-        let bbOAuth = BitbucketOAuth()
-        let oAuth = OAuth(credentials: bbOAuth)
-        print(oAuth.fullAuthURL)
+        let controller: UIViewController
+        if isAuthenticated {
+            controller = UIViewController()
+        } else {
+            let services = [BitbucketService()]
+            controller = GitServicesAuthorizationViewController(services: services)
+        }
+
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = UINavigationController(rootViewController: controller)
+        window?.makeKeyAndVisible()
 
         return true
     }

@@ -7,14 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A680C4B1EC54E50009D2ECC /* GitService.swift */; };
 		1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */; };
 		1A7ABF4E1EC3FC3600752AF9 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */; };
 		1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */; };
 		1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */; };
 		1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B5EA01EC1656200F9EC65 /* User.swift */; };
 		1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */; };
-		1AA4FFD11EC15DA100F26BAB /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* ViewController.swift */; };
-		1AA4FFD41EC15DA100F26BAB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD21EC15DA100F26BAB /* Main.storyboard */; };
+		1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */; };
 		1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */; };
 		1AA4FFD91EC15DA100F26BAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */; };
 		1AA4FFE41EC15DA100F26BAB /* SinceLastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* SinceLastTests.swift */; };
@@ -42,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1A680C4B1EC54E50009D2ECC /* GitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParsing.swift; sourceTree = "<group>"; };
@@ -49,8 +50,7 @@
 		1A7B5EA01EC1656200F9EC65 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1AA4FFCB1EC15DA100F26BAB /* SinceLast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinceLast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		1AA4FFD01EC15DA100F26BAB /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		1AA4FFD31EC15DA100F26BAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitServicesAuthorizationViewController.swift; sourceTree = "<group>"; };
 		1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1AA4FFD81EC15DA100F26BAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AA4FFDA1EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -124,14 +124,14 @@
 			isa = PBXGroup;
 			children = (
 				1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */,
-				1AA4FFD01EC15DA100F26BAB /* ViewController.swift */,
-				1AA4FFD21EC15DA100F26BAB /* Main.storyboard */,
+				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
 				1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */,
 				1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */,
 				1AA4FFDA1EC15DA100F26BAB /* Info.plist */,
 				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
 				1A7B5EA01EC1656200F9EC65 /* User.swift */,
 				1AAE2A891EC2BD62009D1499 /* OAuth.swift */,
+				1A680C4B1EC54E50009D2ECC /* GitService.swift */,
 				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
 				1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */,
 				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
@@ -280,7 +280,6 @@
 				1AA4FFD91EC15DA100F26BAB /* LaunchScreen.storyboard in Resources */,
 				1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */,
 				1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */,
-				1AA4FFD41EC15DA100F26BAB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,7 +325,8 @@
 				1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */,
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
 				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
-				1AA4FFD11EC15DA100F26BAB /* ViewController.swift in Sources */,
+				1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */,
+				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
 				1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */,
@@ -366,14 +366,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1AA4FFD21EC15DA100F26BAB /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1AA4FFD31EC15DA100F26BAB /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
