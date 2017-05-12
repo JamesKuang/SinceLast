@@ -124,18 +124,12 @@
 			isa = PBXGroup;
 			children = (
 				1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */,
-				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
-				1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */,
-				1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */,
-				1AA4FFDA1EC15DA100F26BAB /* Info.plist */,
-				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
-				1A7B5EA01EC1656200F9EC65 /* User.swift */,
+				1AC3C65F1EC5EFA9001E03B7 /* ViewControllers */,
+				1AC3C6601EC5EFC4001E03B7 /* Git Models */,
+				1AC3C6611EC5EFE0001E03B7 /* Network */,
 				1AAE2A891EC2BD62009D1499 /* OAuth.swift */,
-				1A680C4B1EC54E50009D2ECC /* GitService.swift */,
-				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
 				1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */,
-				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
-				1AAE2A8D1EC2C879009D1499 /* Secrets */,
+				1AC3C6621EC5EFEE001E03B7 /* Resources */,
 			);
 			path = SinceLast;
 			sourceTree = "<group>";
@@ -164,6 +158,44 @@
 				1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */,
 			);
 			name = Secrets;
+			sourceTree = "<group>";
+		};
+		1AC3C65F1EC5EFA9001E03B7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		1AC3C6601EC5EFC4001E03B7 /* Git Models */ = {
+			isa = PBXGroup;
+			children = (
+				1A680C4B1EC54E50009D2ECC /* GitService.swift */,
+				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
+				1A7B5EA01EC1656200F9EC65 /* User.swift */,
+			);
+			name = "Git Models";
+			sourceTree = "<group>";
+		};
+		1AC3C6611EC5EFE0001E03B7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
+				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		1AC3C6621EC5EFEE001E03B7 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1AAE2A8D1EC2C879009D1499 /* Secrets */,
+				1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */,
+				1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */,
+				1AA4FFDA1EC15DA100F26BAB /* Info.plist */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
