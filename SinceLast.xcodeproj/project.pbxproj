@@ -23,6 +23,7 @@
 		1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */; };
 		1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */; };
 		1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */; };
+		1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */; };
 		1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE2A891EC2BD62009D1499 /* OAuth.swift */; };
 		1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */; };
 		1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */; };
@@ -68,6 +69,7 @@
 		1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationURLOpening.swift; sourceTree = "<group>"; };
 		1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
+		1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthURLValidator.swift; sourceTree = "<group>"; };
 		1AAE2A891EC2BD62009D1499 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
 				1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */,
 				1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */,
+				1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */,
 				1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
+				1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
 				1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */,
