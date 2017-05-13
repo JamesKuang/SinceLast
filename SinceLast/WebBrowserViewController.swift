@@ -9,6 +9,10 @@
 import UIKit
 import WebKit
 
+protocol WebBrowserViewControllerDelegate: class {
+    func controllerDidClose(_ controller: WebBrowserViewController)
+}
+
 final class WebBrowserViewController: UIViewController {
     let webView: WKWebView = {
         let configuration = WKWebViewConfiguration()
@@ -20,6 +24,8 @@ final class WebBrowserViewController: UIViewController {
 
     let request: URLRequest
 
+    weak var delegate: WebBrowserViewControllerDelegate?
+
     convenience init(url: URL) {
         let request = URLRequest(url: url)
         self.init(request: request)
@@ -28,6 +34,8 @@ final class WebBrowserViewController: UIViewController {
     init(request: URLRequest) {
         self.request = request
         super.init(nibName: nil, bundle: nil)
+
+        title = request.url?.host
 
         view.addSubview(webView)
 
@@ -39,6 +47,8 @@ final class WebBrowserViewController: UIViewController {
             ])
 
         webView.navigationDelegate = self
+
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Close navigation bar button"), style: .done, target: self, action: #selector(close))
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +61,11 @@ final class WebBrowserViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    dynamic fileprivate func close() {
+        webView.stopLoading()
+        delegate?.controllerDidClose(self)
     }
 }
 
@@ -68,6 +83,7 @@ extension WebBrowserViewController: WKNavigationDelegate {
         }
 
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        close()
         decisionHandler(.cancel)
     }
 

@@ -25,6 +25,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
         self.services = services
         super.init(nibName: nil, bundle: nil)
 
+        title = NSLocalizedString("Git Authorization", comment: "Git Services authorization navigation bar title")
         view.backgroundColor = .white
 
         view.addSubview(servicesStackView)
@@ -68,8 +69,14 @@ final class GitServicesAuthorizationViewController: UIViewController {
         let oAuth = OAuth(credentials: service.oAuthCredentials)
         print("\(oAuth.fullAuthURL)")
         let controller = WebBrowserViewController(url: oAuth.fullAuthURL)
+        controller.delegate = self
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }
 }
 
+extension GitServicesAuthorizationViewController: WebBrowserViewControllerDelegate {
+    func controllerDidClose(_ controller: WebBrowserViewController) {
+        dismiss(animated: true)
+    }
+}
