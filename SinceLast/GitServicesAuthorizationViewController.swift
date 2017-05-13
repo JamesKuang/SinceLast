@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SafariServices
 
 final class GitServicesAuthorizationViewController: UIViewController {
     let services: [GitService]
@@ -68,8 +67,9 @@ final class GitServicesAuthorizationViewController: UIViewController {
     private func startAuthentication(for service: GitService) {
         let oAuth = OAuth(credentials: service.oAuthCredentials)
         print("\(oAuth.fullAuthURL)")
-        let controller = SFSafariViewController(url: oAuth.fullAuthURL)
-        present(controller, animated: true, completion: nil)
+        let controller = WebBrowserViewController(url: oAuth.fullAuthURL)
+        let navigationController = UINavigationController(rootViewController: controller)
+        present(navigationController, animated: true)
     }
 }
 

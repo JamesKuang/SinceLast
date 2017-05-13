@@ -37,6 +37,8 @@ final class WebBrowserViewController: UIViewController {
             webView.topAnchor.constraint(equalTo: view.topAnchor),
             webView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             ])
+
+        webView.navigationDelegate = self
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,5 +51,38 @@ final class WebBrowserViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+extension WebBrowserViewController: WKNavigationDelegate {
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        guard let url = navigationAction.request.url else {
+            decisionHandler(.allow)
+            return
+        }
+
+        let validator = WebViewNavigationActionValidator(url: url)
+        guard validator.isSchemeValid else {
+            decisionHandler(.allow)
+            return
+        }
+
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        decisionHandler(.cancel)
+    }
+
+    private struct WebViewNavigationActionValidator {
+        let validScheme = "sincelast"
+
+        let url: URL
+
+        var isSchemeValid: Bool {
+            if let scheme = url.scheme,
+                scheme == validScheme,
+                UIApplication.shared.canOpenURL(url) {
+                return true
+            }
+            return false
+        }
     }
 }
