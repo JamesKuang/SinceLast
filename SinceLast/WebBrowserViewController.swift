@@ -89,16 +89,22 @@ extension WebBrowserViewController: WKNavigationDelegate {
 
     private struct WebViewNavigationActionValidator {
         let validScheme = "sincelast"
+        let urlOpener: ApplicationURLOpening
 
         let url: URL
 
         var isSchemeValid: Bool {
             if let scheme = url.scheme,
                 scheme == validScheme,
-                UIApplication.shared.canOpenURL(url) {
+                urlOpener.canOpenURL(url) {
                 return true
             }
             return false
+        }
+
+        init(url: URL, urlOpener: ApplicationURLOpening = UIApplication.shared) {
+            self.url = url
+            self.urlOpener = urlOpener
         }
     }
 }
