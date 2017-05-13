@@ -16,16 +16,12 @@ protocol OAuthCredentials {
 
 struct BitbucketOAuth: OAuthCredentials {
     let authorizationURL = URL(string: "https://bitbucket.org/site/oauth2/authorize")!
-    let secretProvider: OAuthSecretProviding
+    let secretProvider: OAuthSecretProviding = OAuthSecretProvider()
 
     var parameters: [String: String] {
         return ["client_id": secretProvider.clientId,
                 "response_type": "code",
         ]
-    }
-
-    init(secretProvider: OAuthSecretProviding = PlistReader(fileName: "OAuth")) {
-        self.secretProvider = secretProvider
     }
 }
 
@@ -33,24 +29,11 @@ protocol OAuthSecretProviding {
     var clientId: String { get }
 }
 
-final class PlistReader {
-    let fileName: String
+struct OAuthSecretProvider: OAuthSecretProviding {
+    let storage: PlistReader = PlistReader(fileName: "OAuth")
 
-    init(fileName: String) {
-        self.fileName = fileName
-    }
-
-    func read() -> NSDictionary {
-        guard let plistPath = Bundle.main.path(forResource: fileName, ofType: "plist"),
-            let contents = NSDictionary(contentsOfFile: plistPath)
-            else { fatalError("No Plist found") }
-        return contents
-    }
-}
-
-extension PlistReader: OAuthSecretProviding {
     var clientId: String {
-        let contents = read()
+        let contents = storage.read()
         guard let clientId = contents.value(forKeyPath: "Bitbucket.clientId") as? String
             else { fatalError("Missing clientId in Plist") }
         return clientId

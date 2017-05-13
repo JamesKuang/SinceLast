@@ -20,6 +20,7 @@
 		1AA4FFE41EC15DA100F26BAB /* SinceLastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* SinceLastTests.swift */; };
 		1AA4FFEF1EC15DA100F26BAB /* SinceLastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */; };
 		1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFFC1EC161F100F26BAB /* Commit.swift */; };
+		1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */; };
 		1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE2A891EC2BD62009D1499 /* OAuth.swift */; };
 		1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */; };
 		1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */; };
@@ -62,6 +63,7 @@
 		1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastUITests.swift; sourceTree = "<group>"; };
 		1AA4FFF01EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFFC1EC161F100F26BAB /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		1AAE2A891EC2BD62009D1499 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				1AC3C6601EC5EFC4001E03B7 /* Git Models */,
 				1AC3C6611EC5EFE0001E03B7 /* Network */,
 				1AAE2A891EC2BD62009D1499 /* OAuth.swift */,
+				1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */,
 				1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */,
 				1AC3C6621EC5EFEE001E03B7 /* Resources */,
 			);
@@ -358,6 +361,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */,
+				1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */,
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
 				1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */,
 				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
