@@ -11,15 +11,17 @@ import Foundation
 struct OAuthURLValidator {
     let url: URL
     let urlComponents: URLComponents?
+    let expectedScheme: String
 
-    init(url: URL) {
+    init(url: URL, expectedScheme: String) {
         self.url = url
         self.urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        self.expectedScheme = expectedScheme
     }
 
     var isValid: Bool {
         guard let components = urlComponents else { return false }
-        guard let scheme = components.scheme, scheme == "sincelast" else { return false }
+        guard let scheme = components.scheme, scheme == expectedScheme else { return false }
         guard let _ = self.accessCode else { return false }
         return true
     }

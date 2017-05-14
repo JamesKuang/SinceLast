@@ -76,7 +76,7 @@ extension WebBrowserViewController: WKNavigationDelegate {
             return
         }
 
-        let validator = WebViewNavigationActionValidator(url: url)
+        let validator = WebViewNavigationActionValidator(url: url, expectedScheme: "sincelast")
         guard validator.isSchemeValid else {
             decisionHandler(.allow)
             return
@@ -86,25 +86,25 @@ extension WebBrowserViewController: WKNavigationDelegate {
         close()
         decisionHandler(.cancel)
     }
+}
 
-    private struct WebViewNavigationActionValidator {
-        let validScheme = "sincelast"
-        let urlOpener: ApplicationURLOpening
+private struct WebViewNavigationActionValidator {
+    let url: URL
+    let expectedScheme: String
+    let urlOpener: ApplicationURLOpening
 
-        let url: URL
-
-        var isSchemeValid: Bool {
-            if let scheme = url.scheme,
-                scheme == validScheme,
-                urlOpener.canOpenURL(url) {
-                return true
-            }
-            return false
+    var isSchemeValid: Bool {
+        if let scheme = url.scheme,
+            scheme == expectedScheme,
+            urlOpener.canOpenURL(url) {
+            return true
         }
+        return false
+    }
 
-        init(url: URL, urlOpener: ApplicationURLOpening = UIApplication.shared) {
-            self.url = url
-            self.urlOpener = urlOpener
-        }
+    init(url: URL, expectedScheme: String, urlOpener: ApplicationURLOpening = UIApplication.shared) {
+        self.url = url
+        self.expectedScheme = expectedScheme
+        self.urlOpener = urlOpener
     }
 }
