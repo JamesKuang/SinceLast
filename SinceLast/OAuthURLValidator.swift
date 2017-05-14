@@ -19,14 +19,14 @@ struct OAuthURLValidator {
         self.expectedScheme = expectedScheme
     }
 
-    var isValid: Bool {
-        guard let components = urlComponents else { return false }
-        guard let scheme = components.scheme, scheme == expectedScheme else { return false }
-        guard let _ = self.accessCode else { return false }
-        return true
+    var result: Result<String> {
+        guard let components = urlComponents else { return .failure(NilError()) }
+        guard let scheme = components.scheme, scheme == expectedScheme else { return .failure(ValidationError("Scheme does not match")) }
+        guard let code = accessCode else { return .failure(ValidationError("Missing access code")) }
+        return .success(code)
     }
 
-    var accessCode: String? {
+    private var accessCode: String? {
         guard let queryItems = urlComponents?.queryItems else { return nil }
         let codeItem = queryItems.first { $0.name == "code" }
         return codeItem?.value

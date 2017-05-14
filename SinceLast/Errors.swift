@@ -21,3 +21,11 @@ struct NilError: Error, CustomStringConvertible {
         return "Nil returned at \((file as NSString).lastPathComponent):\(line)"
     }
 }
+
+struct ValidationError: Error {
+    let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+}

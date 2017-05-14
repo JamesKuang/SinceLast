@@ -35,8 +35,17 @@ final class AppCoordinator {
 
     func handleOAuthURL(_ url: URL) -> Bool {
         let validator = OAuthURLValidator(url: url, expectedScheme: "sincelast")
-        guard validator.isValid else { return false }
+        switch validator.result {
+        case .success(let code):
+            authorize(code: code)
+            return true
+        case .failure(let error):
+            print(error)
+            return false
+        }
+    }
 
-        return true
+    private func authorize(code: String) {
+
     }
 }
