@@ -15,13 +15,13 @@ protocol JSONInitializable {
 }
 
 protocol RequestParser {
-    func parse(data: Data) -> JSON?
+    func parse(data: Data) -> [String: Any]?
 }
 
-struct JSONParser<T> {
-    func parse(data: Data) -> T? {
+struct JSONParser: RequestParser {
+    func parse(data: Data) -> JSON? {
         do {
-            guard let untyped = try JSONSerialization.jsonObject(with: data, options: []) as? T else {
+            guard let untyped = try JSONSerialization.jsonObject(with: data, options: []) as? JSON else {
                 throw NilError()
             }
             return untyped

@@ -29,6 +29,8 @@
 		1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */; };
 		1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */; };
 		1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */; };
+		1AE2D07F1EC804960007ACBD /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07E1EC804960007ACBD /* Request.swift */; };
+		1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +79,8 @@
 		1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
 		1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthCredentials.swift; sourceTree = "<group>"; };
+		1AE2D07E1EC804960007ACBD /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,12 +183,12 @@
 			name = OAuth;
 			sourceTree = "<group>";
 		};
-		1AAE2A8D1EC2C879009D1499 /* Secrets */ = {
+		1AAE2A8D1EC2C879009D1499 /* OAuth Credentials */ = {
 			isa = PBXGroup;
 			children = (
 				1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */,
 			);
-			name = Secrets;
+			name = "OAuth Credentials";
 			sourceTree = "<group>";
 		};
 		1AC3C65F1EC5EFA9001E03B7 /* ViewControllers */ = {
@@ -212,6 +216,8 @@
 			children = (
 				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
 				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
+				1AE2D07E1EC804960007ACBD /* Request.swift */,
+				1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -219,7 +225,7 @@
 		1AC3C6621EC5EFEE001E03B7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				1AAE2A8D1EC2C879009D1499 /* Secrets */,
+				1AAE2A8D1EC2C879009D1499 /* OAuth Credentials */,
 				1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */,
 				1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */,
 				1AA4FFDA1EC15DA100F26BAB /* Info.plist */,
@@ -390,9 +396,11 @@
 				1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */,
 				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
 				1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */,
+				1AE2D07F1EC804960007ACBD /* Request.swift in Sources */,
 				1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
 				1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */,
+				1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
 				1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */,

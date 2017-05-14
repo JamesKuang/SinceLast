@@ -16,10 +16,10 @@ protocol OAuthCredentials {
 
 struct BitbucketOAuth: OAuthCredentials {
     let authorizationURL = URL(string: "https://bitbucket.org/site/oauth2/authorize")!
-    let secretProvider: OAuthSecretProviding = OAuthSecretProvider()
+    let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
 
     var parameters: [String: String] {
-        return ["client_id": secretProvider.clientId,
+        return ["client_id": keySecretProvider.key,
                 "response_type": "code",
         ]
     }

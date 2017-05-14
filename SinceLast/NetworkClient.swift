@@ -13,26 +13,31 @@ enum Result<T> {
     case failure(Error)
 }
 
-struct NetworkResource<T> {
-    let url: URL
-    let parser: JSONParser<T>
+enum SharedNetworkClient {
+    static let bitbucket: NetworkClient = {
+        let client = NetworkClient(baseURL: "https://bitbucket.org")
+        return client
+    }()
 }
 
 final class NetworkClient {
+    let baseURL: String
     let session: URLSession
 
-    init(session: URLSession = URLSession.shared) {
+    init(baseURL: String, session: URLSession = URLSession.shared) {
+        self.baseURL = baseURL
         self.session = session
     }
 
-    func load<T>(resource: NetworkResource<T>, completion: @escaping (Result<T>) -> ()) {
-        let request = URLRequest(url: resource.url)
-        session.dataTask(with: request, completionHandler: { data, response, error in
+    func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ()) {
+        let builder = URLRequestBuilder(request: request, baseURL: baseURL)
+        guard let urlRequest = builder.urlRequest else { fatalError("Request couldn't be built") }
+        session.dataTask(with: urlRequest, completionHandler: { data, response, error in
             guard let data = data else {
                 completion(.failure(NilError()))
                 return
             }
-            if let stuff = resource.parser.parse(data: data) {
+            if let stuff = request.parser.parse(data: data) {
                 completion(.success(stuff))
             } else {
                 completion(.failure(NilError()))

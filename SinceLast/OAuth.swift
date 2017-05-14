@@ -28,17 +28,25 @@ struct OAuth {
     }
 }
 
-protocol OAuthSecretProviding {
-    var clientId: String { get }
+protocol OAuthKeySecretProviding {
+    var key: String { get }
+    var secret: String { get }
 }
 
-struct OAuthSecretProvider: OAuthSecretProviding {
-    let storage: PlistReader = PlistReader(fileName: "OAuth")
+struct OAuthKeySecretProvider: OAuthKeySecretProviding {
+    let key: String
+    let secret: String
 
-    var clientId: String {
-        let contents = storage.read()
-        guard let clientId = contents.value(forKeyPath: "Bitbucket.clientId") as? String
-            else { fatalError("Missing clientId in Plist") }
-        return clientId
+    init() {
+        let storageReader = PlistReader(fileName: "OAuth")
+        let contents = storageReader.read()
+
+        guard let key = contents.value(forKeyPath: "Bitbucket.key") as? String
+            else { fatalError("Missing key in Plist") }
+        self.key = key
+
+        guard let secret = contents.value(forKeyPath: "Bitbucket.secret") as? String
+            else { fatalError("Missing secret in Plist") }
+        self.secret = secret
     }
 }

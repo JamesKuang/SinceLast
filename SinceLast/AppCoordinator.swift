@@ -46,6 +46,14 @@ final class AppCoordinator {
     }
 
     private func authorize(code: String) {
-
+        let request = OAuthAccessTokenRequest(code: code)
+        SharedNetworkClient.bitbucket.send(request: request, completion: { result in
+            switch result {
+            case .success(let json):
+                print(json)
+            case .failure(let error):
+                print(error)
+            }
+        })
     }
 }
