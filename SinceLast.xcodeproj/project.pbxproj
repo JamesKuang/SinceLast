@@ -27,6 +27,7 @@
 		1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE2A891EC2BD62009D1499 /* OAuth.swift */; };
 		1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */; };
 		1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */; };
+		1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		1AAE2A891EC2BD62009D1499 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
+		1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */,
+				1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */,
 				1AC3C65F1EC5EFA9001E03B7 /* ViewControllers */,
 				1AC3C6601EC5EFC4001E03B7 /* Git Models */,
 				1AC3C6611EC5EFE0001E03B7 /* Network */,
@@ -389,6 +392,7 @@
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
 				1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */,
+				1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */,
 				1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */,
 				1A7ABF4E1EC3FC3600752AF9 /* Errors.swift in Sources */,
 			);
