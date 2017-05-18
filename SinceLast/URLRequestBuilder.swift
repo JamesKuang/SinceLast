@@ -41,6 +41,9 @@ struct URLRequestBuilder {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
         urlRequest.httpBody = body
+        request.additionalHeaders.forEach { key, value in
+            urlRequest.addValue(value, forHTTPHeaderField: key)
+        }
         return urlRequest
     }
 }

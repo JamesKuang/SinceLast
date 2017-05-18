@@ -18,18 +18,11 @@ protocol Request {
     var path: String { get }
     var queryParameters: [String: String] { get }
     var bodyParameters: [String: Any] { get }
+    var additionalHeaders: [String: String] { get }
     var parser: RequestParser { get }
 }
 
 extension Request {
-    var queryParameters: [String: String] {
-        return [:]
-    }
-
-    var bodyParameters: [String: Any] {
-        return [:]
-    }
-
     var parser: RequestParser {
         return JSONParser()
     }
@@ -45,9 +38,27 @@ struct OAuthAccessTokenRequest: Request {
     var bodyParameters: [String : Any] {
         return [
             "grant_type": "authorization_code",
+            "code": code,
             "client_id": keySecretProvider.key,
             "client_secret": keySecretProvider.secret,
-            "code": code,
+        ]
+    }
+
+    var queryParameters: [String: String] {
+        return [:]
+    }
+
+    var additionalHeaders: [String : String] {
+        let userAndPassword = "\(keySecretProvider.key):\(keySecretProvider.secret)"
+        guard let data = userAndPassword.data(using: .utf8) else { fatalError("Must be convertible to UTF8 encoding") }
+        let encoded = data.base64EncodedString()
+
+//        let length = NSKeyedArchiver.archivedData(withRootObject: bodyParameters).count
+
+        return [
+            "Authorization": "Basic \(encoded)",
+            "Content-Type": "application/json",
+//            "Content-Length": String(length),
         ]
     }
 }
