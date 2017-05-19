@@ -23,6 +23,10 @@ protocol Request {
 }
 
 extension Request {
+    var additionalHeaders: [String: String] {
+        return [:]
+    }
+
     var parser: RequestParser {
         return JSONParser()
     }
@@ -53,12 +57,9 @@ struct OAuthAccessTokenRequest: Request {
         guard let data = userAndPassword.data(using: .utf8) else { fatalError("Must be convertible to UTF8 encoding") }
         let encoded = data.base64EncodedString()
 
-//        let length = NSKeyedArchiver.archivedData(withRootObject: bodyParameters).count
-
         return [
-            "Authorization": "Basic \(encoded)",
+//            "Authorization": "Basic \(encoded)",
             "Content-Type": "application/json",
-//            "Content-Length": String(length),
         ]
     }
 }
