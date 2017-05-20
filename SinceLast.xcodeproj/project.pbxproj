@@ -17,7 +17,7 @@
 		1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */; };
 		1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */; };
 		1AA4FFD91EC15DA100F26BAB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */; };
-		1AA4FFE41EC15DA100F26BAB /* SinceLastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* SinceLastTests.swift */; };
+		1AA4FFE41EC15DA100F26BAB /* DateToDataConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */; };
 		1AA4FFEF1EC15DA100F26BAB /* SinceLastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */; };
 		1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFFC1EC161F100F26BAB /* Commit.swift */; };
 		1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */; };
@@ -34,6 +34,9 @@
 		1AED93C91ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */; };
 		1AED93CB1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */; };
 		1AED93CF1ECFD9C20017FAD6 /* BitbucketOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93CE1ECFD9C20017FAD6 /* BitbucketOAuth.swift */; };
+		1AED93D21ECFDBAD0017FAD6 /* TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D11ECFDBAD0017FAD6 /* TokenStorage.swift */; };
+		1AED93D41ECFE7B90017FAD6 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AED93D31ECFE7B90017FAD6 /* KeychainAccess.framework */; };
+		1AED93D61ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,7 +70,7 @@
 		1AA4FFD81EC15DA100F26BAB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1AA4FFDA1EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFDF1EC15DA100F26BAB /* SinceLastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SinceLastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1AA4FFE31EC15DA100F26BAB /* SinceLastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastTests.swift; sourceTree = "<group>"; };
+		1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToDataConversionTests.swift; sourceTree = "<group>"; };
 		1AA4FFE51EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFEA1EC15DA100F26BAB /* SinceLastUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SinceLastUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastUITests.swift; sourceTree = "<group>"; };
@@ -87,6 +90,9 @@
 		1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationHeaderScheme.swift; sourceTree = "<group>"; };
 		1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenRequest.swift; sourceTree = "<group>"; };
 		1AED93CE1ECFD9C20017FAD6 /* BitbucketOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketOAuth.swift; sourceTree = "<group>"; };
+		1AED93D11ECFDBAD0017FAD6 /* TokenStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenStorage.swift; sourceTree = "<group>"; };
+		1AED93D31ECFE7B90017FAD6 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
+		1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1AED93D41ECFE7B90017FAD6 /* KeychainAccess.framework in Frameworks */,
 				1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -118,6 +125,7 @@
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1AED93D31ECFE7B90017FAD6 /* KeychainAccess.framework */,
 				1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */,
 			);
 			name = Frameworks;
@@ -164,7 +172,8 @@
 		1AA4FFE21EC15DA100F26BAB /* SinceLastTests */ = {
 			isa = PBXGroup;
 			children = (
-				1AA4FFE31EC15DA100F26BAB /* SinceLastTests.swift */,
+				1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */,
+				1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */,
 				1AA4FFE51EC15DA100F26BAB /* Info.plist */,
 			);
 			path = SinceLastTests;
@@ -253,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */,
+				1AED93D11ECFDBAD0017FAD6 /* TokenStorage.swift */,
 			);
 			name = Storage;
 			sourceTree = "<group>";
@@ -407,6 +417,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
@@ -423,6 +434,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */,
+				1AED93D21ECFDBAD0017FAD6 /* TokenStorage.swift in Sources */,
 				1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */,
 				1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */,
 				1AED93C91ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift in Sources */,
@@ -450,7 +462,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1AA4FFE41EC15DA100F26BAB /* SinceLastTests.swift in Sources */,
+				1AA4FFE41EC15DA100F26BAB /* DateToDataConversionTests.swift in Sources */,
+				1AED93D61ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

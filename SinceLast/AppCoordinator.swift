@@ -70,11 +70,11 @@ extension OAuthAccessToken: JSONInitializable {
         guard
             let token = json["access_token"] as? String,
             let refreshToken = json["refresh_token"] as? String,
-            let expiresIn = json["expires_in"] as? TimeInterval
+            let expiresIn = json["expires_in"] as? Int
             else { return nil }
 
         self.token = token
         self.refreshToken = refreshToken
-        self.expiration = Date(timeIntervalSinceNow: expiresIn)
+        self.expiration = Date(timeIntervalSinceNow: TimeInterval(expiresIn))
     }
 }
