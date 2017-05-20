@@ -14,6 +14,11 @@ struct BitbucketUserRequest: Request {
 }
 
 struct BitbucketRepositoriesRequest: Request {
-    let path = "/2.0/repositories"
+    let userName: String
+
+    var path: String {
+        return "/2.0/teams/\(userName)/repositories"
+    }
+
     let queryParameters: [String : String] = [:]
 }

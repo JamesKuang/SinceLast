@@ -9,7 +9,7 @@
 import UIKit
 
 final class AppCoordinator {
-    private(set) var rootViewController: UIViewController?
+    private(set) var rootViewController: UINavigationController?
 
     var gitClient: GitClient = GitClient(service: .bitbucket)
 
@@ -32,9 +32,15 @@ final class AppCoordinator {
             controller = GitServicesAuthorizationViewController(credentials: credentials)
         }
 
-        let rootViewController = UINavigationController(rootViewController: controller)
-        self.rootViewController = rootViewController
-        return rootViewController
+        let navigationController: UINavigationController
+        if let rootViewController = self.rootViewController {
+            navigationController = rootViewController
+        } else {
+            navigationController = UINavigationController(rootViewController: controller)
+            self.rootViewController = navigationController
+        }
+
+        return navigationController
     }
 
     func handleOAuthURL(_ url: URL) -> Bool {

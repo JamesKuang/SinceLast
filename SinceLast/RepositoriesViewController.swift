@@ -29,15 +29,33 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         super.viewWillAppear(animated)
 
         if isMovingToParentViewController {
-            let request = BitbucketRepositoriesRequest()
-            gitClient.send(request: request, completion: { result in
-                switch result {
-                case .success(let json):
-                    print(json)
-                case .failure(let error):
-                    print(error)
-                }
-            })
+            fetchData()
         }
+    }
+
+    private func fetchData() {
+        let request = BitbucketUserRequest()
+        gitClient.send(request: request, completion: { result in
+            switch result {
+            case .success(let json):
+                print(json)
+                let userName = json["username"] as! String
+                self.retrieveRepositories(userName: userName)
+            case .failure(let error):
+                print(error)
+            }
+        })
+    }
+
+    private func retrieveRepositories(userName: String) {
+        let request = BitbucketRepositoriesRequest(userName: userName)
+        gitClient.send(request: request, completion: { (result) in
+            switch result {
+            case .success(let json):
+                print(json)
+            case .failure(let error):
+                print(error)
+            }
+        })
     }
 }

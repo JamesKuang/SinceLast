@@ -16,7 +16,7 @@ final class GitClient {
     let service: GitService
 
     private lazy var main: NetworkClient = {
-        let configuration = URLSessionConfiguration()
+        let configuration = URLSessionConfiguration.default
         if let token = TokenStorage(service: self.service).token {
             let scheme = AuthorizationHeaderScheme(token: token)
             configuration.httpAdditionalHeaders = scheme.keyValuePair
@@ -26,7 +26,7 @@ final class GitClient {
     }()
 
     private lazy var oAuth: NetworkClient = {
-        return NetworkClient(baseURL: self.service.oAuthBaseURL)
+        return NetworkClient(baseURL: self.service.oAuthBaseURL, configuration: .ephemeral)
     }()
 
     init(service: GitService) {
