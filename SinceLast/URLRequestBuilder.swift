@@ -20,7 +20,9 @@ struct URLRequestBuilder {
     var url: URL? {
         guard var urlComponents = URLComponents(string: baseURL) else { return nil }
         urlComponents.path = request.path
-        urlComponents.queryItems = queryItems
+        if request.method == .GET {
+            urlComponents.queryItems = queryItems
+        }
         return urlComponents.url
     }
 
@@ -32,15 +34,20 @@ struct URLRequestBuilder {
     }
 
     var body: Data? {
-        guard !request.bodyParameters.isEmpty else { return nil }
-        return try? JSONSerialization.data(withJSONObject: request.bodyParameters, options: [])
+        var urlComponents = URLComponents()
+        urlComponents.queryItems = queryItems
+        return urlComponents.query?.data(using: .ascii)
     }
 
     var urlRequest: URLRequest? {
         guard let url = self.url else { return nil }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = request.method.rawValue
-        urlRequest.httpBody = body
+
+        if request.method == .POST {
+            urlRequest.httpBody = body
+        }
+
         request.additionalHeaders.forEach { key, value in
             urlRequest.addValue(value, forHTTPHeaderField: key)
         }

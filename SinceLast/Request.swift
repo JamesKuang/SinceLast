@@ -17,7 +17,6 @@ protocol Request {
     var method: RequestMethod { get }
     var path: String { get }
     var queryParameters: [String: String] { get }
-    var bodyParameters: [String: Any] { get }
     var additionalHeaders: [String: String] { get }
     var parser: RequestParser { get }
 }
@@ -39,17 +38,11 @@ struct OAuthAccessTokenRequest: Request {
     let code: String
     let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
 
-    var bodyParameters: [String : Any] {
+    var queryParameters: [String: String] {
         return [
             "grant_type": "authorization_code",
             "code": code,
-            "client_id": keySecretProvider.key,
-            "client_secret": keySecretProvider.secret,
         ]
-    }
-
-    var queryParameters: [String: String] {
-        return [:]
     }
 
     var additionalHeaders: [String : String] {
@@ -58,8 +51,7 @@ struct OAuthAccessTokenRequest: Request {
         let encoded = data.base64EncodedString()
 
         return [
-//            "Authorization": "Basic \(encoded)",
-            "Content-Type": "application/json",
+            "Authorization": "Basic \(encoded)",
         ]
     }
 }
