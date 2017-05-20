@@ -15,7 +15,7 @@ enum Result<T> {
 
 enum SharedNetworkClient {
     static let bitbucket: NetworkClient = {
-        let client = NetworkClient(baseURL: "https://bitbucket.org")
+        let client = NetworkClient(baseURL: "https://api.bitbucket.org")    // FIXME: split this up
         return client
     }()
 }

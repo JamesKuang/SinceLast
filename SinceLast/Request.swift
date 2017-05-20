@@ -22,6 +22,10 @@ protocol Request {
 }
 
 extension Request {
+    var method: RequestMethod {
+        return .GET
+    }
+
     var additionalHeaders: [String: String] {
         return [:]
     }

@@ -27,3 +27,7 @@ enum GitService {
         return client.send(request: request, completion: completion)
     }
 }
+
+protocol GitServiceRequiring {
+    var gitService: GitService { get }
+}

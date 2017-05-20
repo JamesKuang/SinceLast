@@ -11,10 +11,10 @@ import UIKit
 final class AppCoordinator {
     private(set) var rootViewController: UIViewController?
 
-    var currentGitService: GitService = .bitbucket
+    var gitService: GitService = .bitbucket
 
     var isAuthorized: Bool {
-        let tokenStorage = TokenStorage(service: currentGitService)
+        let tokenStorage = TokenStorage(service: gitService)
         guard let token = tokenStorage.token else { return false }
         return !token.isExpired
     }
@@ -26,7 +26,7 @@ final class AppCoordinator {
     func startLaunchViewController() -> UIViewController {
         let controller: UIViewController
         if isAuthorized {
-            controller = RepositoriesViewController()
+            controller = RepositoriesViewController(service: gitService)
         } else {
             let credentials = [BitbucketOAuth()]
             controller = GitServicesAuthorizationViewController(credentials: credentials)
@@ -41,7 +41,7 @@ final class AppCoordinator {
         let validator = OAuthURLValidator(url: url, expectedScheme: "sincelast")
         switch validator.result {
         case .success(let code):
-            authorize(code: code, service: currentGitService)
+            authorize(code: code, service: gitService)
             return true
         case .failure(let error):
             print(error)
@@ -51,12 +51,15 @@ final class AppCoordinator {
 
     private func authorize(code: String, service: GitService) {
         let request = OAuthAccessTokenRequest(code: code)
-        currentGitService.send(request: request, completion: { result in
+        gitService.send(request: request, completion: { result in
             switch result {
             case .success(let json):
                 guard let token = OAuthAccessToken(json: json) else { return }
                 let tokenStorage = TokenStorage(service: service)
                 tokenStorage.store(token: token)
+                DispatchQueue.main.async {
+                    _ = self.startLaunchViewController()
+                }
             case .failure(let error):
                 print(error)
             }
