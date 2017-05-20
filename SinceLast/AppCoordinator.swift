@@ -50,10 +50,31 @@ final class AppCoordinator {
         SharedNetworkClient.bitbucket.send(request: request, completion: { result in
             switch result {
             case .success(let json):
+                let access = OAuthAccessToken(json: json)
                 print(json)
             case .failure(let error):
                 print(error)
             }
         })
+    }
+}
+
+struct OAuthAccessToken {
+    let token: String
+    let refreshToken: String
+    let expiration: Date
+}
+
+extension OAuthAccessToken: JSONInitializable {
+    init?(json: JSON) {
+        guard
+            let token = json["access_token"] as? String,
+            let refreshToken = json["refresh_token"] as? String,
+            let expiresIn = json["expires_in"] as? TimeInterval
+            else { return nil }
+
+        self.token = token
+        self.refreshToken = refreshToken
+        self.expiration = Date(timeIntervalSinceNow: expiresIn)
     }
 }
