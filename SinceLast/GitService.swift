@@ -16,6 +16,16 @@ enum GitService {
         case .bitbucket: return "Bitbucket"
         }
     }
+
+    private var client: NetworkClient {
+        switch self {
+        case .bitbucket: return SharedNetworkClient.bitbucket
+        }
+    }
+
+    func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ()) {
+        return client.send(request: request, completion: completion)
+    }
 }
 
 protocol GitServiceAuthorizing {

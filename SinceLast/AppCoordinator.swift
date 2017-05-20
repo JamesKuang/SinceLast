@@ -11,8 +11,10 @@ import UIKit
 final class AppCoordinator {
     private(set) var rootViewController: UIViewController?
 
+    var currentGitService: GitService = .bitbucket
+
     var isAuthorized: Bool {
-        let tokenStorage = TokenStorage(service: .bitbucket)
+        let tokenStorage = TokenStorage(service: currentGitService)
         guard let token = tokenStorage.token else { return false }
         return !token.isExpired
     }
@@ -39,7 +41,7 @@ final class AppCoordinator {
         let validator = OAuthURLValidator(url: url, expectedScheme: "sincelast")
         switch validator.result {
         case .success(let code):
-            authorize(code: code, service: .bitbucket)
+            authorize(code: code, service: currentGitService)
             return true
         case .failure(let error):
             print(error)
@@ -49,10 +51,9 @@ final class AppCoordinator {
 
     private func authorize(code: String, service: GitService) {
         let request = OAuthAccessTokenRequest(code: code)
-        SharedNetworkClient.bitbucket.send(request: request, completion: { result in
+        currentGitService.send(request: request, completion: { result in
             switch result {
             case .success(let json):
-                print(json)
                 guard let token = OAuthAccessToken(json: json) else { return }
                 let tokenStorage = TokenStorage(service: service)
                 tokenStorage.store(token: token)

@@ -226,7 +226,6 @@
 		1AC3C6601EC5EFC4001E03B7 /* Git Models */ = {
 			isa = PBXGroup;
 			children = (
-				1A680C4B1EC54E50009D2ECC /* GitService.swift */,
 				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
 				1A7B5EA01EC1656200F9EC65 /* User.swift */,
 			);
@@ -238,6 +237,7 @@
 			children = (
 				1AED93CC1ECFD8A20017FAD6 /* Requests */,
 				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
+				1A680C4B1EC54E50009D2ECC /* GitService.swift */,
 				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
 				1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */,
 			);
