@@ -18,6 +18,11 @@ enum SharedNetworkClient {
         let client = NetworkClient(baseURL: "https://api.bitbucket.org")    // FIXME: split this up
         return client
     }()
+
+    static let oAuth: NetworkClient = {
+        let client = NetworkClient(baseURL: "https://bitbucket.org")
+        return client
+    }()
 }
 
 final class NetworkClient {

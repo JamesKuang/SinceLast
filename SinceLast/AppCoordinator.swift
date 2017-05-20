@@ -41,28 +41,13 @@ final class AppCoordinator {
         let validator = OAuthURLValidator(url: url, expectedScheme: "sincelast")
         switch validator.result {
         case .success(let code):
-            authorize(code: code, service: gitService)
+            gitService.authorize(code: code, success: { 
+                _ = self.startLaunchViewController()
+            })
             return true
         case .failure(let error):
             print(error)
             return false
         }
-    }
-
-    private func authorize(code: String, service: GitService) {
-        let request = OAuthAccessTokenRequest(code: code)
-        gitService.send(request: request, completion: { result in
-            switch result {
-            case .success(let json):
-                guard let token = OAuthAccessToken(json: json) else { return }
-                let tokenStorage = TokenStorage(service: service)
-                tokenStorage.store(token: token)
-                DispatchQueue.main.async {
-                    _ = self.startLaunchViewController()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        })
     }
 }
