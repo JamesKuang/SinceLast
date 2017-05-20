@@ -11,7 +11,7 @@ import UIKit
 final class AppCoordinator {
     private(set) var rootViewController: UIViewController?
 
-    var gitClient: GitClient = BitbucketClient()
+    var gitClient: GitClient = GitClient(service: .bitbucket)
 
     var isAuthorized: Bool {
         let tokenStorage = TokenStorage(service: gitClient.service)

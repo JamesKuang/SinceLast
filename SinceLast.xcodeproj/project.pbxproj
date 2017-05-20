@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1A0C2E111ED0A17A00107D5B /* GitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E101ED0A17A00107D5B /* GitClient.swift */; };
-		1A0C2E131ED0A19000107D5B /* BitbucketClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E121ED0A19000107D5B /* BitbucketClient.swift */; };
 		1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A680C4B1EC54E50009D2ECC /* GitService.swift */; };
 		1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */; };
 		1A7ABF4E1EC3FC3600752AF9 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */; };
@@ -62,7 +61,6 @@
 
 /* Begin PBXFileReference section */
 		1A0C2E101ED0A17A00107D5B /* GitClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitClient.swift; sourceTree = "<group>"; };
-		1A0C2E121ED0A19000107D5B /* BitbucketClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketClient.swift; sourceTree = "<group>"; };
 		1A680C4B1EC54E50009D2ECC /* GitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
 		1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -130,15 +128,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1A0C2E141ED0A1DB00107D5B /* Clients */ = {
-			isa = PBXGroup;
-			children = (
-				1A0C2E101ED0A17A00107D5B /* GitClient.swift */,
-				1A0C2E121ED0A19000107D5B /* BitbucketClient.swift */,
-			);
-			name = Clients;
-			sourceTree = "<group>";
-		};
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,8 +238,8 @@
 			isa = PBXGroup;
 			children = (
 				1AED93CC1ECFD8A20017FAD6 /* Requests */,
-				1A0C2E141ED0A1DB00107D5B /* Clients */,
 				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
+				1A0C2E101ED0A17A00107D5B /* GitClient.swift */,
 				1A680C4B1EC54E50009D2ECC /* GitService.swift */,
 				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
 				1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */,
@@ -461,7 +450,6 @@
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
 				1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */,
 				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
-				1A0C2E131ED0A19000107D5B /* BitbucketClient.swift in Sources */,
 				1AED93CF1ECFD9C20017FAD6 /* BitbucketOAuth.swift in Sources */,
 				1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */,
 				1AE2D07F1EC804960007ACBD /* Request.swift in Sources */,
