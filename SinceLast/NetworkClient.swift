@@ -27,13 +27,14 @@ enum SharedNetworkClient {
 
 final class NetworkClient {
     let baseURL: String
-    lazy var session: URLSession = {
-        let configuration = URLSessionConfiguration.default
-        return URLSession(configuration: configuration)
-    }()
+    let session: URLSession
 
-    init(baseURL: String) {
+    init(baseURL: String, httpAdditionalHeaders: [String: String] = [:]) {
         self.baseURL = baseURL
+
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = httpAdditionalHeaders
+        self.session = URLSession(configuration: configuration)
     }
 
     func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ()) {
