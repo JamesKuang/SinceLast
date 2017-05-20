@@ -8,12 +8,6 @@
 
 import Foundation
 
-//protocol GitClient {
-//    var service: GitService { get }
-//    func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ())
-//    func authorize(code: String, success: (() -> Void)?)
-//}
-
 protocol GitClientRequiring {
     var gitClient: GitClient { get }
 }

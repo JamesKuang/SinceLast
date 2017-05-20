@@ -29,7 +29,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         super.viewWillAppear(animated)
 
         if isMovingToParentViewController {
-            let request = RepositoriesRequest(gitService: gitClient.service)
+            let request = BitbucketRepositoriesRequest()
             gitClient.send(request: request, completion: { result in
                 switch result {
                 case .success(let json):
