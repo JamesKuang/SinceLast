@@ -27,4 +27,12 @@ enum AuthorizationHeaderScheme {
             return "Bearer \(token)"
         }
     }
+
+    var keyValuePair: [String: String] {
+        return [key: value]
+    }
+
+    init(token: OAuthAccessToken) {
+        self = .bearer(token: token.token)
+    }
 }

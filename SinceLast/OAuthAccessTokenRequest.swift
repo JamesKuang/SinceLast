@@ -24,15 +24,12 @@ struct OAuthAccessTokenRequest: Request {
 
     var additionalHeaders: [String : String] {
         let scheme: AuthorizationHeaderScheme = .basic(user: keySecretProvider.key, password: keySecretProvider.secret)
-        return [
-            scheme.key: scheme.value,
-        ]
+        return scheme.keyValuePair
     }
 }
 
-struct RepositoriesRequest: Request, GitServiceRequiring {
+struct RepositoriesRequest: Request {
     let path = "/2.0/repositories"
-
     let queryParameters: [String : String] = [:]
 
     let gitService: GitService
@@ -40,8 +37,6 @@ struct RepositoriesRequest: Request, GitServiceRequiring {
     var additionalHeaders: [String : String] {
         let tokenStorage = TokenStorage(service: gitService)
         let scheme: AuthorizationHeaderScheme = .bearer(token: tokenStorage.token!.token) // FIXME: client should inject this header, and handle expiration
-        return [
-            scheme.key: scheme.value,
-        ]
+        return scheme.keyValuePair
     }
 }
