@@ -9,7 +9,7 @@
 import UIKit
 
 final class GitServicesAuthorizationViewController: UIViewController {
-    let services: [GitService]
+    let services: [GitServiceAuthorizing]
 
     let servicesStackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,7 +21,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
         return servicesStackView.arrangedSubviews.flatMap { $0 as? UIButton }
     }
 
-    init(services: [GitService]) {
+    init(services: [GitServiceAuthorizing]) {
         self.services = services
         super.init(nibName: nil, bundle: nil)
 
@@ -46,16 +46,11 @@ final class GitServicesAuthorizationViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-
-    private func makeSignInButton(for service: GitService) -> UIButton {
+    private func makeSignInButton(for serviceAuth: GitServiceAuthorizing) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
-        button.setTitle(service.name, for: .normal)
+        button.setTitle(serviceAuth.service.name, for: .normal)
         return button
     }
 
@@ -65,7 +60,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
         startAuthentication(for: service)
     }
 
-    private func startAuthentication(for service: GitService) {
+    private func startAuthentication(for service: GitServiceAuthorizing) {
         let oAuth = OAuth(credentials: service.oAuthCredentials)
         print("\(oAuth.fullAuthURL)")
         let controller = WebBrowserViewController(url: oAuth.fullAuthURL)

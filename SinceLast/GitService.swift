@@ -8,12 +8,22 @@
 
 import Foundation
 
-protocol GitService {
-    var name: String { get }
+enum GitService {
+    case bitbucket
+
+    var name: String {
+        switch self {
+        case .bitbucket: return "Bitbucket"
+        }
+    }
+}
+
+protocol GitServiceAuthorizing {
+    var service: GitService { get }
     var oAuthCredentials: OAuthCredentials { get }
 }
 
-struct BitbucketService: GitService {
-    let name = "Bitbucket"
+struct BitbucketAuthorization: GitServiceAuthorizing {
+    let service: GitService = .bitbucket
     let oAuthCredentials: OAuthCredentials = BitbucketOAuth()
 }

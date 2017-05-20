@@ -24,7 +24,7 @@ final class AppCoordinator {
         if isAuthorized {
             controller = RepositoriesViewController()
         } else {
-            let services = [BitbucketService()]
+            let services = [BitbucketAuthorization()]
             controller = GitServicesAuthorizationViewController(services: services)
         }
 
@@ -37,7 +37,7 @@ final class AppCoordinator {
         let validator = OAuthURLValidator(url: url, expectedScheme: "sincelast")
         switch validator.result {
         case .success(let code):
-            authorize(code: code)
+            authorize(code: code, service: .bitbucket)
             return true
         case .failure(let error):
             print(error)
@@ -45,40 +45,18 @@ final class AppCoordinator {
         }
     }
 
-    private func authorize(code: String) {
+    private func authorize(code: String, service: GitService) {
         let request = OAuthAccessTokenRequest(code: code)
         SharedNetworkClient.bitbucket.send(request: request, completion: { result in
             switch result {
             case .success(let json):
-                let access = OAuthAccessToken(json: json)
                 print(json)
+                guard let token = OAuthAccessToken(json: json) else { return }
+                let tokenStorage = TokenStorage(service: service)
+                tokenStorage.store(token: token)
             case .failure(let error):
                 print(error)
             }
         })
-    }
-}
-
-struct OAuthAccessToken {
-    let token: String
-    let refreshToken: String
-    let expiration: Date
-
-    var isExpired: Bool {
-        return Date().compare(expiration) == .orderedDescending
-    }
-}
-
-extension OAuthAccessToken: JSONInitializable {
-    init?(json: JSON) {
-        guard
-            let token = json["access_token"] as? String,
-            let refreshToken = json["refresh_token"] as? String,
-            let expiresIn = json["expires_in"] as? Int
-            else { return nil }
-
-        self.token = token
-        self.refreshToken = refreshToken
-        self.expiration = Date(timeIntervalSinceNow: TimeInterval(expiresIn))
     }
 }

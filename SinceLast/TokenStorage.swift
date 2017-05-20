@@ -24,7 +24,7 @@ final class TokenStorage {
         self.keychain = Keychain(service: name)
     }
 
-    func write(token: OAuthAccessToken) {
+    func store(token: OAuthAccessToken) {
         keychain[TokenStorage.accessTokenKey] = token.token
         keychain[TokenStorage.refreshTokenKey] = token.refreshToken
         keychain[data: TokenStorage.expirationKey] = token.expiration.dataRepresentationSince1970
@@ -38,19 +38,5 @@ final class TokenStorage {
             else { return nil }
 
         return OAuthAccessToken(token: token, refreshToken: refreshToken, expiration: expirationData.dateRepresentationSince1970)
-    }
-}
-
-extension Date {
-    var dataRepresentationSince1970: Data {
-        var interval = timeIntervalSince1970
-        return Data(bytes: &interval, count: MemoryLayout<TimeInterval>.size)
-    }
-}
-
-extension Data {
-    var dateRepresentationSince1970: Date {
-        let interval: TimeInterval = withUnsafeBytes { $0.pointee }
-        return Date(timeIntervalSince1970: interval)
     }
 }
