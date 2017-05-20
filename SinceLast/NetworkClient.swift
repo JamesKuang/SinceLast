@@ -20,15 +20,15 @@ enum SharedNetworkClient {
     }()
 }
 
-final class NetworkClient: NSObject {
+final class NetworkClient {
     let baseURL: String
     lazy var session: URLSession = {
-        return URLSession(configuration: URLSessionConfiguration.default, delegate: nil, delegateQueue: nil)
+        let configuration = URLSessionConfiguration.default
+        return URLSession(configuration: configuration)
     }()
 
     init(baseURL: String) {
         self.baseURL = baseURL
-        super.init()
     }
 
     func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ()) {
@@ -45,27 +45,5 @@ final class NetworkClient: NSObject {
                 completion(.failure(NilError()))
             }
         }).resume()
-    }
-}
-
-extension NetworkClient: URLSessionDelegate {
-    func urlSession(_ session: URLSession, didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        switch (challenge.protectionSpace.authenticationMethod, challenge.protectionSpace.host) {
-        case (NSURLAuthenticationMethodServerTrust, "bitbucket.org"):
-            basicAuthTrip(didReceive: challenge, completionHandler: completionHandler)
-        default:
-            completionHandler(.performDefaultHandling, nil)
-        }
-    }
-
-    func basicAuthTrip(didReceive challenge: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        guard challenge.previousFailureCount < 3 else {
-            completionHandler(.cancelAuthenticationChallenge, nil)
-            return
-        }
-
-        let provider = OAuthKeySecretProvider()
-        let credential = URLCredential(user: provider.key, password: provider.secret, persistence: .none)
-        completionHandler(.useCredential, credential)
     }
 }
