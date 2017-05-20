@@ -12,7 +12,9 @@ final class AppCoordinator {
     private(set) var rootViewController: UIViewController?
 
     var isAuthorized: Bool {
-        return false // TODO:
+        let tokenStorage = TokenStorage(service: .bitbucket)
+        guard let token = tokenStorage.token else { return false }
+        return !token.isExpired
     }
 
     init() {
