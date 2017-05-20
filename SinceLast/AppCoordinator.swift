@@ -28,8 +28,8 @@ final class AppCoordinator {
         if isAuthorized {
             controller = RepositoriesViewController()
         } else {
-            let services = [BitbucketAuthorization()]
-            controller = GitServicesAuthorizationViewController(services: services)
+            let credentials = [BitbucketOAuth()]
+            controller = GitServicesAuthorizationViewController(credentials: credentials)
         }
 
         let rootViewController = UINavigationController(rootViewController: controller)

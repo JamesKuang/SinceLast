@@ -9,8 +9,10 @@
 import Foundation
 
 struct BitbucketOAuth: OAuthCredentials {
+    let service: GitService = .bitbucket
     let authorizationURL = URL(string: "https://bitbucket.org/site/oauth2/authorize")!
-    let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
+
+    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
 
     var parameters: [String: String] {
         return ["client_id": keySecretProvider.key,

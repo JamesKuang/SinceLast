@@ -27,13 +27,3 @@ enum GitService {
         return client.send(request: request, completion: completion)
     }
 }
-
-protocol GitServiceAuthorizing {
-    var service: GitService { get }
-    var oAuthCredentials: OAuthCredentials { get }
-}
-
-struct BitbucketAuthorization: GitServiceAuthorizing {
-    let service: GitService = .bitbucket
-    let oAuthCredentials: OAuthCredentials = BitbucketOAuth()
-}

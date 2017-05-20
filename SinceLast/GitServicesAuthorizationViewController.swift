@@ -9,7 +9,7 @@
 import UIKit
 
 final class GitServicesAuthorizationViewController: UIViewController {
-    let services: [GitServiceAuthorizing]
+    let credentials: [OAuthCredentials]
 
     let servicesStackView: UIStackView = {
         let stackView = UIStackView()
@@ -21,8 +21,8 @@ final class GitServicesAuthorizationViewController: UIViewController {
         return servicesStackView.arrangedSubviews.flatMap { $0 as? UIButton }
     }
 
-    init(services: [GitServiceAuthorizing]) {
-        self.services = services
+    init(credentials: [OAuthCredentials]) {
+        self.credentials = credentials
         super.init(nibName: nil, bundle: nil)
 
         title = NSLocalizedString("Git Authorization", comment: "Git Services authorization navigation bar title")
@@ -35,7 +35,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
             servicesStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             ])
 
-        let signInButtons = self.services.map { self.makeSignInButton(for: $0) }
+        let signInButtons = self.credentials.map { self.makeSignInButton(for: $0) }
         signInButtons.forEach { button in
             self.servicesStackView.addArrangedSubview(button)
             button.addTarget(self, action: #selector(tappedSignIn(sender:)), for: .touchUpInside)
@@ -46,7 +46,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private func makeSignInButton(for serviceAuth: GitServiceAuthorizing) -> UIButton {
+    private func makeSignInButton(for serviceAuth: OAuthCredentials) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
@@ -56,12 +56,12 @@ final class GitServicesAuthorizationViewController: UIViewController {
 
     dynamic func tappedSignIn(sender: UIButton) {
         guard let index = signInButtons.index(of: sender) else { fatalError("Button not found") }
-        let service = services[index]
-        startAuthentication(for: service)
+        let credentials = self.credentials[index]
+        startAuthentication(with: credentials)
     }
 
-    private func startAuthentication(for service: GitServiceAuthorizing) {
-        let oAuth = OAuth(credentials: service.oAuthCredentials)
+    private func startAuthentication(with credentials: OAuthCredentials) {
+        let oAuth = OAuth(credentials: credentials)
         print("\(oAuth.fullAuthURL)")
         let controller = WebBrowserViewController(url: oAuth.fullAuthURL)
         controller.delegate = self
