@@ -10,7 +10,7 @@ import XCTest
 @testable import SinceLast
 
 class OAuthAccessTokenTests: XCTestCase {
-    func testExample() {
+    func testInitializingFromJSON() {
         let access = UUID().uuidString
         let refresh = UUID().uuidString
         let expirationInSeconds = 3600
@@ -30,5 +30,12 @@ class OAuthAccessTokenTests: XCTestCase {
         let expectedExpiration = Date(timeIntervalSinceNow: TimeInterval(expirationInSeconds))
         let result = Calendar.current.compare(token!.expiration, to: expectedExpiration, toGranularity: .second)
         XCTAssertEqual(result, .orderedSame)
+    }
+
+    func testIsExpired() {
+        let token = OAuthAccessToken(token: "", refreshToken: "", expiration: Date().addingTimeInterval(1.0))
+        XCTAssertFalse(token.isExpired)
+        sleep(2)
+        XCTAssertTrue(token.isExpired)
     }
 }

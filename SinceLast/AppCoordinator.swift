@@ -63,6 +63,10 @@ struct OAuthAccessToken {
     let token: String
     let refreshToken: String
     let expiration: Date
+
+    var isExpired: Bool {
+        return Date().compare(expiration) == .orderedDescending
+    }
 }
 
 extension OAuthAccessToken: JSONInitializable {
