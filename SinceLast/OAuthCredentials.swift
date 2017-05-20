@@ -13,14 +13,3 @@ protocol OAuthCredentials {
     var authorizationURL: URL { get }
     var parameters: [String: String] { get }
 }
-
-struct BitbucketOAuth: OAuthCredentials {
-    let authorizationURL = URL(string: "https://bitbucket.org/site/oauth2/authorize")!
-    let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
-
-    var parameters: [String: String] {
-        return ["client_id": keySecretProvider.key,
-                "response_type": "code",
-        ]
-    }
-}

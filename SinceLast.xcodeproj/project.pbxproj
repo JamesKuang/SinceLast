@@ -33,6 +33,7 @@
 		1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */; };
 		1AED93C91ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */; };
 		1AED93CB1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */; };
+		1AED93CF1ECFD9C20017FAD6 /* BitbucketOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93CE1ECFD9C20017FAD6 /* BitbucketOAuth.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
 		1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationHeaderScheme.swift; sourceTree = "<group>"; };
 		1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenRequest.swift; sourceTree = "<group>"; };
+		1AED93CE1ECFD9C20017FAD6 /* BitbucketOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketOAuth.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,8 +182,8 @@
 		1AAC21D01EC7AE4C0038B14A /* OAuth */ = {
 			isa = PBXGroup;
 			children = (
+				1AED93D01ECFD9D30017FAD6 /* OAuth Services */,
 				1AAE2A891EC2BD62009D1499 /* OAuth.swift */,
-				1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */,
 				1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */,
 				1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */,
 			);
@@ -219,10 +221,10 @@
 		1AC3C6611EC5EFE0001E03B7 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				1AED93CC1ECFD8A20017FAD6 /* Requests */,
 				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
 				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
 				1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */,
-				1AED93CC1ECFD8A20017FAD6 /* Requests */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -253,6 +255,15 @@
 				1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */,
 			);
 			name = Storage;
+			sourceTree = "<group>";
+		};
+		1AED93D01ECFD9D30017FAD6 /* OAuth Services */ = {
+			isa = PBXGroup;
+			children = (
+				1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */,
+				1AED93CE1ECFD9C20017FAD6 /* BitbucketOAuth.swift */,
+			);
+			name = "OAuth Services";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -418,6 +429,7 @@
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
 				1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */,
 				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
+				1AED93CF1ECFD9C20017FAD6 /* BitbucketOAuth.swift in Sources */,
 				1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */,
 				1AE2D07F1EC804960007ACBD /* Request.swift in Sources */,
 				1AED93CB1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift in Sources */,
