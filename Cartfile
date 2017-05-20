@@ -1,2 +1,3 @@
 # Carthage
 github "mxcl/PromiseKit" ~> 4.0
+github "kishikawakatsumi/KeychainAccess" ~> 3.0
