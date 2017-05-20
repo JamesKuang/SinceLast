@@ -8,11 +8,11 @@
 
 import UIKit
 
-final class RepositoriesViewController: UIViewController, GitServiceRequiring {
-    let gitService: GitService
+final class RepositoriesViewController: UIViewController, GitClientRequiring {
+    let gitClient: GitClient
 
-    init(service: GitService) {
-        self.gitService = service
+    init(client: GitClient) {
+        self.gitClient = client
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("Repositories", comment: "Repositories screen navigation bar title")
     }
@@ -29,8 +29,8 @@ final class RepositoriesViewController: UIViewController, GitServiceRequiring {
         super.viewWillAppear(animated)
 
         if isMovingToParentViewController {
-            let request = RepositoriesRequest(gitService: gitService)
-            gitService.send(request: request, completion: { result in
+            let request = RepositoriesRequest(gitService: gitClient.service)
+            gitClient.send(request: request, completion: { result in
                 switch result {
                 case .success(let json):
                     print(json)

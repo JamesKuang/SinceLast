@@ -16,21 +16,27 @@ enum GitService {
         case .bitbucket: return "Bitbucket"
         }
     }
+}
 
-    private var client: NetworkClient {
-        switch self {
-        case .bitbucket: return SharedNetworkClient.bitbucket
-        }
-    }
+final class BitbucketClient: GitClient {
+    let service: GitService = .bitbucket
 
-    private var oAuth: NetworkClient {
-        switch self {
-        case .bitbucket: return SharedNetworkClient.oAuth
+    private lazy var main: NetworkClient = {
+        let configuration = URLSessionConfiguration()
+        if let token = TokenStorage(service: self.service).token {
+            let scheme = AuthorizationHeaderScheme(token: token)
+            configuration.httpAdditionalHeaders = scheme.keyValuePair
         }
-    }
+
+        return NetworkClient(baseURL: "https://api.bitbucket.org", configuration: configuration)
+    }()
+
+    private let oAuth: NetworkClient = {
+        return NetworkClient(baseURL: "https://bitbucket.org")
+    }()
 
     func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ()) {
-        return client.send(request: request, completion: completion)
+        return main.send(request: request, completion: completion)
     }
 
     func authorize(code: String, success: (() -> Void)?) {
@@ -39,7 +45,7 @@ enum GitService {
             switch result {
             case .success(let json):
                 guard let token = OAuthAccessToken(json: json) else { return }
-                let tokenStorage = TokenStorage(service: self)
+                let tokenStorage = TokenStorage(service: self.service)
                 tokenStorage.store(token: token)
                 DispatchQueue.main.async {
                     success?()
@@ -51,6 +57,12 @@ enum GitService {
     }
 }
 
-protocol GitServiceRequiring {
-    var gitService: GitService { get }
+protocol GitClient {
+    var service: GitService { get }
+    func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ())
+    func authorize(code: String, success: (() -> Void)?)
+}
+
+protocol GitClientRequiring {
+    var gitClient: GitClient { get }
 }

@@ -13,27 +13,12 @@ enum Result<T> {
     case failure(Error)
 }
 
-enum SharedNetworkClient {
-    static let bitbucket: NetworkClient = {
-        let client = NetworkClient(baseURL: "https://api.bitbucket.org")    // FIXME: split this up
-        return client
-    }()
-
-    static let oAuth: NetworkClient = {
-        let client = NetworkClient(baseURL: "https://bitbucket.org")
-        return client
-    }()
-}
-
 final class NetworkClient {
     let baseURL: String
     let session: URLSession
 
-    init(baseURL: String, httpAdditionalHeaders: [String: String] = [:]) {
+    init(baseURL: String, configuration: URLSessionConfiguration = .default) {
         self.baseURL = baseURL
-
-        let configuration = URLSessionConfiguration.default
-        configuration.httpAdditionalHeaders = httpAdditionalHeaders
         self.session = URLSession(configuration: configuration)
     }
 

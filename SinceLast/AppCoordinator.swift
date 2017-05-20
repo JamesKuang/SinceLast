@@ -11,10 +11,10 @@ import UIKit
 final class AppCoordinator {
     private(set) var rootViewController: UIViewController?
 
-    var gitService: GitService = .bitbucket
+    var gitClient: GitClient = BitbucketClient()
 
     var isAuthorized: Bool {
-        let tokenStorage = TokenStorage(service: gitService)
+        let tokenStorage = TokenStorage(service: gitClient.service)
         guard let token = tokenStorage.token else { return false }
         return !token.isExpired
     }
@@ -26,7 +26,7 @@ final class AppCoordinator {
     func startLaunchViewController() -> UIViewController {
         let controller: UIViewController
         if isAuthorized {
-            controller = RepositoriesViewController(service: gitService)
+            controller = RepositoriesViewController(client: gitClient)
         } else {
             let credentials = [BitbucketOAuth()]
             controller = GitServicesAuthorizationViewController(credentials: credentials)
@@ -41,7 +41,7 @@ final class AppCoordinator {
         let validator = OAuthURLValidator(url: url, expectedScheme: "sincelast")
         switch validator.result {
         case .success(let code):
-            gitService.authorize(code: code, success: { 
+            gitClient.authorize(code: code, success: {
                 _ = self.startLaunchViewController()
             })
             return true
