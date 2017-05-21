@@ -9,18 +9,23 @@
 import Foundation
 
 struct User {
+    let uuid: String
     let name: String
 }
 
 extension User: JSONInitializable {
     init(json: JSON) throws {
-        guard let userName = json["username"] as? String else { throw JSONParsingError() }
+        guard
+            let uuid = json["uuid"] as? String,
+            let userName = json["username"] as? String
+            else { throw JSONParsingError() }
+        self.uuid = uuid
         self.name = userName
     }
 }
 
 extension User: Equatable {
     static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.name == rhs.name
+        return lhs.uuid == rhs.uuid
     }
 }
