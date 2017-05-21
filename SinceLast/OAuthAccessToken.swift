@@ -19,12 +19,12 @@ struct OAuthAccessToken {
 }
 
 extension OAuthAccessToken: JSONInitializable {
-    init?(json: JSON) {
+    init(json: JSON) throws {
         guard
             let token = json["access_token"] as? String,
             let refreshToken = json["refresh_token"] as? String,
             let expiresIn = json["expires_in"] as? Int
-            else { return nil }
+            else { throw JSONParsingError() }
 
         self.token = token
         self.refreshToken = refreshToken

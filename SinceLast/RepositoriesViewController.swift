@@ -37,9 +37,9 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     private func fetchData() {
         let _ = retrieveUser()
             .then { user in
-//                self.retrieveRepositories(for: user)
-//            }.then { repository in
-                print(user)
+                self.retrieveRepositories(for: user)
+            }.then { repository in
+                print(repository)
             }.catch { error in
                 print(error)
         }

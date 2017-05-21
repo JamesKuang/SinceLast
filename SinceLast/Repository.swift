@@ -13,8 +13,8 @@ struct Repository {
 }
 
 extension Repository: JSONInitializable {
-    init?(json: JSON) {
-        guard let name = json["name"] as? String else { return nil }
+    init(json: JSON) throws {
+        guard let name = json["name"] as? String else { throw JSONParsingError() }
         self.name = name
     }
 }

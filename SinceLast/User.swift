@@ -13,8 +13,8 @@ struct User {
 }
 
 extension User: JSONInitializable {
-    init?(json: JSON) {
-        guard let userName = json["username"] as? String else { return nil }
+    init(json: JSON) throws {
+        guard let userName = json["username"] as? String else { throw JSONParsingError() }
         self.name = userName
     }
 }

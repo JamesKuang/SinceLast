@@ -11,7 +11,7 @@ import Foundation
 typealias JSON = [String: Any]
 
 protocol JSONInitializable {
-    init?(json: JSON)
+    init(json: JSON) throws
 }
 
 protocol RequestParser {

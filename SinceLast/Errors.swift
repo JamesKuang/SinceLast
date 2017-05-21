@@ -18,7 +18,21 @@ struct NilError: Error, CustomStringConvertible {
     }
 
     var description: String {
-        return "Nil returned at \((file as NSString).lastPathComponent):\(line)"
+        return "Error thrown from \((file as NSString).lastPathComponent):\(line)"
+    }
+}
+
+struct JSONParsingError: Error, CustomStringConvertible {
+    let file: String
+    let line: Int
+
+    init(file: String = #file, line: Int = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    var description: String {
+        return "Failed to parse malformed JSON at \((file as NSString).lastPathComponent):\(line)"
     }
 }
 

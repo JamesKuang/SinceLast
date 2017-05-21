@@ -16,12 +16,8 @@ struct Response<OutputType: JSONInitializable> {
     }
 
     init(data: Data, parser: RequestParser, httpResponse: HTTPURLResponse) throws {
-        let parsedResponse = parser.parse(data: data)
-        guard let json = parsedResponse,
-            let result = OutputType(json: json)
-            else { throw NilError() }
-
-        self.result = result
+        guard let json = parser.parse(data: data) else { throw JSONParsingError() }
+        self.result = try OutputType(json: json)
         self.httpResponse = httpResponse
     }
 }
