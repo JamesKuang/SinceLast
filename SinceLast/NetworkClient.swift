@@ -7,11 +7,7 @@
 //
 
 import Foundation
-
-enum Result<T> {
-    case success(T)
-    case failure(Error)
-}
+import PromiseKit
 
 final class NetworkClient {
     let baseURL: String
@@ -22,19 +18,32 @@ final class NetworkClient {
         self.session = URLSession(configuration: configuration)
     }
 
-    func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ()) {
+    func send<RequestType, OutputType>(request: RequestType) -> Promise<OutputType> where RequestType: TypedRequest, RequestType.ResultType == OutputType {
         let builder = URLRequestBuilder(request: request, baseURL: baseURL)
         guard let urlRequest = builder.urlRequest else { fatalError("Request couldn't be built") }
-        session.dataTask(with: urlRequest, completionHandler: { data, response, error in
-            guard let data = data else {
-                completion(.failure(NilError()))
-                return
-            }
-            if let stuff = request.parser.parse(data: data) {
-                completion(.success(stuff))
-            } else {
-                completion(.failure(NilError()))
-            }
-        }).resume()
+
+        let taskPromise = session.dataTaskPromise(with: urlRequest)
+        return taskPromise
+            .then { (data, response) -> Response<OutputType> in
+                return try Response<OutputType>(data: data, parser: request.parser, httpResponse: response)
+            }.then {
+                return $0.result
+        }
+    }
+}
+
+extension URLSession {
+    public func dataTaskPromise(with request: URLRequest) -> Promise<(Data, HTTPURLResponse)> {
+        return Promise<(Data, HTTPURLResponse)>(resolvers: { fulfill, reject in
+            self.dataTask(with: request, completionHandler: { data, response, error in
+                if let error = error {
+                    reject(error)
+                } else if let data = data, let response = response as? HTTPURLResponse {
+                    fulfill((data, response))
+                } else {
+                    fatalError("Unexpected HTTP response.")
+                }
+            }).resume()
+        })
     }
 }

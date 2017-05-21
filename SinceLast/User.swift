@@ -10,14 +10,17 @@ import Foundation
 
 struct User {
     let name: String
-    let email: String
-    let date: String
+}
+
+extension User: JSONInitializable {
+    init?(json: JSON) {
+        guard let userName = json["username"] as? String else { return nil }
+        self.name = userName
+    }
 }
 
 extension User: Equatable {
     static func == (lhs: User, rhs: User) -> Bool {
-        return lhs.name == rhs.name &&
-            lhs.email == rhs.email &&
-            lhs.date == rhs.date
+        return lhs.name == rhs.name
     }
 }

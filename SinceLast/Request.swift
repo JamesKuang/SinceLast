@@ -34,3 +34,7 @@ extension Request {
         return JSONParser()
     }
 }
+
+protocol TypedRequest: Request {
+    associatedtype ResultType: JSONInitializable
+}

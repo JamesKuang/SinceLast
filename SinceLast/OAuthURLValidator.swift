@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum Result<T> {
+    case success(T)
+    case failure(Error)
+}
+
 struct OAuthURLValidator {
     let url: URL
     let urlComponents: URLComponents?

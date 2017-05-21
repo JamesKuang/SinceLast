@@ -7,11 +7,12 @@
 //
 
 import UIKit
+import PromiseKit
 
 final class AppCoordinator {
-    private(set) var rootViewController: UINavigationController?
+    private lazy var rootViewController = UINavigationController()
 
-    var gitClient: GitClient = GitClient(service: .bitbucket)
+    let gitClient: GitClient = GitClient(service: .bitbucket)
 
     var isAuthorized: Bool {
         let tokenStorage = TokenStorage(service: gitClient.service)
@@ -19,9 +20,7 @@ final class AppCoordinator {
         return !token.isExpired
     }
 
-    init() {
-
-    }
+    init() {}
 
     func startLaunchViewController() -> UIViewController {
         let controller: UIViewController
@@ -32,23 +31,16 @@ final class AppCoordinator {
             controller = GitServicesAuthorizationViewController(credentials: credentials)
         }
 
-        let navigationController: UINavigationController
-        if let rootViewController = self.rootViewController {
-            navigationController = rootViewController
-        } else {
-            navigationController = UINavigationController(rootViewController: controller)
-            self.rootViewController = navigationController
-        }
-
-        return navigationController
+        rootViewController.setViewControllers([controller], animated: false)
+        return rootViewController
     }
 
     func handleOAuthURL(_ url: URL) -> Bool {
         let validator = OAuthURLValidator(url: url, expectedScheme: "sincelast")
         switch validator.result {
         case .success(let code):
-            gitClient.authorize(code: code, success: {
-                _ = self.startLaunchViewController()
+            let _ = gitClient.authorize(code: code).then(execute: { _ in
+                self.startLaunchViewController()
             })
             return true
         case .failure(let error):

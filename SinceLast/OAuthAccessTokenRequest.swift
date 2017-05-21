@@ -8,7 +8,9 @@
 
 import Foundation
 
-struct OAuthAccessTokenRequest: Request {
+struct OAuthAccessTokenRequest: TypedRequest {
+    typealias ResultType = OAuthAccessToken
+
     let method: RequestMethod = .POST
     let path = "/site/oauth2/access_token"
 

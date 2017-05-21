@@ -15,6 +15,9 @@
 		1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */; };
 		1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */; };
 		1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B5EA01EC1656200F9EC65 /* User.swift */; };
+		1A9A88811ED1F7F700A0D8A6 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88801ED1F7F700A0D8A6 /* Task.swift */; };
+		1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88821ED209A400A0D8A6 /* Response.swift */; };
+		1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88861ED22EAF00A0D8A6 /* Repository.swift */; };
 		1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */; };
 		1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */; };
 		1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */; };
@@ -69,6 +72,9 @@
 		1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParsing.swift; sourceTree = "<group>"; };
 		1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		1A7B5EA01EC1656200F9EC65 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1A9A88801ED1F7F700A0D8A6 /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		1A9A88821ED209A400A0D8A6 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		1A9A88861ED22EAF00A0D8A6 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		1AA4FFCB1EC15DA100F26BAB /* SinceLast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinceLast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitServicesAuthorizationViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +238,7 @@
 			children = (
 				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
 				1A7B5EA01EC1656200F9EC65 /* User.swift */,
+				1A9A88861ED22EAF00A0D8A6 /* Repository.swift */,
 			);
 			name = "Git Models";
 			sourceTree = "<group>";
@@ -264,6 +271,8 @@
 			isa = PBXGroup;
 			children = (
 				1AE2D07E1EC804960007ACBD /* Request.swift */,
+				1A9A88821ED209A400A0D8A6 /* Response.swift */,
+				1A9A88801ED1F7F700A0D8A6 /* Task.swift */,
 				1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */,
 				1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */,
 			);
@@ -462,14 +471,17 @@
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
 				1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */,
 				1A0C2E111ED0A17A00107D5B /* GitClient.swift in Sources */,
+				1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */,
 				1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
+				1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */,
 				1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */,
 				1AED93DA1ECFF0660017FAD6 /* Helpers.swift in Sources */,
 				1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */,
 				1AED93D81ECFEF440017FAD6 /* OAuthAccessToken.swift in Sources */,
 				1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */,
+				1A9A88811ED1F7F700A0D8A6 /* Task.swift in Sources */,
 				1A7ABF4E1EC3FC3600752AF9 /* Errors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

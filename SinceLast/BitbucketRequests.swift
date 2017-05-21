@@ -8,17 +8,21 @@
 
 import Foundation
 
-struct BitbucketUserRequest: Request {
+struct BitbucketUserRequest: TypedRequest {
+    typealias ResultType = User
+
     let path = "/2.0/user"
-    let queryParameters: [String : String] = [:]
+    let queryParameters: [String: String] = [:]
 }
 
-struct BitbucketRepositoriesRequest: Request {
+struct BitbucketRepositoriesRequest: TypedRequest {
+    typealias ResultType = Repository
+
     let userName: String
 
     var path: String {
         return "/2.0/teams/\(userName)/repositories"
     }
 
-    let queryParameters: [String : String] = [:]
+    let queryParameters: [String: String] = [:]
 }

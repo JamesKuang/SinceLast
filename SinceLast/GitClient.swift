@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import PromiseKit
 
 protocol GitClientRequiring {
     var gitClient: GitClient { get }
@@ -33,24 +34,16 @@ final class GitClient {
         self.service = service
     }
 
-    func send(request: Request, completion: @escaping (Result<[String : Any]>) -> ()) {
-        return main.send(request: request, completion: completion)
+    func send<RequestType, OutputType>(request: RequestType) -> Promise<OutputType> where RequestType: TypedRequest, RequestType.ResultType == OutputType {
+        return main.send(request: request)
     }
 
-    func authorize(code: String, success: (() -> Void)?) {
+    func authorize(code: String) -> Promise<OAuthAccessToken> {
         let request = OAuthAccessTokenRequest(code: code)
-        oAuth.send(request: request, completion: { result in
-            switch result {
-            case .success(let json):
-                guard let token = OAuthAccessToken(json: json) else { return }
-                let tokenStorage = TokenStorage(service: self.service)
-                tokenStorage.store(token: token)
-                DispatchQueue.main.async {
-                    success?()
-                }
-            case .failure(let error):
-                print(error)
-            }
-        })
+        return oAuth.send(request: request).then { (accessToken) -> OAuthAccessToken in
+            let tokenStorage = TokenStorage(service: self.service)
+            tokenStorage.store(token: accessToken)
+            return accessToken
+        }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 final class RepositoriesViewController: UIViewController, GitClientRequiring {
     let gitClient: GitClient
@@ -34,28 +35,23 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     private func fetchData() {
-        let request = BitbucketUserRequest()
-        gitClient.send(request: request, completion: { result in
-            switch result {
-            case .success(let json):
-                print(json)
-                let userName = json["username"] as! String
-                self.retrieveRepositories(userName: userName)
-            case .failure(let error):
+        let _ = retrieveUser()
+            .then { user in
+//                self.retrieveRepositories(for: user)
+//            }.then { repository in
+                print(user)
+            }.catch { error in
                 print(error)
-            }
-        })
+        }
     }
 
-    private func retrieveRepositories(userName: String) {
-        let request = BitbucketRepositoriesRequest(userName: userName)
-        gitClient.send(request: request, completion: { (result) in
-            switch result {
-            case .success(let json):
-                print(json)
-            case .failure(let error):
-                print(error)
-            }
-        })
+    private func retrieveUser() -> Promise<User> {
+        let request = BitbucketUserRequest()
+        return gitClient.send(request: request)
+    }
+
+    private func retrieveRepositories(for user: User) -> Promise<Repository> {
+        let request = BitbucketRepositoriesRequest(userName: user.name)
+        return gitClient.send(request: request)
     }
 }
