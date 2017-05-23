@@ -1,5 +1,5 @@
 osx_image: xcode8.3
-language: swift
+language: objective-c
 xcode_project: SinceLast.xcodeproj
 xcode_scheme: SinceLast
 before_install: 
