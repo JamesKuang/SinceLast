@@ -4,3 +4,5 @@ xcode_project: SinceLast.xcodeproj
 xcode_scheme: SinceLast
 before_install: 
   - carthage bootstrap
+script:
+  - xcodebuild clean build -sdk iphonesimulator -project SinceLast.xcodeproj -scheme SinceLast CODE_SIGNING_REQUIRED=NO | xcpretty
