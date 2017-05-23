@@ -16,13 +16,22 @@ struct BitbucketUserRequest: TypedRequest {
 }
 
 struct BitbucketRepositoriesRequest: TypedRequest {
-    typealias ResultType = Repository
+    typealias ResultType = RepositoriesResult
 
     let userName: String
 
     var path: String {
-        return "/2.0/teams/\(userName)/repositories"
+        return "/2.0/repositories/\(userName)"
     }
 
-    let queryParameters: [String: String] = [:]
+    let queryParameters: [String: String] = ["role": "contributor"]
+
+    struct RepositoriesResult: JSONInitializable {
+        let repositories: [Repository]
+
+        init(json: JSON) throws {
+            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
+            self.repositories = try values.flatMap { try Repository(json: $0) }
+        }
+    }
 }

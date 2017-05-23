@@ -50,8 +50,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return gitClient.send(request: request)
     }
 
-    private func retrieveRepositories(for user: User) -> Promise<Repository> {
+    private func retrieveRepositories(for user: User) -> Promise<[Repository]> {
         let request = BitbucketRepositoriesRequest(userName: user.name)
-        return gitClient.send(request: request)
+        return gitClient.send(request: request).then(execute: { result -> [Repository] in
+            return result.repositories
+        })
     }
 }
