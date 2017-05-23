@@ -3,4 +3,4 @@ language: swift
 xcode_project: SinceLast.xcodeproj
 xcode_scheme: SinceLast
 before_install: 
-  - carthage bootstrap --verbose
+  - carthage bootstrap
