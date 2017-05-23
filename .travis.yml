@@ -3,6 +3,4 @@ language: swift
 xcode_project: SinceLast.xcodeproj
 xcode_scheme: SinceLast
 before_install: 
-  - brew update
-  - brew install carthage
   - carthage bootstrap --verbose
