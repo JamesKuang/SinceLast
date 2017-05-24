@@ -27,7 +27,10 @@ extension Repository: JSONInitializable {
             let owner = json["owner"] as? JSON,
             let links = json["links"] as? JSON,
             let avatarLink = links["avatar"] as? JSON,
-            let avatarURL = avatarLink["href"] as? String
+            let avatarURL = avatarLink["href"] as? String,
+            let ownerLinks = owner["links"] as? JSON,
+            let ownerAvatarLink = ownerLinks["avatar"] as? JSON,
+            let ownerAvatarURL = ownerAvatarLink["href"] as? String
             else { throw JSONParsingError() }
 
         self.uuid = uuid
@@ -35,7 +38,7 @@ extension Repository: JSONInitializable {
         self.description = description
         self.language = language
         self.owner = try User(json: owner)
-        self.avatarURL = avatarURL
+        self.avatarURL = ownerAvatarURL
     }
 }
 

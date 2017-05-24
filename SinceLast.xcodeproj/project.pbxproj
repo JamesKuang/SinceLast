@@ -47,6 +47,8 @@
 		1AED93D61ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */; };
 		1AED93D81ECFEF440017FAD6 /* OAuthAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */; };
 		1AED93DA1ECFF0660017FAD6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D91ECFF0660017FAD6 /* Helpers.swift */; };
+		1AF5E4A91ED5BD1000040FA7 /* SVGProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4A81ED5BD1000040FA7 /* SVGProcessor.swift */; };
+		1AF5E4AB1ED5BDAE00040FA7 /* PocketSVG.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AF5E4AA1ED5BDAE00040FA7 /* PocketSVG.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +117,8 @@
 		1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenTests.swift; sourceTree = "<group>"; };
 		1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessToken.swift; sourceTree = "<group>"; };
 		1AED93D91ECFF0660017FAD6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		1AF5E4A81ED5BD1000040FA7 /* SVGProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SVGProcessor.swift; sourceTree = "<group>"; };
+		1AF5E4AA1ED5BDAE00040FA7 /* PocketSVG.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PocketSVG.framework; path = Carthage/Build/iOS/PocketSVG.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +129,7 @@
 				1AED93D41ECFE7B90017FAD6 /* KeychainAccess.framework in Frameworks */,
 				1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */,
 				1A0C2E1C1ED52E6300107D5B /* Kingfisher.framework in Frameworks */,
+				1AF5E4AB1ED5BDAE00040FA7 /* PocketSVG.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,6 +161,7 @@
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1AF5E4AA1ED5BDAE00040FA7 /* PocketSVG.framework */,
 				1A0C2E1B1ED52E6300107D5B /* Kingfisher.framework */,
 				1A0C2E171ED3DDD000107D5B /* IGListKit.framework */,
 				1A0C2E151ED3DDC600107D5B /* IGListKit.framework.dSYM */,
@@ -202,6 +208,7 @@
 				1AED93D91ECFF0660017FAD6 /* Helpers.swift */,
 				1A0C2E191ED3DE8800107D5B /* Reusable.swift */,
 				1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */,
+				1AF5E4A81ED5BD1000040FA7 /* SVGProcessor.swift */,
 				1AC3C6621EC5EFEE001E03B7 /* Resources */,
 			);
 			path = SinceLast;
@@ -462,6 +469,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/PocketSVG.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
@@ -506,6 +514,7 @@
 				1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */,
 				1AED93D81ECFEF440017FAD6 /* OAuthAccessToken.swift in Sources */,
 				1A0C2E1A1ED3DE8800107D5B /* Reusable.swift in Sources */,
+				1AF5E4A91ED5BD1000040FA7 /* SVGProcessor.swift in Sources */,
 				1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */,
 				1A7ABF4E1EC3FC3600752AF9 /* Errors.swift in Sources */,
 			);

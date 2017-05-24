@@ -81,6 +81,7 @@ extension RepositoryCell: ConfigurableCell {
             r.setValue(scheme.value, forHTTPHeaderField: scheme.key)
             return r
         }
+
         imageView.kf.setImage(with: URL(string: object.avatarURL), options: [.requestModifier(modifier)], completionHandler: {
             (image, error, cacheType, imageUrl) in
             print(error)
