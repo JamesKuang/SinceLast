@@ -14,6 +14,7 @@ struct Repository {
     let description: String
     let language: String
     let owner: User
+    let avatarURL: String
 }
 
 extension Repository: JSONInitializable {
@@ -23,13 +24,18 @@ extension Repository: JSONInitializable {
             let name = json["name"] as? String,
             let description = json["description"] as? String,
             let language = json["language"] as? String,
-            let owner = json["owner"] as? JSON
+            let owner = json["owner"] as? JSON,
+            let links = json["links"] as? JSON,
+            let avatarLink = links["avatar"] as? JSON,
+            let avatarURL = avatarLink["href"] as? String
             else { throw JSONParsingError() }
+
         self.uuid = uuid
         self.name = name
         self.description = description
         self.language = language
         self.owner = try User(json: owner)
+        self.avatarURL = avatarURL
     }
 }
 

@@ -14,7 +14,8 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: self.view.bounds.width, height: 60.0)
+        layout.minimumLineSpacing = 0.0
+        layout.itemSize = CGSize(width: self.view.bounds.width, height: 70.0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.backgroundColor = .white
@@ -98,65 +99,4 @@ extension RepositoriesViewController: UICollectionViewDataSource {
         cell.configure(with: repository)
         return cell
     }
-}
-
-final class RepositoryCell: UICollectionViewCell {
-    fileprivate let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    fileprivate let ownerLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    fileprivate let descriptionLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        return stackView
-    }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        contentView.addSubview(stackView)
-        stackView.addArrangedSubview(titleLabel)
-        stackView.addArrangedSubview(ownerLabel)
-        stackView.addArrangedSubview(descriptionLabel)
-
-        let guide = contentView
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: guide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
-            ])
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-extension RepositoryCell: ConfigurableCell {
-    func configure(with object: Repository) {
-        titleLabel.text = object.name
-        ownerLabel.text = object.owner.name
-        descriptionLabel.text = object.description
-    }
-}
-
-protocol ConfigurableCell {
-    associatedtype T
-    func configure(with object: T)
 }
