@@ -12,10 +12,12 @@ import PromiseKit
 final class RepositoriesViewController: UIViewController, GitClientRequiring {
     let gitClient: GitClient
 
-    private let collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: self.view.bounds.width, height: 60.0)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.backgroundColor = .white
         return collectionView
     }()
 
@@ -81,7 +83,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     private func reload(with repositories: [Repository]) {
         print(repositories)
         self.repositores = repositories
-        self.collectionView.reloadData()
+        collectionView.reloadData()
     }
 }
 
@@ -99,23 +101,45 @@ extension RepositoriesViewController: UICollectionViewDataSource {
 }
 
 final class RepositoryCell: UICollectionViewCell {
-    let titleLabel: UILabel = {
+    fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
+    fileprivate let ownerLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    fileprivate let descriptionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    private let stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentView.addSubview(titleLabel)
+        contentView.addSubview(stackView)
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(ownerLabel)
+        stackView.addArrangedSubview(descriptionLabel)
 
-        let guide = contentView.readableContentGuide
+        let guide = contentView
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: guide.topAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: guide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             ])
     }
 
@@ -127,6 +151,8 @@ final class RepositoryCell: UICollectionViewCell {
 extension RepositoryCell: ConfigurableCell {
     func configure(with object: Repository) {
         titleLabel.text = object.name
+        ownerLabel.text = object.owner.name
+        descriptionLabel.text = object.description
     }
 }
 
