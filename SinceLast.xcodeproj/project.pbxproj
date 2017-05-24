@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1A0C2E111ED0A17A00107D5B /* GitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E101ED0A17A00107D5B /* GitClient.swift */; };
 		1A0C2E1A1ED3DE8800107D5B /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E191ED3DE8800107D5B /* Reusable.swift */; };
+		1A0C2E1C1ED52E6300107D5B /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A0C2E1B1ED52E6300107D5B /* Kingfisher.framework */; };
 		1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A680C4B1EC54E50009D2ECC /* GitService.swift */; };
 		1A7AAE4E1ED0B3CB00D29908 /* BitbucketRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */; };
 		1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */; };
@@ -68,6 +69,7 @@
 		1A0C2E151ED3DDC600107D5B /* IGListKit.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = IGListKit.framework.dSYM; path = Carthage/Build/Mac/IGListKit.framework.dSYM; sourceTree = "<group>"; };
 		1A0C2E171ED3DDD000107D5B /* IGListKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IGListKit.framework; path = Carthage/Build/Mac/IGListKit.framework; sourceTree = "<group>"; };
 		1A0C2E191ED3DE8800107D5B /* Reusable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		1A0C2E1B1ED52E6300107D5B /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		1A680C4B1EC54E50009D2ECC /* GitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketRequests.swift; sourceTree = "<group>"; };
 		1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 			files = (
 				1AED93D41ECFE7B90017FAD6 /* KeychainAccess.framework in Frameworks */,
 				1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */,
+				1A0C2E1C1ED52E6300107D5B /* Kingfisher.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +144,7 @@
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A0C2E1B1ED52E6300107D5B /* Kingfisher.framework */,
 				1A0C2E171ED3DDD000107D5B /* IGListKit.framework */,
 				1A0C2E151ED3DDC600107D5B /* IGListKit.framework.dSYM */,
 				1AED93D31ECFE7B90017FAD6 /* KeychainAccess.framework */,
@@ -443,6 +447,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
