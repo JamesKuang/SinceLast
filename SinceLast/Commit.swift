@@ -24,6 +24,19 @@ struct Commit {
     }
 }
 
+extension Commit: JSONInitializable {
+    init(json: JSON) throws {
+        guard
+            let sha = json["hash"] as? String,
+            let message = json["message"] as? String,
+            let author = json["author"] as? JSON,
+            let authorUser = author["user"] as? JSON
+            else { throw JSONParsingError() }
+
+        self.init(sha: sha, message: message, author: try User(json: authorUser))
+    }
+}
+
 extension Commit {
     var shortSHA: String {
         let index = sha.index(sha.startIndex, offsetBy: 7)

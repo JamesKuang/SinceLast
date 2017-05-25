@@ -22,6 +22,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return collectionView
     }()
 
+    fileprivate var user: User? // FIXME: Retrieve this before coming to this screen
     fileprivate var repositores: [Repository] = []
 
     init(client: GitClient) {
@@ -49,6 +50,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
         collectionView.register(cell: RepositoryCell.self)
         collectionView.dataSource = self
+        collectionView.delegate = self
 
         fetchData()
     }
@@ -56,7 +58,8 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     private func fetchData() {
         let _ = retrieveUser()
             .then { user in
-                self.retrieveRepositories(for: user)
+                self.user = user
+                return self.retrieveRepositories(for: user)
             }.then { repositories in
                 self.reload(with: repositories)
             }.catch { error in
@@ -77,7 +80,6 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     private func reload(with repositories: [Repository]) {
-        print(repositories)
         self.repositores = repositories
         collectionView.reloadData()
     }
@@ -99,5 +101,14 @@ extension RepositoriesViewController: UICollectionViewDataSource {
         let repository = repositores[indexPath.item]
         cell.configure(with: repository)
         return cell
+    }
+}
+
+extension RepositoriesViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let user = self.user else { fatalError("User should've been retrieved") }
+        let repository = repositores[indexPath.item]
+        let controller = CommitsViewController(client: gitClient, user: user, repository: repository)
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

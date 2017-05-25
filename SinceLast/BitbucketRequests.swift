@@ -24,7 +24,7 @@ struct BitbucketRepositoriesRequest: TypedRequest {
         return "/2.0/repositories/\(userName)"
     }
 
-    let queryParameters: [String: String] = ["role": "contributor"]
+    let queryParameters: [String: String] = [:]
 
     struct RepositoriesResult: JSONInitializable {
         let repositories: [Repository]
@@ -32,6 +32,28 @@ struct BitbucketRepositoriesRequest: TypedRequest {
         init(json: JSON) throws {
             guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
             self.repositories = try values.flatMap { try Repository(json: $0) }
+        }
+    }
+}
+
+struct BitbucketCommitsRequest: TypedRequest {
+    typealias ResultType = CommitsResult
+
+    let userName: String
+    let repositorySlug: String
+
+    let queryParameters: [String: String] = [:]
+
+    var path: String {
+        return "/2.0/repositories/\(userName)/\(repositorySlug)/commits"
+    }
+
+    struct CommitsResult: JSONInitializable {
+        let commits: [Commit]
+
+        init(json: JSON) throws {
+            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
+            self.commits = try values.flatMap { try Commit(json: $0) }
         }
     }
 }

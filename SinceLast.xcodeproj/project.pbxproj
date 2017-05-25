@@ -35,6 +35,8 @@
 		1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE2A891EC2BD62009D1499 /* OAuth.swift */; };
 		1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */; };
 		1ABD6BB91ED7903000AD002E /* Pastel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABD6BB81ED7903000AD002E /* Pastel.framework */; };
+		1ABD6BBB1ED791F500AD002E /* CommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */; };
+		1ABD6BBD1ED7938600AD002E /* CommitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6BBC1ED7938600AD002E /* CommitCell.swift */; };
 		1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */; };
 		1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */; };
 		1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */; };
@@ -107,6 +109,8 @@
 		1AAE2A891EC2BD62009D1499 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		1ABD6BB81ED7903000AD002E /* Pastel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pastel.framework; path = Carthage/Build/iOS/Pastel.framework; sourceTree = "<group>"; };
+		1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitsViewController.swift; sourceTree = "<group>"; };
+		1ABD6BBC1ED7938600AD002E /* CommitCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitCell.swift; sourceTree = "<group>"; };
 		1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
 		1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthCredentials.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */,
+				1ABD6BBC1ED7938600AD002E /* CommitCell.swift */,
 				1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */,
 			);
 			name = Views;
@@ -263,6 +268,7 @@
 			children = (
 				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
 				1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */,
+				1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */,
 				1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */,
 				1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */,
 			);
@@ -511,7 +517,9 @@
 				1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */,
 				1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */,
 				1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */,
+				1ABD6BBD1ED7938600AD002E /* CommitCell.swift in Sources */,
 				1AF5E4B11ED67A7200040FA7 /* SettingsCell.swift in Sources */,
+				1ABD6BBB1ED791F500AD002E /* CommitsViewController.swift in Sources */,
 				1A0C2E111ED0A17A00107D5B /* GitClient.swift in Sources */,
 				1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */,
 				1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */,
