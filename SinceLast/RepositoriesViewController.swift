@@ -28,6 +28,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("Repositories", comment: "Repositories screen navigation bar title")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(tappedSettingsButton(_:)))
 
         view.addSubview(collectionView)
 
@@ -48,14 +49,8 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
         collectionView.register(cell: RepositoryCell.self)
         collectionView.dataSource = self
-    }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if isMovingToParentViewController {
-            fetchData()
-        }
+        fetchData()
     }
 
     private func fetchData() {
@@ -85,6 +80,12 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         print(repositories)
         self.repositores = repositories
         collectionView.reloadData()
+    }
+
+    private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
+        let controller = SettingsViewController()
+        let navigationController = UINavigationController(rootViewController: controller)
+        present(navigationController, animated: true)
     }
 }
 

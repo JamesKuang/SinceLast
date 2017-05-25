@@ -47,6 +47,9 @@
 		1AED93D61ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */; };
 		1AED93D81ECFEF440017FAD6 /* OAuthAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */; };
 		1AED93DA1ECFF0660017FAD6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D91ECFF0660017FAD6 /* Helpers.swift */; };
+		1AF5E4AD1ED6762500040FA7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */; };
+		1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */; };
+		1AF5E4B11ED67A7200040FA7 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -115,6 +118,9 @@
 		1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenTests.swift; sourceTree = "<group>"; };
 		1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessToken.swift; sourceTree = "<group>"; };
 		1AED93D91ECFF0660017FAD6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
+		1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +155,7 @@
 			isa = PBXGroup;
 			children = (
 				1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */,
+				1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -202,6 +209,7 @@
 				1AED93D91ECFF0660017FAD6 /* Helpers.swift */,
 				1A0C2E191ED3DE8800107D5B /* Reusable.swift */,
 				1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */,
+				1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */,
 				1AC3C6621EC5EFEE001E03B7 /* Resources */,
 			);
 			path = SinceLast;
@@ -252,6 +260,7 @@
 				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
 				1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */,
 				1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */,
+				1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -484,6 +493,7 @@
 				1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */,
 				1AED93C91ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift in Sources */,
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
+				1AF5E4AD1ED6762500040FA7 /* SettingsViewController.swift in Sources */,
 				1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */,
 				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
 				1AED93CF1ECFD9C20017FAD6 /* BitbucketOAuth.swift in Sources */,
@@ -493,8 +503,10 @@
 				1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */,
 				1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
+				1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */,
 				1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */,
 				1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */,
+				1AF5E4B11ED67A7200040FA7 /* SettingsCell.swift in Sources */,
 				1A0C2E111ED0A17A00107D5B /* GitClient.swift in Sources */,
 				1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */,
 				1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */,

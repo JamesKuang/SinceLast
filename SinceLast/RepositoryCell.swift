@@ -72,7 +72,7 @@ final class RepositoryCell: UICollectionViewCell {
 }
 
 extension RepositoryCell: ConfigurableCell {
-    func configure(with object: Repository) {
+    func configure(with repository: Repository) {
         imageView.kf.indicatorType = .activity
         let modifier = AnyModifier { request in
             let keySecretProvider = OAuthKeySecretProvider()
@@ -81,13 +81,13 @@ extension RepositoryCell: ConfigurableCell {
             r.setValue(scheme.value, forHTTPHeaderField: scheme.key)
             return r
         }
-        imageView.kf.setImage(with: URL(string: object.avatarURL), options: [.requestModifier(modifier)], completionHandler: {
+        imageView.kf.setImage(with: URL(string: repository.avatarURL), options: [.requestModifier(modifier)], completionHandler: {
             (image, error, cacheType, imageUrl) in
             print(error)
         })
 
-        titleLabel.text = object.name
-        ownerLabel.text = object.owner.name
-        descriptionLabel.text = object.description
+        titleLabel.text = repository.name
+        ownerLabel.text = repository.owner.name
+        descriptionLabel.text = repository.description
     }
 }
