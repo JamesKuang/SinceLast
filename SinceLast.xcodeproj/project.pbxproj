@@ -34,6 +34,7 @@
 		1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */; };
 		1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE2A891EC2BD62009D1499 /* OAuth.swift */; };
 		1AAE2A8C1EC2C3A9009D1499 /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */; };
+		1ABD6BB91ED7903000AD002E /* Pastel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABD6BB81ED7903000AD002E /* Pastel.framework */; };
 		1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */; };
 		1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */; };
 		1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */; };
@@ -105,6 +106,7 @@
 		1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthURLValidator.swift; sourceTree = "<group>"; };
 		1AAE2A891EC2BD62009D1499 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		1AAE2A8B1EC2C3A9009D1499 /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
+		1ABD6BB81ED7903000AD002E /* Pastel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pastel.framework; path = Carthage/Build/iOS/Pastel.framework; sourceTree = "<group>"; };
 		1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
 		1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthCredentials.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				1AED93D41ECFE7B90017FAD6 /* KeychainAccess.framework in Frameworks */,
 				1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */,
 				1A0C2E1C1ED52E6300107D5B /* Kingfisher.framework in Frameworks */,
+				1ABD6BB91ED7903000AD002E /* Pastel.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +166,7 @@
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1ABD6BB81ED7903000AD002E /* Pastel.framework */,
 				1A0C2E1B1ED52E6300107D5B /* Kingfisher.framework */,
 				1A0C2E171ED3DDD000107D5B /* IGListKit.framework */,
 				1A0C2E151ED3DDC600107D5B /* IGListKit.framework.dSYM */,
@@ -471,6 +475,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Pastel.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
