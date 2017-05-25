@@ -30,6 +30,12 @@ final class TokenStorage {
         keychain[data: TokenStorage.expirationKey] = token.expiration.dataRepresentationSince1970
     }
 
+    func clearToken() {
+        keychain[TokenStorage.accessTokenKey] = nil
+        keychain[TokenStorage.refreshTokenKey] = nil
+        keychain[data: TokenStorage.expirationKey] = nil
+    }
+
     var token: OAuthAccessToken? {
         guard
             let token = keychain[TokenStorage.accessTokenKey],

@@ -20,8 +20,11 @@ final class AppCoordinator {
         return !token.isExpired
     }
 
-    init() {}
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didLogoutGitService(_:)), name: .didLogoutGitService, object: nil)
+    }
 
+    @discardableResult
     func startLaunchViewController() -> UIViewController {
         let controller: UIViewController
         if isAuthorized {
@@ -48,4 +51,14 @@ final class AppCoordinator {
             return false
         }
     }
+
+    private dynamic func didLogoutGitService(_ notification: Notification) {
+        let tokenStorage = TokenStorage(service: gitClient.service)
+        tokenStorage.clearToken()
+        startLaunchViewController()
+    }
+}
+
+extension Notification.Name {
+    static let didLogoutGitService = Notification.Name("didLogoutGitService")
 }

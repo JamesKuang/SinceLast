@@ -57,7 +57,8 @@ final class SettingsViewController: UIViewController {
     }
 
     fileprivate func logout() {
-
+        NotificationCenter.default.post(name: .didLogoutGitService, object: self)
+        dismiss(animated: true)
     }
 }
 
