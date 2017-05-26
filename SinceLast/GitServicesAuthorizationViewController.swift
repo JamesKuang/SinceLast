@@ -41,7 +41,6 @@ final class GitServicesAuthorizationViewController: UIViewController {
         self.credentials = credentials
         super.init(nibName: nil, bundle: nil)
 
-        title = NSLocalizedString("Git Authorization", comment: "Git Services authorization navigation bar title")
         view.backgroundColor = .white
 
         view.insertSubview(backgroundView, at: 0)
@@ -53,8 +52,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             servicesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            servicesStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            servicesStackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
+            servicesStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80.0),
             ])
 
         let signInButtons = self.credentials.map { self.makeSignInButton(for: $0) }
@@ -73,16 +71,46 @@ final class GitServicesAuthorizationViewController: UIViewController {
         backgroundView.startAnimation()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     private func makeSignInButton(for serviceAuth: OAuthCredentials) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
         button.setImage(serviceAuth.service.logoImage, for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
-        button.isEnabled = serviceAuth.service.isSupported
+
         button.layer.cornerRadius = 8.0
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.darkGray.cgColor
+        button.layer.borderColor = UIColor.black.cgColor
+
+        button.isEnabled = serviceAuth.service.isSupported
+
+        if !button.isEnabled {
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            label.text = NSLocalizedString("Coming soon", comment: "Coming soon label for Git service")
+            button.addSubview(label)
+
+            NSLayoutConstraint.activate([
+                label.trailingAnchor.constraint(equalTo: button.trailingAnchor, constant: -4.0),
+                label.bottomAnchor.constraint(equalTo: button.bottomAnchor, constant: -2.0),
+                ])
+        }
+
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: 100.0),
+            button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: 2.5),
+        ])
+
         return button
     }
 
