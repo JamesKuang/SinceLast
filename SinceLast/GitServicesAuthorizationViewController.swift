@@ -27,6 +27,9 @@ final class GitServicesAuthorizationViewController: UIViewController {
     let servicesStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.spacing = 10.0
+        stackView.distribution = .fillEqually
         return stackView
     }()
 
@@ -51,6 +54,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             servicesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             servicesStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            servicesStackView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25),
             ])
 
         let signInButtons = self.credentials.map { self.makeSignInButton(for: $0) }
@@ -73,7 +77,12 @@ final class GitServicesAuthorizationViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
-        button.setTitle(serviceAuth.service.name, for: .normal)
+        button.setImage(serviceAuth.service.logoImage, for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.isEnabled = serviceAuth.service.isSupported
+        button.layer.cornerRadius = 8.0
+        button.layer.borderWidth = 1.0
+        button.layer.borderColor = UIColor.darkGray.cgColor
         return button
     }
 

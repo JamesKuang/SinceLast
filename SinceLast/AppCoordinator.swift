@@ -35,7 +35,10 @@ final class AppCoordinator {
         if isAuthorized {
             controller = RepositoriesViewController(client: gitClient)
         } else {
-            let credentials = [BitbucketOAuth()]
+            let credentials: [OAuthCredentials] = [
+                GithubOAuth(),
+                BitbucketOAuth(),
+                ]
             controller = GitServicesAuthorizationViewController(credentials: credentials)
         }
 
