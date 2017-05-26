@@ -12,6 +12,18 @@ import Pastel
 final class GitServicesAuthorizationViewController: UIViewController {
     let credentials: [OAuthCredentials]
 
+    let backgroundView: PastelView = {
+        let pastelView = PastelView()
+        pastelView.translatesAutoresizingMaskIntoConstraints = false
+        pastelView.animationDuration = 3.0
+        pastelView.startPastelPoint = .topLeft
+        pastelView.endPastelPoint = .bottomRight
+
+        let colors: [ThemeColor] = [.darkOrange, .orange, .lightOrange]
+        pastelView.setColors(colors.map { $0.color })
+        return pastelView
+    }()
+
     let servicesStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,9 +41,14 @@ final class GitServicesAuthorizationViewController: UIViewController {
         title = NSLocalizedString("Git Authorization", comment: "Git Services authorization navigation bar title")
         view.backgroundColor = .white
 
+        view.insertSubview(backgroundView, at: 0)
         view.addSubview(servicesStackView)
 
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             servicesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             servicesStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             ])
@@ -49,28 +66,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let pastelView = PastelView(frame: view.bounds)
-
-        // Custom Direction
-        pastelView.startPastelPoint = .bottomLeft
-        pastelView.endPastelPoint = .topRight
-
-        // Custom Duration
-        pastelView.animationDuration = 3.0
-
-        // Custom Color
-//        pastelView.setPastelGradient(.warmFlame)
-        pastelView.setColors([UIColor(red: 156/255, green: 39/255, blue: 176/255, alpha: 1.0),
-                              UIColor(red: 255/255, green: 64/255, blue: 129/255, alpha: 1.0),
-                              UIColor(red: 123/255, green: 31/255, blue: 162/255, alpha: 1.0),
-                              UIColor(red: 32/255, green: 76/255, blue: 255/255, alpha: 1.0),
-                              UIColor(red: 32/255, green: 158/255, blue: 255/255, alpha: 1.0),
-                              UIColor(red: 90/255, green: 120/255, blue: 127/255, alpha: 1.0),
-                              UIColor(red: 58/255, green: 255/255, blue: 217/255, alpha: 1.0)])
-        
-        pastelView.startAnimation()
-        view.insertSubview(pastelView, at: 0)
+        backgroundView.startAnimation()
     }
 
     private func makeSignInButton(for serviceAuth: OAuthCredentials) -> UIButton {
