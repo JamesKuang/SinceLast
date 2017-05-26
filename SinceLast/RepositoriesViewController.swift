@@ -55,6 +55,11 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         fetchData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+
     private func fetchData() {
         let _ = retrieveUser()
             .then { user in
