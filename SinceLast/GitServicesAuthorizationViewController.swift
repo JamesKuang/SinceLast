@@ -12,7 +12,7 @@ import Pastel
 final class GitServicesAuthorizationViewController: UIViewController {
     let credentials: [OAuthCredentials]
 
-    let backgroundView: PastelView = {
+    private let backgroundView: PastelView = {
         let pastelView = PastelView()
         pastelView.translatesAutoresizingMaskIntoConstraints = false
         pastelView.animationDuration = 3.0
@@ -24,7 +24,16 @@ final class GitServicesAuthorizationViewController: UIViewController {
         return pastelView
     }()
 
-    let servicesStackView: UIStackView = {
+    private let topLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = NSLocalizedString("Since Last", comment: "Since Last app name")
+        label.textColor = .white
+        label.font = UIFont.boldSystemFont(ofSize: 38.0)
+        return label
+    }()
+
+    private let servicesStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -44,6 +53,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
         view.backgroundColor = .white
 
         view.insertSubview(backgroundView, at: 0)
+        view.addSubview(topLabel)
         view.addSubview(servicesStackView)
 
         NSLayoutConstraint.activate([
@@ -51,8 +61,10 @@ final class GitServicesAuthorizationViewController: UIViewController {
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            topLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 40.0),
+            servicesStackView.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 20.0),
             servicesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            servicesStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -80.0),
             ])
 
         let signInButtons = self.credentials.map { self.makeSignInButton(for: $0) }
@@ -81,23 +93,34 @@ final class GitServicesAuthorizationViewController: UIViewController {
         navigationController?.setNavigationBarHidden(false, animated: animated)
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+
     private func makeSignInButton(for serviceAuth: OAuthCredentials) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
-        button.setImage(serviceAuth.service.logoImage, for: .normal)
+        button.setImage(serviceAuth.service.logoImage.withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
+        button.imageView?.tintColor = .white
 
         button.layer.cornerRadius = 8.0
         button.layer.borderWidth = 1.0
-        button.layer.borderColor = UIColor.black.cgColor
 
         button.isEnabled = serviceAuth.service.isSupported
 
-        if !button.isEnabled {
+        let color = UIColor.white
+        if button.isEnabled {
+            button.layer.borderColor = color.cgColor
+        } else {
+            let fadedColor = color.withAlphaComponent(0.6)
+            button.layer.borderColor = fadedColor.cgColor
+
             let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.text = NSLocalizedString("Coming soon", comment: "Coming soon label for Git service")
+            label.textColor = fadedColor
             button.addSubview(label)
 
             NSLayoutConstraint.activate([
