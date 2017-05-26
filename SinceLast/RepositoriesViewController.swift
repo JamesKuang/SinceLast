@@ -12,14 +12,15 @@ import PromiseKit
 final class RepositoriesViewController: UIViewController, GitClientRequiring {
     let gitClient: GitClient
 
-    private lazy var collectionView: UICollectionView = {
+    private lazy var tableView: UITableView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0.0
-        layout.itemSize = CGSize(width: self.view.bounds.width, height: 70.0)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        return collectionView
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .white
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 70.0
+        tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 56.0, bottom: 0.0, right: 0.0)
+        return tableView
     }()
 
     fileprivate var user: User? // FIXME: Retrieve this before coming to this screen
@@ -31,13 +32,13 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         title = NSLocalizedString("Repositories", comment: "Repositories screen navigation bar title")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(tappedSettingsButton(_:)))
 
-        view.addSubview(collectionView)
+        view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ])
     }
 
@@ -48,9 +49,9 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView.register(cell: RepositoryCell.self)
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        tableView.register(cell: RepositoryCell.self)
+        tableView.dataSource = self
+        tableView.delegate = self
 
         fetchData()
     }
@@ -58,6 +59,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: animated)
+        }
     }
 
     private func fetchData() {
@@ -86,7 +91,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     private func reload(with repositories: [Repository]) {
         self.repositores = repositories
-        collectionView.reloadData()
+        tableView.reloadData()
     }
 
     private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
@@ -96,21 +101,21 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 }
 
-extension RepositoriesViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension RepositoriesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return repositores.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueCell(of: RepositoryCell.self, for: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(of: RepositoryCell.self, for: indexPath)
         let repository = repositores[indexPath.item]
         cell.configure(with: repository)
         return cell
     }
 }
 
-extension RepositoriesViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension RepositoriesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let user = self.user else { fatalError("User should've been retrieved") }
         let repository = repositores[indexPath.item]
         let controller = CommitsViewController(client: gitClient, user: user, repository: repository)

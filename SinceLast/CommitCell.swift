@@ -8,8 +8,8 @@
 
 import UIKit
 
-final class CommitCell: UICollectionViewCell {
-    fileprivate let imageView: UIImageView = {
+final class CommitCell: UITableViewCell {
+    fileprivate let avatarView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -45,10 +45,10 @@ final class CommitCell: UICollectionViewCell {
         return stackView
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.addSubview(imageView)
+        contentView.addSubview(avatarView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(messageLabel)
         stackView.addArrangedSubview(committerLabel)
@@ -56,13 +56,13 @@ final class CommitCell: UICollectionViewCell {
 
         let guide = contentView.readableContentGuide
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: guide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 32.0),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+            avatarView.topAnchor.constraint(equalTo: guide.topAnchor),
+            avatarView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            avatarView.widthAnchor.constraint(equalToConstant: 32.0),
+            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
             stackView.topAnchor.constraint(equalTo: guide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10.0),
+            stackView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 10.0),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             ])
     }

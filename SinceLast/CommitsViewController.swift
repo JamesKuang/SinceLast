@@ -12,14 +12,14 @@ import PromiseKit
 final class CommitsViewController: UIViewController, GitClientRequiring {
     let gitClient: GitClient
 
-    private lazy var collectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0.0
-        layout.itemSize = CGSize(width: self.view.bounds.width, height: 80.0)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .white
-        return collectionView
+    private lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.backgroundColor = .white
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 80.0
+        tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 56.0, bottom: 0.0, right: 0.0)
+        return tableView
     }()
 
     fileprivate let user: User
@@ -33,13 +33,13 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("Commits", comment: "Commits screen navigation bar title")
 
-        view.addSubview(collectionView)
+        view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ])
     }
 
@@ -50,9 +50,9 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        collectionView.register(cell: CommitCell.self)
-        collectionView.dataSource = self
-        collectionView.delegate = self
+        tableView.register(cell: CommitCell.self)
+        tableView.dataSource = self
+        tableView.delegate = self
         
         fetchData()
     }
@@ -75,25 +75,25 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
     private func reload(with commits: [Commit]) {
         self.commits = commits
-        collectionView.reloadData()
+        tableView.reloadData()
     }
 }
 
-extension CommitsViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension CommitsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return commits.count
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueCell(of: CommitCell.self, for: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(of: CommitCell.self, for: indexPath)
         let commit = commits[indexPath.item]
         cell.configure(with: commit)
         return cell
     }
 }
 
-extension CommitsViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+extension CommitsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
     }
 }

@@ -9,8 +9,8 @@
 import UIKit
 import Kingfisher
 
-final class RepositoryCell: UICollectionViewCell {
-    fileprivate let imageView: UIImageView = {
+final class RepositoryCell: UITableViewCell {
+    fileprivate let avatarView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -44,10 +44,10 @@ final class RepositoryCell: UICollectionViewCell {
         return stackView
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        contentView.addSubview(imageView)
+        contentView.addSubview(avatarView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(ownerLabel)
@@ -55,13 +55,13 @@ final class RepositoryCell: UICollectionViewCell {
 
         let guide = contentView.readableContentGuide
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: guide.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            imageView.widthAnchor.constraint(equalToConstant: 32.0),
-            imageView.widthAnchor.constraint(equalTo: imageView.heightAnchor),
+            avatarView.topAnchor.constraint(equalTo: guide.topAnchor),
+            avatarView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            avatarView.widthAnchor.constraint(equalToConstant: 32.0),
+            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
             stackView.topAnchor.constraint(equalTo: guide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 10.0),
+            stackView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 10.0),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             ])
     }
@@ -73,7 +73,7 @@ final class RepositoryCell: UICollectionViewCell {
 
 extension RepositoryCell: ConfigurableCell {
     func configure(with repository: Repository) {
-        imageView.kf.indicatorType = .activity
+        avatarView.kf.indicatorType = .activity
         let modifier = AnyModifier { request in
             let keySecretProvider = OAuthKeySecretProvider()
             let scheme: AuthorizationHeaderScheme = .basic(user: keySecretProvider.key, password: keySecretProvider.secret)
@@ -81,7 +81,7 @@ extension RepositoryCell: ConfigurableCell {
             r.setValue(scheme.value, forHTTPHeaderField: scheme.key)
             return r
         }
-        imageView.kf.setImage(with: URL(string: repository.avatarURL), options: [.requestModifier(modifier)], completionHandler: {
+        avatarView.kf.setImage(with: URL(string: repository.avatarURL), options: [.requestModifier(modifier)], completionHandler: {
             (image, error, cacheType, imageUrl) in
             print(error)
         })
@@ -89,5 +89,6 @@ extension RepositoryCell: ConfigurableCell {
         titleLabel.text = repository.name
         ownerLabel.text = repository.owner.name
         descriptionLabel.text = repository.description
+        accessoryType = .disclosureIndicator
     }
 }
