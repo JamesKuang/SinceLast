@@ -34,6 +34,7 @@ final class RepositoryCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
+        label.numberOfLines = 0
         return label
     }()
 

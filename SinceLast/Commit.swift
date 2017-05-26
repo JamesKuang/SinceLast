@@ -18,7 +18,7 @@ struct Commit {
     init(sha: String, message: String, author: User, committer: User? = nil) {
         precondition(sha.characters.count == 40, "SHA must be 40 characters")
         self.sha = sha
-        self.message = message
+        self.message = message.trimmingCharacters(in: .newlines)
         self.author = author
         self.committer = committer ?? author
     }

@@ -19,6 +19,7 @@ final class CommitCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.numberOfLines = 0
         return label
     }()
 
