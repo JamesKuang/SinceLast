@@ -76,7 +76,9 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(of: SettingsCell.self, for: indexPath)
         switch Section(indexPath.section) {
-        case .logout: cell.configure(with: NSLocalizedString("Logout", comment: "Logout row text"))
+        case .logout:
+            cell.configure(with: NSLocalizedString("Log Out", comment: "Log Out row text"))
+            cell.textLabel?.textColor = .red
         }
         return cell
     }

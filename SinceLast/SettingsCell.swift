@@ -8,7 +8,12 @@
 
 import UIKit
 
-final class SettingsCell: UITableViewCell {}
+final class SettingsCell: UITableViewCell {
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        textLabel?.textColor = .black
+    }
+}
 
 extension SettingsCell: ConfigurableCell {
     func configure(with title: String) {

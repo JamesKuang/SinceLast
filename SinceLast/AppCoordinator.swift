@@ -21,7 +21,12 @@ final class AppCoordinator {
     }
 
     init() {
+        setAppearanceProxies()
         NotificationCenter.default.addObserver(self, selector: #selector(didLogoutGitService(_:)), name: .didLogoutGitService, object: nil)
+    }
+
+    private func setAppearanceProxies() {
+        UIBarButtonItem.appearance().tintColor = ThemeColor.darkOrange.color
     }
 
     @discardableResult
