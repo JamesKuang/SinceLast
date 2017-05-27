@@ -20,6 +20,34 @@
                ReferencedContainer = "container:SinceLast.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1AA4FFDE1EC15DA100F26BAB"
+               BuildableName = "SinceLastTests.xctest"
+               BlueprintName = "SinceLastTests"
+               ReferencedContainer = "container:SinceLast.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1AA4FFE91EC15DA100F26BAB"
+               BuildableName = "SinceLastUITests.xctest"
+               BlueprintName = "SinceLastUITests"
+               ReferencedContainer = "container:SinceLast.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -28,6 +56,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1AA4FFDE1EC15DA100F26BAB"
+               BuildableName = "SinceLastTests.xctest"
+               BlueprintName = "SinceLastTests"
+               ReferencedContainer = "container:SinceLast.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "1AA4FFE91EC15DA100F26BAB"
+               BuildableName = "SinceLastUITests.xctest"
+               BlueprintName = "SinceLastUITests"
+               ReferencedContainer = "container:SinceLast.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
