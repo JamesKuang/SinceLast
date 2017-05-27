@@ -40,9 +40,11 @@ final class OAuthKeySecretProvider: OAuthKeySecretProviding {
     let secret: String
 
     init() {
-        let contents = EnvironmentVariablesReader().read()
-        guard let key = contents["Bitbucket.key"] else { fatalError("Missing key in API credentials storage") }
-        guard let secret = contents["Bitbucket.secret"] else { fatalError("Missing secret in API credentials storage") }
+        let contents = PlistReader(fileName: "OAuth").read()
+        guard let key = contents.value(forKeyPath: "Bitbucket.key") as? String
+            else { fatalError("Missing key in Plist") }
+        guard let secret = contents.value(forKeyPath: "Bitbucket.secret") as? String
+            else { fatalError("Missing secret in Plist") }
 
         self.key = key
         self.secret = secret

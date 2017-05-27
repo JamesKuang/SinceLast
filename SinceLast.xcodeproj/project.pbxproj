@@ -25,6 +25,7 @@
 		1A8769BD1ED8AB4200895E89 /* GithubOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */; };
 		1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88821ED209A400A0D8A6 /* Response.swift */; };
 		1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88861ED22EAF00A0D8A6 /* Repository.swift */; };
+		1A9C78A31EDA30D300BAA9BA /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A9C78A21EDA30D300BAA9BA /* OAuth.plist */; };
 		1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */; };
 		1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */; };
 		1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */; };
@@ -32,7 +33,7 @@
 		1AA4FFE41EC15DA100F26BAB /* DateToDataConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */; };
 		1AA4FFEF1EC15DA100F26BAB /* SinceLastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */; };
 		1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFFC1EC161F100F26BAB /* Commit.swift */; };
-		1AAC21CD1EC7AC9D0038B14A /* EnvironmentVariablesReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CC1EC7AC9D0038B14A /* EnvironmentVariablesReader.swift */; };
+		1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */; };
 		1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */; };
 		1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */; };
 		1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */; };
@@ -96,6 +97,7 @@
 		1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubOAuth.swift; sourceTree = "<group>"; };
 		1A9A88821ED209A400A0D8A6 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		1A9A88861ED22EAF00A0D8A6 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		1A9C78A21EDA30D300BAA9BA /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		1AA4FFCB1EC15DA100F26BAB /* SinceLast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinceLast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitServicesAuthorizationViewController.swift; sourceTree = "<group>"; };
@@ -109,7 +111,7 @@
 		1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastUITests.swift; sourceTree = "<group>"; };
 		1AA4FFF01EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFFC1EC161F100F26BAB /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
-		1AAC21CC1EC7AC9D0038B14A /* EnvironmentVariablesReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnvironmentVariablesReader.swift; sourceTree = "<group>"; };
+		1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationURLOpening.swift; sourceTree = "<group>"; };
 		1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
 		1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthURLValidator.swift; sourceTree = "<group>"; };
@@ -302,6 +304,7 @@
 		1AC3C6621EC5EFEE001E03B7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				1A9C78A21EDA30D300BAA9BA /* OAuth.plist */,
 				1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */,
 				1AA4FFD71EC15DA100F26BAB /* LaunchScreen.storyboard */,
 				1AA4FFDA1EC15DA100F26BAB /* Info.plist */,
@@ -323,7 +326,7 @@
 		1AED93CD1ECFD8CA0017FAD6 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				1AAC21CC1EC7AC9D0038B14A /* EnvironmentVariablesReader.swift */,
+				1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */,
 				1AED93D11ECFDBAD0017FAD6 /* TokenStorage.swift */,
 			);
 			name = Storage;
@@ -450,6 +453,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A9C78A31EDA30D300BAA9BA /* OAuth.plist in Resources */,
 				1AA4FFD91EC15DA100F26BAB /* LaunchScreen.storyboard in Resources */,
 				1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */,
 			);
@@ -502,7 +506,7 @@
 				1AED93D21ECFDBAD0017FAD6 /* TokenStorage.swift in Sources */,
 				1A4366FD1EDA0E1B00CCD11B /* RepositoryOwner.swift in Sources */,
 				1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */,
-				1AAC21CD1EC7AC9D0038B14A /* EnvironmentVariablesReader.swift in Sources */,
+				1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */,
 				1AED93C91ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift in Sources */,
 				1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */,
 				1AF5E4AD1ED6762500040FA7 /* SettingsViewController.swift in Sources */,
