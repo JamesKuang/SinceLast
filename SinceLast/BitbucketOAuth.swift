@@ -12,7 +12,7 @@ struct BitbucketOAuth: OAuthCredentials {
     let service: GitService = .bitbucket
     let authorizationURL = URL(string: "https://bitbucket.org/site/oauth2/authorize")!
 
-    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
+    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.shared
 
     var parameters: [String: String] {
         return ["client_id": keySecretProvider.key,

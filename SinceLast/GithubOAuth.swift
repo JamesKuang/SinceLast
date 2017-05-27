@@ -14,7 +14,7 @@ struct GithubOAuth: OAuthCredentials {
     let service: GitService = .github
     let authorizationURL = URL(string: "https://api.github.com/authorizations")!
 
-    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
+    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.shared
 
     var parameters: [String: String] {
         return ["client_id": keySecretProvider.key,

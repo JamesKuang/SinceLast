@@ -15,7 +15,7 @@ struct OAuthAccessTokenRequest: TypedRequest {
     let path = "/site/oauth2/access_token"
 
     let code: String
-    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider()
+    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.shared
 
     var queryParameters: [String: String] {
         return [

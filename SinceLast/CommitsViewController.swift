@@ -22,13 +22,13 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
-    fileprivate let user: User
+    fileprivate let repositoryOwner: RepositoryOwner
     fileprivate let repository: Repository
     fileprivate var commits: [Commit] = []
 
-    init(client: GitClient, user: User, repository: Repository) {
+    init(client: GitClient, repositoryOwner: RepositoryOwner, repository: Repository) {
         self.gitClient = client
-        self.user = user
+        self.repositoryOwner = repositoryOwner
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("Commits", comment: "Commits screen navigation bar title")
@@ -67,7 +67,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func retrieveCommits() -> Promise<[Commit]> {
-        let request = BitbucketCommitsRequest(userName: user.name, repositorySlug: repository.uuid)
+        let request = BitbucketCommitsRequest(userName: repositoryOwner.uuid, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Commit] in
             return result.commits
         })

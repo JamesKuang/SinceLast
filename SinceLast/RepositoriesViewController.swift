@@ -24,7 +24,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }()
 
     fileprivate var user: User? // FIXME: Retrieve this before coming to this screen
-    fileprivate var repositores: [Repository] = []
+    fileprivate var repositorySections: [RepositorySection] = []
 
     init(client: GitClient) {
         self.gitClient = client
@@ -66,12 +66,17 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     private func fetchData() {
-        let _ = retrieveUser()
-            .then { user in
-                self.user = user
-                return self.retrieveRepositories(for: user)
-            }.then { repositories in
-                self.reload(with: repositories)
+        let retrieveUser = self.retrieveUser()
+        let retrieveTeams = self.retrieveTeams()
+
+        when(fulfilled: retrieveUser, retrieveTeams).then { (user, teams) -> Promise<[RepositorySection]> in
+            self.user = user
+            let usersRepositories = self.retrieveRepositories(for: user)
+            let teamsRepositories = self.retrieveTeamsRepositories(for: teams)
+            let teamOwnedRepositores = self.retrieveTeamOwnedRepositories(for: teams)
+            return when(fulfilled: [usersRepositories] + teamsRepositories + teamOwnedRepositores)
+            }.then { repositorySections in
+                self.reload(with: repositorySections)
             }.catch { error in
                 print(error)
         }
@@ -82,15 +87,40 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return gitClient.send(request: request)
     }
 
-    private func retrieveRepositories(for user: User) -> Promise<[Repository]> {
-        let request = BitbucketRepositoriesRequest(userName: user.name)
-        return gitClient.send(request: request).then(execute: { result -> [Repository] in
-            return result.repositories
+    private func retrieveTeams() -> Promise<[Team]> {
+        let request = BitbucketTeamsRequest()
+        return gitClient.send(request: request).then(execute: { result -> [Team] in
+            return result.teams
         })
     }
 
-    private func reload(with repositories: [Repository]) {
-        self.repositores = repositories
+    private func retrieveRepositories(for user: User) -> Promise<RepositorySection> {
+        let request = BitbucketRepositoriesRequest(userName: user.uuid)
+        return gitClient.send(request: request).then(execute: { result -> RepositorySection in
+            return RepositorySection(repositoryOwner: .user(user), repositories: result.repositories)
+        })
+    }
+
+    private func retrieveTeamsRepositories(for teams: [Team]) -> [Promise<RepositorySection>] {
+        return teams.map { team -> Promise<RepositorySection> in
+            let request = BitbucketRepositoriesRequest(userName: team.uuid)
+            return gitClient.send(request: request).then(execute: { result -> RepositorySection in
+                return RepositorySection(repositoryOwner: .team(team), repositories: result.repositories)
+            })
+        }
+    }
+
+    private func retrieveTeamOwnedRepositories(for teams: [Team]) -> [Promise<RepositorySection>] {
+        return teams.map { team -> Promise<RepositorySection> in
+            let request = BitbucketTeamRepositoriesRequest(userName: team.uuid)
+            return gitClient.send(request: request).then(execute: { result -> RepositorySection in
+                return RepositorySection(repositoryOwner: .team(team), repositories: result.repositories)
+            })
+        }
+    }
+
+    private func reload(with repositorySections: [RepositorySection]) {
+        self.repositorySections = repositorySections
         tableView.reloadData()
     }
 
@@ -102,23 +132,39 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 }
 
 extension RepositoriesViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return repositorySections.count
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return repositores.count
+        let repositorySection = repositorySections[section]
+        return repositorySection.repositories.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(of: RepositoryCell.self, for: indexPath)
-        let repository = repositores[indexPath.item]
+        let repositorySection = repositorySections[indexPath.section]
+        let repository = repositorySection.repositories[indexPath.row]
         cell.configure(with: repository)
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let repositorySection = repositorySections[section]
+        return repositorySection.repositoryOwner.name
     }
 }
 
 extension RepositoriesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let user = self.user else { fatalError("User should've been retrieved") }
-        let repository = repositores[indexPath.item]
-        let controller = CommitsViewController(client: gitClient, user: user, repository: repository)
+        let repositoryGroup = repositorySections[indexPath.section]
+        let repository = repositoryGroup.repositories[indexPath.row]
+        let controller = CommitsViewController(client: gitClient, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
         navigationController?.pushViewController(controller, animated: true)
     }
+}
+
+struct RepositorySection {
+    let repositoryOwner: RepositoryOwner
+    let repositories: [Repository]
 }
