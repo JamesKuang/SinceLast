@@ -12,6 +12,13 @@ enum RepositoryOwner {
     case user(User)
     case team(Team)
 
+    var name: String {
+        switch self {
+        case .user(let user): return user.name
+        case .team(let team): return team.name
+        }
+    }
+
     var uuid: String {
         switch self {
         case .user(let user): return user.uuid

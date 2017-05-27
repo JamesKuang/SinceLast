@@ -148,6 +148,11 @@ extension RepositoriesViewController: UITableViewDataSource {
         cell.configure(with: repository)
         return cell
     }
+
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let repositorySection = repositorySections[section]
+        return repositorySection.repositoryOwner.name
+    }
 }
 
 extension RepositoriesViewController: UITableViewDelegate {
