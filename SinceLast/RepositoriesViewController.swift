@@ -70,11 +70,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         let retrieveUser = self.retrieveUser()
         let retrieveTeams = self.retrieveTeams()
 
-        let _ = when(fulfilled: retrieveUser, retrieveTeams).then { (user, teams) -> Promise<[[Repository]]> in
+        when(fulfilled: retrieveUser, retrieveTeams).then { (user, teams) -> Promise<[[Repository]]> in
             let usersRepositories = self.retrieveRepositories(for: user)
             let teamsRepositories = self.retrieveTeamsRepositories(for: teams)
-            let all = [usersRepositories] + teamsRepositories
-            return when(fulfilled: all)
+            return when(fulfilled: [usersRepositories] + teamsRepositories)
             }.then { repositoryGroups in
                 self.reload(with: repositoryGroups)
             }.catch { error in
@@ -101,14 +100,14 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     private func retrieveTeamRepositories(for team: Team) -> Promise<[Repository]> {
-        let request = BitbucketTeamRepositoriesRequest(userName: team.name)
+        let request = BitbucketRepositoriesRequest(userName: team.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Repository] in
             return result.repositories
         })
     }
 
     private func retrieveRepositories(for user: User) -> Promise<[Repository]> {
-        let request = BitbucketRepositoriesRequest(userName: user.name)
+        let request = BitbucketRepositoriesRequest(userName: user.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Repository] in
             return result.repositories
         })

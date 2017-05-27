@@ -39,7 +39,7 @@ struct BitbucketRepositoriesRequest: TypedRequest {
 struct BitbucketTeamsRequest: TypedRequest {
     typealias ResultType = TeamsResult
 
-    let path = "/2.0/teams/"
+    let path = "/2.0/teams"
 
     let queryParameters: [String: String] = ["role": "contributor"]
 
