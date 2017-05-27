@@ -77,6 +77,6 @@ extension CommitCell: ConfigurableCell {
     func configure(with commit: Commit) {
         messageLabel.text = commit.message
         committerLabel.text = commit.author.name
-        shaLabel.text = commit.shortSHA
+        shaLabel.text = DateFormatters.commitDisplayFormatter.string(from: commit.date)
     }
 }
