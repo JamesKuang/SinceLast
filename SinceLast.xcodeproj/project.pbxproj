@@ -14,6 +14,7 @@
 		1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */; };
 		1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */; };
 		1A4366FB1ED9D59E00CCD11B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4366FA1ED9D59E00CCD11B /* Team.swift */; };
+		1A4366FD1EDA0E1B00CCD11B /* RepositoryOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4366FC1EDA0E1B00CCD11B /* RepositoryOwner.swift */; };
 		1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A680C4B1EC54E50009D2ECC /* GitService.swift */; };
 		1A7AAE4E1ED0B3CB00D29908 /* BitbucketRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */; };
 		1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */; };
@@ -84,6 +85,7 @@
 		1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
 		1A4366FA1ED9D59E00CCD11B /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
+		1A4366FC1EDA0E1B00CCD11B /* RepositoryOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwner.swift; sourceTree = "<group>"; };
 		1A680C4B1EC54E50009D2ECC /* GitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketRequests.swift; sourceTree = "<group>"; };
 		1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -276,9 +278,10 @@
 			isa = PBXGroup;
 			children = (
 				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
-				1A7B5EA01EC1656200F9EC65 /* User.swift */,
 				1A9A88861ED22EAF00A0D8A6 /* Repository.swift */,
 				1A4366FA1ED9D59E00CCD11B /* Team.swift */,
+				1A7B5EA01EC1656200F9EC65 /* User.swift */,
+				1A4366FC1EDA0E1B00CCD11B /* RepositoryOwner.swift */,
 			);
 			name = "Git Models";
 			sourceTree = "<group>";
@@ -497,6 +500,7 @@
 				1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */,
 				1A7AAE4E1ED0B3CB00D29908 /* BitbucketRequests.swift in Sources */,
 				1AED93D21ECFDBAD0017FAD6 /* TokenStorage.swift in Sources */,
+				1A4366FD1EDA0E1B00CCD11B /* RepositoryOwner.swift in Sources */,
 				1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */,
 				1AAC21CD1EC7AC9D0038B14A /* EnvironmentVariablesReader.swift in Sources */,
 				1AED93C91ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift in Sources */,
