@@ -23,7 +23,6 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
-    fileprivate var user: User? // FIXME: Retrieve this before coming to this screen
     fileprivate var repositorySections: [RepositorySection] = []
 
     init(client: GitClient) {
@@ -70,7 +69,6 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         let retrieveTeams = self.retrieveTeams()
 
         when(fulfilled: retrieveUser, retrieveTeams).then { (user, teams) -> Promise<[RepositorySection]> in
-            self.user = user
             let usersRepositories = self.retrieveRepositories(for: user)
             let teamsRepositories = self.retrieveTeamsRepositories(for: teams)
             let teamOwnedRepositores = self.retrieveTeamOwnedRepositories(for: teams)
