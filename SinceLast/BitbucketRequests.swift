@@ -95,3 +95,25 @@ struct BitbucketCommitsRequest: TypedRequest {
         }
     }
 }
+
+struct BitbucketPullRequestsRequest: TypedRequest {
+    typealias ResultType = PullRequestsResult
+
+    let userName: String
+    let repositorySlug: String
+
+    let queryParameters: [String: String] = ["state": "open"]
+
+    var path: String {
+        return "/2.0/repositories/\(userName)/\(repositorySlug)/pullrequests"
+    }
+
+    struct PullRequestsResult: JSONInitializable {
+        let pullRequests: [PullRequest]
+
+        init(json: JSON) throws {
+            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
+            self.pullRequests = try values.flatMap { try PullRequest(json: $0) }
+        }
+    }
+}

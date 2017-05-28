@@ -26,12 +26,14 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
+    fileprivate let currentUser: User
     fileprivate let repositoryOwner: RepositoryOwner
     fileprivate let repository: Repository
     fileprivate var commits: [Commit] = []
 
-    init(client: GitClient, repositoryOwner: RepositoryOwner, repository: Repository) {
+    init(client: GitClient, currentUser: User, repositoryOwner: RepositoryOwner, repository: Repository) {
         self.gitClient = client
+        self.currentUser = currentUser
         self.repositoryOwner = repositoryOwner
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
@@ -69,12 +71,24 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
             }.catch { error in
                 print(error)
         }
+
+        let _ = retrievePullRequests().then { pullRequests -> Void in
+            let filtered = pullRequests.filter { $0.author != self.currentUser }
+            print(filtered.count)
+        }
     }
 
     private func retrieveCommits() -> Promise<[Commit]> {
         let request = BitbucketCommitsRequest(userName: repositoryOwner.uuid, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Commit] in
             return result.commits
+        })
+    }
+
+    private func retrievePullRequests() -> Promise<[PullRequest]> {
+        let request = BitbucketPullRequestsRequest(userName: repositoryOwner.uuid, repositorySlug: repository.uuid)
+        return gitClient.send(request: request).then(execute: { result -> [PullRequest] in
+            return result.pullRequests
         })
     }
 

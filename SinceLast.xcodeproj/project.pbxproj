@@ -13,6 +13,7 @@
 		1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */; };
 		1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */; };
 		1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */; };
+		1A18C61B1EDA8CC30039A9E0 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */; };
 		1A4366FB1ED9D59E00CCD11B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4366FA1ED9D59E00CCD11B /* Team.swift */; };
 		1A4366FD1EDA0E1B00CCD11B /* RepositoryOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4366FC1EDA0E1B00CCD11B /* RepositoryOwner.swift */; };
 		1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A680C4B1EC54E50009D2ECC /* GitService.swift */; };
@@ -85,6 +86,7 @@
 		1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		1A4366FA1ED9D59E00CCD11B /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		1A4366FC1EDA0E1B00CCD11B /* RepositoryOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwner.swift; sourceTree = "<group>"; };
 		1A680C4B1EC54E50009D2ECC /* GitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
+				1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */,
 				1A9A88861ED22EAF00A0D8A6 /* Repository.swift */,
 				1A4366FA1ED9D59E00CCD11B /* Team.swift */,
 				1A7B5EA01EC1656200F9EC65 /* User.swift */,
@@ -513,6 +516,7 @@
 				1A8769BD1ED8AB4200895E89 /* GithubOAuth.swift in Sources */,
 				1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */,
 				1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */,
+				1A18C61B1EDA8CC30039A9E0 /* PullRequest.swift in Sources */,
 				1AED93CF1ECFD9C20017FAD6 /* BitbucketOAuth.swift in Sources */,
 				1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */,
 				1AE2D07F1EC804960007ACBD /* Request.swift in Sources */,

@@ -150,9 +150,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     fileprivate func commitsController(for indexPath: IndexPath) -> CommitsViewController {
+        guard let user = currentUser else { fatalError("Current user must exist if the next VC is requested") }
         let repositoryGroup = repositorySections[indexPath.section]
         let repository = repositoryGroup.repositories[indexPath.row]
-        return CommitsViewController(client: gitClient, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
+        return CommitsViewController(client: gitClient, currentUser: user, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
     }
 }
 
