@@ -7,15 +7,83 @@
 //
 
 import UIKit
+import MessageUI
+
+protocol SettingsDisplayable {
+    var title: String { get }
+    var color: UIColor { get }
+}
 
 final class SettingsViewController: UIViewController {
     enum Section: Int, CaseCountable {
+        case help
         case logout
+
+        enum Help: Int, CaseCountable, SettingsDisplayable {
+            case contact
+            case tweet
+            case rate
+
+            init(_ row: Int) {
+                switch row {
+                case 0: self = .contact
+                case 1: self = .tweet
+                case 2: self = .rate
+                default: fatalError("Unsupported row")
+                }
+            }
+
+            var title: String {
+                switch self {
+                case .contact: return NSLocalizedString("Feedback & Feature Request", comment: "Feedback row text")
+                case .tweet: return NSLocalizedString("Tweet @jamskuang", comment: "Tweet row text")
+                case .rate: return NSLocalizedString("Help Rate Since Last", comment: "Rate app row text")
+                }
+            }
+
+            var color: UIColor {
+                return .black
+            }
+        }
+
+        enum Logout: Int, CaseCountable, SettingsDisplayable {
+            case logout
+
+            init(_ row: Int) {
+                switch row {
+                case 0: self = .logout
+                default: fatalError("Unsupported row")
+                }
+            }
+
+            var title: String {
+                return NSLocalizedString("Log Out", comment: "Log Out row text")
+            }
+
+            var color: UIColor {
+                return .red
+            }
+        }
 
         init(_ section: Int) {
             switch section {
-            case 0: self = .logout
+            case 0: self = .help
+            case 1: self = .logout
             default: fatalError("Unsupported section")
+            }
+        }
+
+        var count: Int {
+            switch self {
+            case .help: return Section.Help.count
+            case .logout: return Section.Logout.count
+            }
+        }
+
+        func rowRisplayable(for row: Int) -> SettingsDisplayable {
+            switch self {
+            case .help: return Section.Help(row)
+            case .logout: return Section.Logout(row)
             }
         }
     }
@@ -69,8 +137,38 @@ final class SettingsViewController: UIViewController {
         tableView.tableFooterView = footerLabel
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: animated)
+        }
+    }
+
     private dynamic func tappedCloseButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
+    }
+
+    fileprivate func sendFeedback() {
+        guard MFMailComposeViewController.canSendMail() else { return }
+        let controller = MFMailComposeViewController()
+        controller.mailComposeDelegate = self
+        controller.setToRecipients([Links.contactEmail])
+        present(controller, animated: true, completion: nil)
+    }
+
+    fileprivate func composeTweet(from indexPath: IndexPath) {
+        guard let url = URL(string: Links.twitterURLJames) else { fatalError("Twitter URL is malformed") }
+        UIApplication.shared.open(url, options: [:], completionHandler: { success in
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        })
+    }
+
+    fileprivate func rateApp(from indexPath: IndexPath) {
+        guard let url = URL(string: Links.reviewURL) else { fatalError("Review URL is malformed") }
+        UIApplication.shared.open(url, options: [:], completionHandler: { success in
+            self.tableView.deselectRow(at: indexPath, animated: true)
+        })
     }
 
     fileprivate func logout() {
@@ -85,23 +183,19 @@ extension SettingsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch Section(section) {
-        case .logout: return 1
-        }
+        return Section(section).count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(of: SettingsCell.self, for: indexPath)
-        switch Section(indexPath.section) {
-        case .logout:
-            cell.configure(with: NSLocalizedString("Log Out", comment: "Log Out row text"))
-            cell.textLabel?.textColor = .red
-        }
+        let row = Section(indexPath.section).rowRisplayable(for: indexPath.row)
+        cell.configure(with: row)
         return cell
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch Section(section) {
+        case .help: return NSLocalizedString("Help", comment: "Help section title in Settings")
         case .logout: return currentUser.name
         }
     }
@@ -110,7 +204,27 @@ extension SettingsViewController: UITableViewDataSource {
 extension SettingsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch Section(indexPath.section) {
+        case .help:
+            switch Section.Help(indexPath.row) {
+            case .contact: sendFeedback()
+            case .tweet: composeTweet(from: indexPath)
+            case .rate: rateApp(from: indexPath)
+            }
         case .logout: logout()
         }
+    }
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension SettingsViewController {
+    enum Links {
+        static let contactEmail = "incyc.apps@gmail.com"
+        static let twitterURLJames = "https://twitter.com/jamskuang"
+        static let reviewURL = "itms-apps://itunes.apple.com/us/app/id1234428549?action=write-review&mt=8"
     }
 }

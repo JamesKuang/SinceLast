@@ -16,7 +16,8 @@ final class SettingsCell: UITableViewCell {
 }
 
 extension SettingsCell: ConfigurableCell {
-    func configure(with title: String) {
-        textLabel?.text = title
+    func configure(with displayable: SettingsDisplayable) {
+        textLabel?.text = displayable.title
+        textLabel?.textColor = displayable.color
     }
 }
