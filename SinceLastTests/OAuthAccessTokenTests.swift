@@ -22,13 +22,12 @@ class OAuthAccessTokenTests: XCTestCase {
             "expires_in": expirationInSeconds,
             ]
 
-        let token = OAuthAccessToken(json: json)
-        XCTAssertNotNil(token)
-        XCTAssertEqual(token!.token, access)
-        XCTAssertEqual(token!.refreshToken, refresh)
+        let token = try! OAuthAccessToken(json: json)
+        XCTAssertEqual(token.token, access)
+        XCTAssertEqual(token.refreshToken, refresh)
 
         let expectedExpiration = Date(timeIntervalSinceNow: TimeInterval(expirationInSeconds))
-        let result = Calendar.current.compare(token!.expiration, to: expectedExpiration, toGranularity: .second)
+        let result = Calendar.current.compare(token.expiration, to: expectedExpiration, toGranularity: .second)
         XCTAssertEqual(result, .orderedSame)
     }
 
