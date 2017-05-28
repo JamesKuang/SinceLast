@@ -12,6 +12,12 @@ import PromiseKit
 final class CommitsViewController: UIViewController, GitClientRequiring {
     let gitClient: GitClient
 
+    private let headerView: HeaderView = {
+        let view = HeaderView()
+        view.autoresizingMask = [.flexibleWidth]
+        return view
+    }()
+
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -60,6 +66,8 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
+        tableView.tableHeaderView = headerView
+        headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 40.0)
         
         fetchData()
     }
@@ -75,6 +83,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         let _ = retrievePullRequests().then { pullRequests -> Void in
             let filtered = pullRequests.filter { $0.author != self.currentUser }
             print(filtered.count)
+            self.headerView.update(with: filtered.count)
         }
     }
 
@@ -119,5 +128,49 @@ extension CommitsViewController: UITableViewDataSource {
 extension CommitsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
+    }
+}
+
+private final class HeaderView: UIView {
+    private let leftLabel: UILabel = {
+        let leftLabel = UILabel()
+        leftLabel.translatesAutoresizingMaskIntoConstraints = false
+        leftLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        leftLabel.textColor = .gray
+        leftLabel.text = NSLocalizedString("Open Pull Requests:", comment: "Open pull requests label text")
+        return leftLabel
+    }()
+
+    private let rightLabel: UILabel = {
+        let rightLabel = UILabel()
+        rightLabel.translatesAutoresizingMaskIntoConstraints = false
+        rightLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        rightLabel.text = NSLocalizedString("N/A", comment: "Not Available acryonym text")
+        return rightLabel
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        addSubview(leftLabel)
+        addSubview(rightLabel)
+
+        let padding: CGFloat = 10.0
+        NSLayoutConstraint.activate([
+            leftLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
+            rightLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: padding),
+            rightLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: padding),
+            leftLabel.topAnchor.constraint(equalTo: topAnchor),
+            leftLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            leftLabel.centerYAnchor.constraint(equalTo: rightLabel.centerYAnchor),
+            ])
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    func update(with count: Int) {
+        rightLabel.text = String(count)
     }
 }
