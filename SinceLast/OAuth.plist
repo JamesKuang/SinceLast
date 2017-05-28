@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Bitbucket</key>
+	<dict>
+		<key>key</key>
+		<string>fake-key</string>
+		<key>secret</key>
+		<string>fake-secret</string>
+	</dict>
+</dict>
+</plist>
