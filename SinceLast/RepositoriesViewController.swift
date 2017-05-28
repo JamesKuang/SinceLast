@@ -23,6 +23,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
+    fileprivate var currentUser: User?
     fileprivate var repositorySections: [RepositorySection] = []
 
     init(client: GitClient) {
@@ -82,7 +83,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     private func retrieveUser() -> Promise<User> {
         let request = BitbucketUserRequest()
-        return gitClient.send(request: request)
+        return gitClient.send(request: request).then(execute: { user -> Promise<User> in
+            self.currentUser = user
+            return Promise(value: user)
+        })
     }
 
     private func retrieveTeams() -> Promise<[Team]> {
@@ -123,7 +127,8 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
-        let controller = SettingsViewController()
+        guard let user = self.currentUser else { return }
+        let controller = SettingsViewController(currentUser: user)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }

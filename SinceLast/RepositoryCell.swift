@@ -74,18 +74,18 @@ final class RepositoryCell: UITableViewCell {
 
 extension RepositoryCell: ConfigurableCell {
     func configure(with repository: Repository) {
-        avatarView.kf.indicatorType = .activity
-        let modifier = AnyModifier { request in
-            let keySecretProvider = OAuthKeySecretProvider.shared
-            let scheme: AuthorizationHeaderScheme = .basic(user: keySecretProvider.key, password: keySecretProvider.secret)
-            var r = request
-            r.setValue(scheme.value, forHTTPHeaderField: scheme.key)
-            return r
-        }
-        avatarView.kf.setImage(with: URL(string: repository.avatarURL), options: [.requestModifier(modifier)], completionHandler: {
-            (image, error, cacheType, imageUrl) in
-            print(error)
-        })
+//        avatarView.kf.indicatorType = .activity
+//        let modifier = AnyModifier { request in
+//            let keySecretProvider = OAuthKeySecretProvider.shared
+//            let scheme: AuthorizationHeaderScheme = .basic(user: keySecretProvider.key, password: keySecretProvider.secret)
+//            var r = request
+//            r.setValue(scheme.value, forHTTPHeaderField: scheme.key)
+//            return r
+//        }
+//        avatarView.kf.setImage(with: URL(string: repository.avatarURL), options: [.requestModifier(modifier)], completionHandler: {
+//            (image, error, cacheType, imageUrl) in
+//            print(error)
+//        })
 
         titleLabel.text = repository.name
         ownerLabel.text = repository.owner.name
