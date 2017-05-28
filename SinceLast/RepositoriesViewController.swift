@@ -9,11 +9,15 @@
 import UIKit
 import PromiseKit
 
+struct RepositorySection {
+    let repositoryOwner: RepositoryOwner
+    let repositories: [Repository]
+}
+
 final class RepositoriesViewController: UIViewController, GitClientRequiring {
     let gitClient: GitClient
 
-    private lazy var tableView: UITableView = {
-        let layout = UICollectionViewFlowLayout()
+    fileprivate let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
@@ -52,6 +56,8 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         tableView.register(cell: RepositoryCell.self)
         tableView.dataSource = self
         tableView.delegate = self
+
+        registerForPreviewing(with: self, sourceView: tableView)
 
         fetchData()
     }
@@ -132,6 +138,12 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }
+
+    fileprivate func commitsController(for indexPath: IndexPath) -> CommitsViewController {
+        let repositoryGroup = repositorySections[indexPath.section]
+        let repository = repositoryGroup.repositories[indexPath.row]
+        return CommitsViewController(client: gitClient, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
+    }
 }
 
 extension RepositoriesViewController: UITableViewDataSource {
@@ -160,14 +172,19 @@ extension RepositoriesViewController: UITableViewDataSource {
 
 extension RepositoriesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let repositoryGroup = repositorySections[indexPath.section]
-        let repository = repositoryGroup.repositories[indexPath.row]
-        let controller = CommitsViewController(client: gitClient, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
+        let controller = commitsController(for: indexPath)
         navigationController?.pushViewController(controller, animated: true)
     }
 }
 
-struct RepositorySection {
-    let repositoryOwner: RepositoryOwner
-    let repositories: [Repository]
+extension RepositoriesViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        let controller = commitsController(for: indexPath)
+        return controller
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
+    }
 }
