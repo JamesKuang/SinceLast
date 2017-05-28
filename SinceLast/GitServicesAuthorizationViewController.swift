@@ -129,6 +129,8 @@ final class GitServicesAuthorizationViewController: UIViewController {
             button.widthAnchor.constraint(equalTo: button.heightAnchor, multiplier: 2.5),
         ])
 
+        addMotionEffect(to: button)
+
         return button
     }
 
@@ -145,6 +147,20 @@ final class GitServicesAuthorizationViewController: UIViewController {
         controller.delegate = self
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
+    }
+
+    private func addMotionEffect(to view: UIView) {
+        let effectValue = 10
+        let horizontalEffect = UIInterpolatingMotionEffect(keyPath: "center.x", type: .tiltAlongHorizontalAxis)
+        horizontalEffect.minimumRelativeValue = -effectValue
+        horizontalEffect.maximumRelativeValue = effectValue
+        let verticalEffect = UIInterpolatingMotionEffect(keyPath: "center.y", type: .tiltAlongVerticalAxis)
+        verticalEffect.minimumRelativeValue = -effectValue
+        verticalEffect.maximumRelativeValue = effectValue
+
+        let group = UIMotionEffectGroup()
+        group.motionEffects = [horizontalEffect, verticalEffect]
+        view.addMotionEffect(group)
     }
 }
 

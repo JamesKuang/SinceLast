@@ -12,7 +12,7 @@ import PromiseKit
 final class CommitsViewController: UIViewController, GitClientRequiring {
     let gitClient: GitClient
 
-    private lazy var tableView: UITableView = {
+    private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
