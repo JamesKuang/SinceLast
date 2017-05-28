@@ -37,7 +37,7 @@ final class SettingsViewController: UIViewController {
                 switch self {
                 case .contact: return NSLocalizedString("Feedback & Feature Request", comment: "Feedback row text")
                 case .tweet: return NSLocalizedString("Tweet @jamskuang", comment: "Tweet row text")
-                case .rate: return NSLocalizedString("Help Rate Since Last", comment: "Rate app row text")
+                case .rate: return NSLocalizedString("Rate on App Store", comment: "Rate app row text")
                 }
             }
 

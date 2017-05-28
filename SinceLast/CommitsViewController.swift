@@ -19,6 +19,10 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80.0
         tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 56.0, bottom: 0.0, right: 0.0)
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = ThemeColor.darkOrange.color
+        tableView.refreshControl = refreshControl
         return tableView
     }()
 
@@ -53,6 +57,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         tableView.register(cell: CommitCell.self)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
         
         fetchData()
     }
@@ -75,7 +80,12 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
     private func reload(with commits: [Commit]) {
         self.commits = commits
+        tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
+    }
+
+    private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
+        fetchData()
     }
 }
 

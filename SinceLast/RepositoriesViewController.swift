@@ -24,6 +24,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70.0
         tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 56.0, bottom: 0.0, right: 0.0)
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = ThemeColor.darkOrange.color
+        tableView.refreshControl = refreshControl
         return tableView
     }()
 
@@ -56,6 +60,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         tableView.register(cell: RepositoryCell.self)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
 
         registerForPreviewing(with: self, sourceView: tableView)
 
@@ -129,6 +134,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     private func reload(with repositorySections: [RepositorySection]) {
         self.repositorySections = repositorySections
+        tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
 
@@ -137,6 +143,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         let controller = SettingsViewController(currentUser: user)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
+    }
+
+    private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
+        fetchData()
     }
 
     fileprivate func commitsController(for indexPath: IndexPath) -> CommitsViewController {
