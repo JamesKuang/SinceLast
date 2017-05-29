@@ -26,7 +26,9 @@ final class AppCoordinator {
     }
 
     private func setAppearanceProxies() {
-        UIBarButtonItem.appearance().tintColor = ThemeColor.darkOrange.color
+        let color = ThemeColor.darkOrange.color
+        UIBarButtonItem.appearance().tintColor = color
+        UINavigationBar.appearance().tintColor = color
     }
 
     @discardableResult

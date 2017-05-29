@@ -67,7 +67,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         tableView.delegate = self
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
         tableView.tableHeaderView = headerView
-        headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 40.0)
+        headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 50.0)
         
         fetchData()
     }
@@ -144,7 +144,7 @@ private final class HeaderView: UIView {
     private let rightLabel: UILabel = {
         let rightLabel = UILabel()
         rightLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightLabel.font = UIFont.preferredFont(forTextStyle: .body)
+        rightLabel.font = UIFont.preferredFont(forTextStyle: .headline)
         rightLabel.text = NSLocalizedString("N/A", comment: "Not Available acryonym text")
         return rightLabel
     }()
@@ -177,5 +177,6 @@ private final class HeaderView: UIView {
 
     func update(with count: Int) {
         rightLabel.text = String(count)
+        rightLabel.textColor = count > 0 ? ThemeColor.darkOrange.color : .black
     }
 }
