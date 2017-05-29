@@ -156,13 +156,21 @@ private final class HeaderView: UIView {
         addSubview(rightLabel)
 
         let padding: CGFloat = 10.0
+        let left = leftLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: padding)
+        let center = rightLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: padding)
+        let right = rightLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -padding)
+        left.priority = 999
+        center.priority = 999
+        right.priority = 999
+
         NSLayoutConstraint.activate([
-            leftLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: padding),
-            rightLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: padding),
-            rightLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: padding),
+            left,
+            center,
+            right,
             leftLabel.topAnchor.constraint(equalTo: topAnchor),
             leftLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            leftLabel.centerYAnchor.constraint(equalTo: rightLabel.centerYAnchor),
+            rightLabel.topAnchor.constraint(equalTo: topAnchor),
+            rightLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             ])
     }
 
