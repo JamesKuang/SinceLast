@@ -13,6 +13,7 @@
 		1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */; };
 		1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */; };
 		1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */; };
+		1A17BA2D1EDC785100D910AB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */; };
 		1A18C61B1EDA8CC30039A9E0 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */; };
 		1A4366FB1ED9D59E00CCD11B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4366FA1ED9D59E00CCD11B /* Team.swift */; };
 		1A4366FD1EDA0E1B00CCD11B /* RepositoryOwner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4366FC1EDA0E1B00CCD11B /* RepositoryOwner.swift */; };
@@ -86,6 +87,7 @@
 		1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		1A4366FA1ED9D59E00CCD11B /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		1A4366FC1EDA0E1B00CCD11B /* RepositoryOwner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwner.swift; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 			isa = PBXGroup;
 			children = (
 				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
+				1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */,
 				1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */,
 				1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */,
 				1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */,
@@ -504,6 +507,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1A17BA2D1EDC785100D910AB /* FavoritesViewController.swift in Sources */,
 				1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */,
 				1A7AAE4E1ED0B3CB00D29908 /* BitbucketRequests.swift in Sources */,
 				1AED93D21ECFDBAD0017FAD6 /* TokenStorage.swift in Sources */,

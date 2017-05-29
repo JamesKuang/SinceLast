@@ -31,14 +31,14 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
-    fileprivate var currentUser: User?
+    fileprivate let currentUser: User
     fileprivate var repositorySections: [RepositorySection] = []
 
-    init(client: GitClient) {
+    init(currentUser: User, client: GitClient) {
+        self.currentUser = currentUser
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("Repositories", comment: "Repositories screen navigation bar title")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(tappedSettingsButton(_:)))
 
         view.addSubview(tableView)
 
@@ -94,10 +94,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     private func retrieveUser() -> Promise<User> {
         let request = BitbucketUserRequest()
-        return gitClient.send(request: request).then(execute: { user -> Promise<User> in
-            self.currentUser = user
-            return Promise(value: user)
-        })
+        return gitClient.send(request: request)
     }
 
     private func retrieveTeams() -> Promise<[Team]> {
@@ -138,22 +135,14 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         tableView.reloadData()
     }
 
-    private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
-        guard let user = self.currentUser else { return }
-        let controller = SettingsViewController(currentUser: user)
-        let navigationController = UINavigationController(rootViewController: controller)
-        present(navigationController, animated: true)
-    }
-
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
         fetchData()
     }
 
     fileprivate func commitsController(for indexPath: IndexPath) -> CommitsViewController {
-        guard let user = currentUser else { fatalError("Current user must exist if the next VC is requested") }
         let repositoryGroup = repositorySections[indexPath.section]
         let repository = repositoryGroup.repositories[indexPath.row]
-        return CommitsViewController(client: gitClient, currentUser: user, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
+        return CommitsViewController(client: gitClient, currentUser: currentUser, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
     }
 }
 

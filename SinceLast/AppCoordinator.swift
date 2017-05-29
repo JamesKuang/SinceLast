@@ -35,7 +35,8 @@ final class AppCoordinator {
     func startLaunchViewController() -> UIViewController {
         let controller: UIViewController
         if isAuthorized {
-            controller = RepositoriesViewController(client: gitClient)
+//            controller = RepositoriesViewController(client: gitClient)
+            controller = FavoritesViewController(client: gitClient)
         } else {
             let credentials: [OAuthCredentials] = [
                 GithubOAuth(),
