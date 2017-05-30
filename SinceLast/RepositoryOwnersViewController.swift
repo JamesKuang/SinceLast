@@ -169,6 +169,9 @@ extension RepositoryOwnersViewController: UITableViewDelegate {
 extension RepositoryOwnersViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        if let cell = tableView.cellForRow(at: indexPath) {
+            previewingContext.sourceRect = cell.frame
+        }
         return nextViewController(for: indexPath)
     }
 

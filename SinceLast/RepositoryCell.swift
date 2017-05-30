@@ -48,8 +48,6 @@ final class RepositoryCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-        accessoryType = .disclosureIndicator
-
         contentView.addSubview(avatarView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)

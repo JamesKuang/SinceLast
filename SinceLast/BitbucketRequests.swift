@@ -53,6 +53,7 @@ struct BitbucketTeamsRequest: TypedRequest {
     }
 }
 
+// Not used, figure out if this is needed.
 struct BitbucketTeamRepositoriesRequest: TypedRequest {
     typealias ResultType = RepositoriesResult
 
@@ -102,7 +103,7 @@ struct BitbucketPullRequestsRequest: TypedRequest {
     let userName: String
     let repositorySlug: String
 
-    let queryParameters: [String: String] = ["state": "open"]
+    let queryParameters: [String: String] = [:]
 
     var path: String {
         return "/2.0/repositories/\(userName)/\(repositorySlug)/pullrequests"
