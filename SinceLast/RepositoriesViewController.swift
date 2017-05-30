@@ -185,8 +185,7 @@ extension RepositoriesViewController: UITableViewDelegate {
 extension RepositoriesViewController: UIViewControllerPreviewingDelegate {
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
         guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
-        let controller = commitsController(for: indexPath)
-        return controller
+        return commitsController(for: indexPath)
     }
 
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {

@@ -75,6 +75,9 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         tableView.register(cell: RepositoryOwnerCell.self)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
+
+        registerForPreviewing(with: self, sourceView: tableView)
 
         fetchData()
     }
@@ -160,5 +163,16 @@ extension RepositoryOwnersViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let controller = nextViewController(for: indexPath)
         navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension RepositoryOwnersViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        return nextViewController(for: indexPath)
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }
