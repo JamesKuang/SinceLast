@@ -71,6 +71,14 @@ final class CommitCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+
+        messageLabel.text = nil
+        committerLabel.text = nil
+        shaLabel.text = nil
+    }
 }
 
 extension CommitCell: ConfigurableCell {

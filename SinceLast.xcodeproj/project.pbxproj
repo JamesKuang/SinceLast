@@ -35,6 +35,9 @@
 		1AA4FFE41EC15DA100F26BAB /* DateToDataConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */; };
 		1AA4FFEF1EC15DA100F26BAB /* SinceLastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */; };
 		1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFFC1EC161F100F26BAB /* Commit.swift */; };
+		1AA9F0B31EDD097100E13904 /* RepositoryOwnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA9F0B21EDD097100E13904 /* RepositoryOwnersViewController.swift */; };
+		1AA9F0B51EDD0A3200E13904 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA9F0B41EDD0A3200E13904 /* EmptyView.swift */; };
+		1AA9F0B71EDD0D4A00E13904 /* RepositoryOwnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA9F0B61EDD0D4A00E13904 /* RepositoryOwnerCell.swift */; };
 		1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */; };
 		1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */; };
 		1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */; };
@@ -115,6 +118,9 @@
 		1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastUITests.swift; sourceTree = "<group>"; };
 		1AA4FFF01EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFFC1EC161F100F26BAB /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		1AA9F0B21EDD097100E13904 /* RepositoryOwnersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwnersViewController.swift; sourceTree = "<group>"; };
+		1AA9F0B41EDD0A3200E13904 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		1AA9F0B61EDD0D4A00E13904 /* RepositoryOwnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwnerCell.swift; sourceTree = "<group>"; };
 		1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationURLOpening.swift; sourceTree = "<group>"; };
 		1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
@@ -174,8 +180,10 @@
 			isa = PBXGroup;
 			children = (
 				1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */,
+				1AA9F0B61EDD0D4A00E13904 /* RepositoryOwnerCell.swift */,
 				1ABD6BBC1ED7938600AD002E /* CommitCell.swift */,
 				1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */,
+				1AA9F0B41EDD0A3200E13904 /* EmptyView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -273,6 +281,7 @@
 			children = (
 				1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */,
 				1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */,
+				1AA9F0B21EDD097100E13904 /* RepositoryOwnersViewController.swift */,
 				1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */,
 				1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */,
 				1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */,
@@ -527,12 +536,15 @@
 				1AED93CB1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift in Sources */,
 				1A4366FB1ED9D59E00CCD11B /* Team.swift in Sources */,
 				1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */,
+				1AA9F0B71EDD0D4A00E13904 /* RepositoryOwnerCell.swift in Sources */,
 				1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
 				1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */,
 				1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */,
+				1AA9F0B51EDD0A3200E13904 /* EmptyView.swift in Sources */,
 				1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */,
 				1ABD6BBD1ED7938600AD002E /* CommitCell.swift in Sources */,
+				1AA9F0B31EDD097100E13904 /* RepositoryOwnersViewController.swift in Sources */,
 				1AF5E4B11ED67A7200040FA7 /* SettingsCell.swift in Sources */,
 				1ABD6BBB1ED791F500AD002E /* CommitsViewController.swift in Sources */,
 				1A0C2E111ED0A17A00107D5B /* GitClient.swift in Sources */,

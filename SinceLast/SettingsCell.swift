@@ -11,6 +11,7 @@ import UIKit
 final class SettingsCell: UITableViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
+        textLabel?.text = nil
         textLabel?.textColor = .black
     }
 }

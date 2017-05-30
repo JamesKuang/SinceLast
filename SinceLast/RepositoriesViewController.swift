@@ -31,11 +31,11 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
-    fileprivate let currentUser: User
+    fileprivate let owner: RepositoryOwner
     fileprivate var repositorySections: [RepositorySection] = []
 
-    init(currentUser: User, client: GitClient) {
-        self.currentUser = currentUser
+    init(owner: RepositoryOwner, client: GitClient) {
+        self.owner = owner
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
 
@@ -71,7 +71,6 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
 
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedIndexPath, animated: animated)
@@ -148,7 +147,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     fileprivate func commitsController(for indexPath: IndexPath) -> CommitsViewController {
         let repositoryGroup = repositorySections[indexPath.section]
         let repository = repositoryGroup.repositories[indexPath.row]
-        return CommitsViewController(client: gitClient, currentUser: currentUser, repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)
+        return CommitsViewController(client: gitClient, currentUser: User(uuid: "", name: ""), repositoryOwner: repositoryGroup.repositoryOwner, repository: repository)    // FIXME:
     }
 }
 

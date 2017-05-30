@@ -82,12 +82,21 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         fetchData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedIndexPath, animated: animated)
+        }
+    }
+
     private func fetchData() {
         let _ = self.retrieveUser().then(execute: { user in
             self.currentUser = user
         })
 
-        self.repositories = []
+        self.repositories = []  // FIXME:
     }
 
     private func retrieveUser() -> Promise<User> {
@@ -114,54 +123,8 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
 
     private dynamic func tappedAddFavorite(_ sender: UIBarButtonItem) {
         guard let user = self.currentUser else { return }
-        let controller = RepositoriesViewController(currentUser: user, client: gitClient)
+        let controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
-    }
-}
-
-final class EmptyView: UIView {
-    fileprivate let messageLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
-
-    fileprivate let actionButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitleColor(ThemeColor.darkOrange.color, for: .normal)
-        button.setTitleColor(ThemeColor.lightOrange.color, for: .highlighted)
-        return button
-    }()
-
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.spacing = 5.0
-        return stackView
-    }()
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-
-        addSubview(stackView)
-        stackView.addArrangedSubview(messageLabel)
-        stackView.addArrangedSubview(actionButton)
-
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            ])
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
