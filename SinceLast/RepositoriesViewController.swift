@@ -38,7 +38,9 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         self.currentUser = currentUser
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
-        title = NSLocalizedString("Repositories", comment: "Repositories screen navigation bar title")
+
+        title = NSLocalizedString("Add Repository", comment: "Add Repository screen navigation bar title")
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Close settings navigation bar button"), style: .plain, target: self, action: #selector(tappedCloseButton(_:)))
 
         view.addSubview(tableView)
 
@@ -133,6 +135,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         self.repositorySections = repositorySections
         tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
+    }
+
+    private dynamic func tappedCloseButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
