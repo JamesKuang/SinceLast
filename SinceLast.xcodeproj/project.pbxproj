@@ -341,8 +341,8 @@
 		1AED93CD1ECFD8CA0017FAD6 /* Storage */ = {
 			isa = PBXGroup;
 			children = (
-				1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */,
 				1AED93D11ECFDBAD0017FAD6 /* TokenStorage.swift */,
+				1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */,
 			);
 			name = Storage;
 			sourceTree = "<group>";

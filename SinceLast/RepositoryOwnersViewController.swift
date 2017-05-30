@@ -52,7 +52,8 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         self.userOwner = [RepositoryOwner.user(currentUser)]
         super.init(nibName: nil, bundle: nil)
 
-        title = NSLocalizedString("Add Repository", comment: "Add Repository screen navigation bar title")
+        title = NSLocalizedString("Add Repository", comment: "Repository owners screen navigation bar title")
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Close settings navigation bar button"), style: .plain, target: self, action: #selector(tappedCloseButton(_:)))
 
         view.addSubview(tableView)
