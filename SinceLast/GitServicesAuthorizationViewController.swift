@@ -24,13 +24,10 @@ final class GitServicesAuthorizationViewController: UIViewController {
         return pastelView
     }()
 
-    private let topLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = NSLocalizedString("Since Last", comment: "Since Last app name")
-        label.textColor = .white
-        label.font = UIFont.boldSystemFont(ofSize: 38.0)
-        return label
+    private let imageView: UIImageView = {
+        let imageView = UIImageView(image: #imageLiteral(resourceName: "commit"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
 
     private let servicesStackView: UIStackView = {
@@ -53,7 +50,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
         view.backgroundColor = .white
 
         view.insertSubview(backgroundView, at: 0)
-        view.addSubview(topLabel)
+        view.addSubview(imageView)
         view.addSubview(servicesStackView)
 
         NSLayoutConstraint.activate([
@@ -61,9 +58,9 @@ final class GitServicesAuthorizationViewController: UIViewController {
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            topLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            topLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 30.0),
-            servicesStackView.topAnchor.constraint(equalTo: topLabel.bottomAnchor, constant: 20.0),
+            imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30.0),
+            servicesStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20.0),
             servicesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             ])
 
