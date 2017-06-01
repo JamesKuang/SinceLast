@@ -91,6 +91,16 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         tableView.reloadData()
     }
 
+    fileprivate func saveRepositoryAsFavorite(_ repository: Repository) {
+        let codable = CodableRepository(repository)
+
+        let storage: PersistentStorage<CodableRepository> = PersistentStorage()
+        var favorites = storage.load() ?? []
+        favorites.append(codable)
+
+        storage.save(favorites)
+    }
+
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
         fetchData()
     }
@@ -115,7 +125,9 @@ extension RepositoriesViewController: UITableViewDataSource {
 
 extension RepositoriesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // TODO: store uuid
+        let repository = repositories[indexPath.row]
+        saveRepositoryAsFavorite(repository)
+
         dismiss()
     }
 }
