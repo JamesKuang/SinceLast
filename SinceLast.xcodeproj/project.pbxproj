@@ -13,6 +13,8 @@
 		1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */; };
 		1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */; };
 		1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */; };
+		1A1420C81EDFAF70008C850C /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1420C61EDFAF70008C850C /* Realm.framework */; };
+		1A1420C91EDFAF70008C850C /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A1420C71EDFAF70008C850C /* RealmSwift.framework */; };
 		1A17BA2D1EDC785100D910AB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */; };
 		1A18C61B1EDA8CC30039A9E0 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */; };
 		1A4366FB1ED9D59E00CCD11B /* Team.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A4366FA1ED9D59E00CCD11B /* Team.swift */; };
@@ -90,6 +92,10 @@
 		1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
+		1A1420C21EDFAF63008C850C /* Realm.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = Realm.framework.dSYM; path = Carthage/Build/iOS/Realm.framework.dSYM; sourceTree = "<group>"; };
+		1A1420C31EDFAF63008C850C /* RealmSwift.framework.dSYM */ = {isa = PBXFileReference; lastKnownFileType = wrapper.dsym; name = RealmSwift.framework.dSYM; path = Carthage/Build/iOS/RealmSwift.framework.dSYM; sourceTree = "<group>"; };
+		1A1420C61EDFAF70008C850C /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
+		1A1420C71EDFAF70008C850C /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
 		1A4366FA1ED9D59E00CCD11B /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
@@ -156,6 +162,8 @@
 				1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */,
 				1A0C2E1C1ED52E6300107D5B /* Kingfisher.framework in Frameworks */,
 				1ABD6BB91ED7903000AD002E /* Pastel.framework in Frameworks */,
+				1A1420C81EDFAF70008C850C /* Realm.framework in Frameworks */,
+				1A1420C91EDFAF70008C850C /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -191,6 +199,10 @@
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A1420C61EDFAF70008C850C /* Realm.framework */,
+				1A1420C71EDFAF70008C850C /* RealmSwift.framework */,
+				1A1420C21EDFAF63008C850C /* Realm.framework.dSYM */,
+				1A1420C31EDFAF63008C850C /* RealmSwift.framework.dSYM */,
 				1ABD6BB81ED7903000AD002E /* Pastel.framework */,
 				1A0C2E1B1ED52E6300107D5B /* Kingfisher.framework */,
 				1A0C2E171ED3DDD000107D5B /* IGListKit.framework */,
@@ -501,6 +513,8 @@
 				"$(SRCROOT)/Carthage/Build/iOS/KeychainAccess.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Pastel.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (
