@@ -3,4 +3,3 @@ github "mxcl/PromiseKit" ~> 4.0
 github "kishikawakatsumi/KeychainAccess" ~> 3.0
 github "onevcat/Kingfisher" ~> 3.9
 github "cruisediary/Pastel" ~> 0.3
-github "realm/realm-cocoa" ~> 2.7
