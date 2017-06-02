@@ -48,7 +48,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     init(client: GitClient) {
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
-        title = NSLocalizedString("Favorites", comment: "Favorites screen navigation bar title")
+        title = NSLocalizedString("Repositories", comment: "Favorites screen navigation bar title")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(tappedSettingsButton(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddFavorite(_:)))
 
