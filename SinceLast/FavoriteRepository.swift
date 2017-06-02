@@ -1,5 +1,5 @@
 //
-//  CodableRepository.swift
+//  FavoriteRepository.swift
 //  SinceLast
 //
 //  Created by James Kuang on 5/31/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-final class CodableRepository: NSObject, NSCoding {
+final class FavoriteRepository: NSObject, NSCoding {
     enum CodableKey {
         static let uuid = "uuid"
         static let name = "name"
@@ -44,13 +44,8 @@ final class CodableRepository: NSObject, NSCoding {
     }
 }
 
-extension CodableRepository: UncodableVariantInitializable {
+extension FavoriteRepository {
     convenience init(_ object: Repository) {
         self.init(uuid: object.uuid, name: object.name, ownerName: object.owner.name)
     }
-}
-
-protocol UncodableVariantInitializable: NSCoding {
-    associatedtype T
-    init(_ object: T)
 }

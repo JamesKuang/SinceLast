@@ -13,7 +13,7 @@
 		1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */; };
 		1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */; };
 		1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */; };
-		1A1420CC1EDFBD46008C850C /* CodableRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1420CB1EDFBD46008C850C /* CodableRepository.swift */; };
+		1A1420CC1EDFBD46008C850C /* FavoriteRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1420CB1EDFBD46008C850C /* FavoriteRepository.swift */; };
 		1A1420CF1EDFC2C0008C850C /* PersistentStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1420CE1EDFC2C0008C850C /* PersistentStorage.swift */; };
 		1A17BA2D1EDC785100D910AB /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */; };
 		1A18C61B1EDA8CC30039A9E0 /* PullRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */; };
@@ -92,7 +92,7 @@
 		1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryCell.swift; sourceTree = "<group>"; };
 		1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigurableCell.swift; sourceTree = "<group>"; };
 		1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThemeColor.swift; sourceTree = "<group>"; };
-		1A1420CB1EDFBD46008C850C /* CodableRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodableRepository.swift; sourceTree = "<group>"; };
+		1A1420CB1EDFBD46008C850C /* FavoriteRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteRepository.swift; sourceTree = "<group>"; };
 		1A1420CE1EDFC2C0008C850C /* PersistentStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistentStorage.swift; sourceTree = "<group>"; };
 		1A17BA2C1EDC785100D910AB /* FavoritesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PullRequest.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 		1A1420CD1EDFBD60008C850C /* Codable Objects */ = {
 			isa = PBXGroup;
 			children = (
-				1A1420CB1EDFBD46008C850C /* CodableRepository.swift */,
+				1A1420CB1EDFBD46008C850C /* FavoriteRepository.swift */,
 			);
 			name = "Codable Objects";
 			sourceTree = "<group>";
@@ -567,7 +567,7 @@
 				1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
-				1A1420CC1EDFBD46008C850C /* CodableRepository.swift in Sources */,
+				1A1420CC1EDFBD46008C850C /* FavoriteRepository.swift in Sources */,
 				1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */,
 				1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */,
 				1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */,

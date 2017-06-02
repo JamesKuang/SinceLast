@@ -20,10 +20,6 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         tableView.estimatedRowHeight = 70.0
         tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 56.0, bottom: 0.0, right: 0.0)
         tableView.tableFooterView = UIView(frame: .zero)
-
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = ThemeColor.darkOrange.color
-        tableView.refreshControl = refreshControl
         return tableView
     }()
 
@@ -41,9 +37,9 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    fileprivate var repositories: [Repository] = [] {
+    fileprivate var favorites: [FavoriteRepository] = [] {
         didSet {
-            updateEmptyStateVisibility()
+            reload()
         }
     }
 
@@ -77,14 +73,19 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tableView.register(cell: FavoriteCell.self)
+        tableView.dataSource = self
+        tableView.delegate = self
+
         emptyView.actionButton.addTarget(self, action: #selector(tappedAddFavorite(_:)), for: .touchUpInside)
-        updateEmptyStateVisibility()
         fetchData()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(false, animated: animated)
+
+        loadFavorites()
 
         if let selectedIndexPath = tableView.indexPathForSelectedRow {
             tableView.deselectRow(at: selectedIndexPath, animated: animated)
@@ -95,13 +96,21 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         let _ = self.retrieveUser().then(execute: { user in
             self.currentUser = user
         })
+    }
 
-        self.repositories = []  // FIXME:
+    private func loadFavorites() {
+        let storage: PersistentStorage<FavoriteRepository> = PersistentStorage()
+        self.favorites = storage.load() ?? []
     }
 
     private func retrieveUser() -> Promise<User> {
         let request = BitbucketUserRequest()
         return gitClient.send(request: request)
+    }
+
+    private func reload() {
+        tableView.reloadData()
+        updateEmptyStateVisibility()
     }
 
     private func updateCurrentUserUIVisibility(_ hasUser: Bool) {
@@ -111,7 +120,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func updateEmptyStateVisibility() {
-        emptyView.isHidden = !repositories.isEmpty
+        emptyView.isHidden = !favorites.isEmpty
     }
 
     private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
@@ -126,5 +135,27 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         let controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
+    }
+}
+
+extension FavoritesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return favorites.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueCell(of: FavoriteCell.self, for: indexPath)
+        let favorite = favorites[indexPath.row]
+        cell.configure(with: favorite)
+        return cell
+    }
+}
+
+extension FavoritesViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let user = self.currentUser else { return }
+        let favorite = favorites[indexPath.row]
+
+//        let controller = CommitsViewController(client: gitClient, currentUser: user, repositoryOwner: <#T##RepositoryOwner#>, repository: <#T##Repository#>)
     }
 }
