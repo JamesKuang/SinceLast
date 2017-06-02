@@ -9,9 +9,26 @@
 import UIKit
 
 final class RepositoryOwnerCell: UITableViewCell {
+    fileprivate let titleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        return label
+    }()
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         accessoryType = .disclosureIndicator
+
+        contentView.addSubview(titleLabel)
+
+        let guide = contentView.readableContentGuide
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: guide.topAnchor),
+            titleLabel.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
+            ])
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -20,12 +37,12 @@ final class RepositoryOwnerCell: UITableViewCell {
 
     override func prepareForReuse() {
         super.prepareForReuse()
-        textLabel?.text = nil
+        titleLabel.text = nil
     }
 }
 
 extension RepositoryOwnerCell: ConfigurableCell {
     func configure(with repositoryOwner: RepositoryOwner) {
-        textLabel?.text = repositoryOwner.name
+        titleLabel.text = repositoryOwner.name
     }
 }

@@ -31,7 +31,6 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         tableView.backgroundColor = .white
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 70.0
-        tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 56.0, bottom: 0.0, right: 0.0)
         tableView.tableFooterView = UIView(frame: .zero)
 
         let refreshControl = UIRefreshControl()
