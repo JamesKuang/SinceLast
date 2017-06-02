@@ -42,7 +42,7 @@ final class RepositoryOwnerCell: UITableViewCell {
 }
 
 extension RepositoryOwnerCell: ConfigurableCell {
-    func configure(with repositoryOwner: RepositoryOwner) {
+    func configure(with repositoryOwner: User) {
         titleLabel.text = repositoryOwner.name
     }
 }

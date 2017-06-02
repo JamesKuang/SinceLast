@@ -34,14 +34,14 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }()
 
     fileprivate let currentUser: User
-    fileprivate let repositoryOwner: RepositoryOwner
+    fileprivate let repositoryOwner: User
     fileprivate let repository: Repository
     fileprivate var commits: [Commit] = []
 
-    init(client: GitClient, currentUser: User, repositoryOwner: RepositoryOwner, repository: Repository) {
+    init(client: GitClient, currentUser: User, repository: Repository) {
         self.gitClient = client
         self.currentUser = currentUser
-        self.repositoryOwner = repositoryOwner
+        self.repositoryOwner = repository.owner
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("Commits", comment: "Commits screen navigation bar title")

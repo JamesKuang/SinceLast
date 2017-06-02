@@ -166,7 +166,7 @@ extension FavoritesViewController: UITableViewDelegate {
         guard let user = self.currentUser else { return }
         let favorite = favorites[indexPath.row]
 
-//        let controller = CommitsViewController(client: gitClient, currentUser: user, repositoryOwner: <#T##RepositoryOwner#>, repository: <#T##Repository#>)
+//        let controller = CommitsViewController(client: gitClient, currentUser: user, repository: <#T##Repository#>)
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

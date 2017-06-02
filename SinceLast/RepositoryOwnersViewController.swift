@@ -39,8 +39,8 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         return tableView
     }()
 
-    fileprivate let userOwner: [RepositoryOwner]
-    fileprivate var teamOwners: [RepositoryOwner] = [] {
+    fileprivate let userOwner: [User]
+    fileprivate var teamOwners: [User] = [] {
         didSet {
             reload()
         }
@@ -48,7 +48,7 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
 
     init(currentUser: User, client: GitClient) {
         self.gitClient = client
-        self.userOwner = [RepositoryOwner.user(currentUser)]
+        self.userOwner = [currentUser]
         super.init(nibName: nil, bundle: nil)
 
         title = NSLocalizedString("Add Repository", comment: "Repository owners screen navigation bar title")
@@ -92,7 +92,7 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
 
     private func fetchData() {
         let _ = retrieveTeams().then(execute: { teams in
-            self.teamOwners = teams.map { RepositoryOwner.team($0) }
+            self.teamOwners = teams
         })
     }
 
@@ -109,7 +109,7 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
     }
 
     fileprivate func nextViewController(for indexPath: IndexPath) -> UIViewController {
-        let repositoryOwner: RepositoryOwner
+        let repositoryOwner: User
         switch Section(indexPath.section) {
         case .userOwner: repositoryOwner = userOwner[indexPath.row]
         case .teamOwners: repositoryOwner = teamOwners[indexPath.row]
@@ -141,7 +141,7 @@ extension RepositoryOwnersViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueCell(of: RepositoryOwnerCell.self, for: indexPath)
 
-        let repositoryOwner: RepositoryOwner
+        let repositoryOwner: User
         switch Section(indexPath.section) {
         case .userOwner: repositoryOwner = userOwner[indexPath.row]
         case .teamOwners: repositoryOwner = teamOwners[indexPath.row]

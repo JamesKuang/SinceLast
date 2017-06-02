@@ -26,14 +26,14 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
-    fileprivate let owner: RepositoryOwner
+    fileprivate let owner: User
     fileprivate var repositories: [Repository] = [] {
         didSet {
             reload()
         }
     }
 
-    init(owner: RepositoryOwner, client: GitClient) {
+    init(owner: User, client: GitClient) {
         self.owner = owner
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
@@ -79,7 +79,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         })
     }
 
-    private func retrieveRepositories(for owner: RepositoryOwner) -> Promise<[Repository]> {
+    private func retrieveRepositories(for owner: User) -> Promise<[Repository]> {
         let request = BitbucketRepositoriesRequest(userName: owner.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Repository] in
             return result.repositories
