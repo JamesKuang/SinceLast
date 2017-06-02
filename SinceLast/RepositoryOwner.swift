@@ -10,7 +10,7 @@ import Foundation
 
 enum RepositoryOwner {
     case user(User)
-    case team(Team)
+    case team(User)
 
     var name: String {
         switch self {

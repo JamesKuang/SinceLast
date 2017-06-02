@@ -44,11 +44,11 @@ struct BitbucketTeamsRequest: TypedRequest {
     let queryParameters: [String: String] = ["role": "contributor"]
 
     struct TeamsResult: JSONInitializable {
-        let teams: [Team]
+        let teams: [User]
 
         init(json: JSON) throws {
             guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
-            self.teams = try values.flatMap { try Team(json: $0) }
+            self.teams = try values.flatMap { try User(json: $0) }
         }
     }
 }

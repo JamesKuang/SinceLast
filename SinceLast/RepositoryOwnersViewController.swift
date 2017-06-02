@@ -96,9 +96,9 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         })
     }
 
-    private func retrieveTeams() -> Promise<[Team]> {
+    private func retrieveTeams() -> Promise<[User]> {
         let request = BitbucketTeamsRequest()
-        return gitClient.send(request: request).then(execute: { result -> [Team] in
+        return gitClient.send(request: request).then(execute: { result -> [User] in
             return result.teams
         })
     }
