@@ -39,9 +39,11 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
 
     fileprivate var favorites: [FavoriteRepository] = [] {
         didSet {
-            reload()
+            updateEmptyStateVisibility()
         }
     }
+
+    private lazy var storage: PersistentStorage<FavoriteRepository> = PersistentStorage()
 
     init(client: GitClient) {
         self.gitClient = client
@@ -99,8 +101,13 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func loadFavorites() {
-        let storage: PersistentStorage<FavoriteRepository> = PersistentStorage()
-        self.favorites = storage.load() ?? []
+        favorites = storage.load() ?? []
+        tableView.reloadData()
+    }
+
+    fileprivate func deleteFavorite(at index: Int) {
+        favorites.remove(at: index)
+        storage.save(favorites)
     }
 
     private func retrieveUser() -> Promise<User> {
@@ -110,7 +117,6 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
 
     private func reload() {
         tableView.reloadData()
-        updateEmptyStateVisibility()
     }
 
     private func updateCurrentUserUIVisibility(_ hasUser: Bool) {
@@ -149,6 +155,10 @@ extension FavoritesViewController: UITableViewDataSource {
         cell.configure(with: favorite)
         return cell
     }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
 }
 
 extension FavoritesViewController: UITableViewDelegate {
@@ -157,5 +167,11 @@ extension FavoritesViewController: UITableViewDelegate {
         let favorite = favorites[indexPath.row]
 
 //        let controller = CommitsViewController(client: gitClient, currentUser: user, repositoryOwner: <#T##RepositoryOwner#>, repository: <#T##Repository#>)
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == .delete else { return }
+        deleteFavorite(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }
