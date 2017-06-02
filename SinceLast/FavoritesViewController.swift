@@ -80,6 +80,8 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         tableView.delegate = self
 
         emptyView.actionButton.addTarget(self, action: #selector(tappedAddFavorite(_:)), for: .touchUpInside)
+        registerForPreviewing(with: self, sourceView: tableView)
+
         fetchData()
     }
 
@@ -129,6 +131,12 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         emptyView.isHidden = !favorites.isEmpty
     }
 
+    fileprivate func nextViewController(for indexPath: IndexPath) -> UIViewController? {
+        guard let user = self.currentUser else { return nil }
+        let favorite = favorites[indexPath.row]
+        return CommitsViewController(client: gitClient, currentUser: user, repository: favorite)
+    }
+
     private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
         guard let user = self.currentUser else { return }
         let controller = SettingsViewController(currentUser: user)
@@ -163,15 +171,27 @@ extension FavoritesViewController: UITableViewDataSource {
 
 extension FavoritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let user = self.currentUser else { return }
-        let favorite = favorites[indexPath.row]
-
-//        let controller = CommitsViewController(client: gitClient, currentUser: user, repository: <#T##Repository#>)
+        guard let controller = nextViewController(for: indexPath) else { return }
+        navigationController?.pushViewController(controller, animated: true)
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         guard editingStyle == .delete else { return }
         deleteFavorite(at: indexPath.row)
         tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
+}
+
+extension FavoritesViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = tableView.indexPathForRow(at: location) else { return nil }
+        if let cell = tableView.cellForRow(at: indexPath) {
+            previewingContext.sourceRect = cell.frame
+        }
+        return nextViewController(for: indexPath)
+    }
+
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        navigationController?.pushViewController(viewControllerToCommit, animated: true)
     }
 }

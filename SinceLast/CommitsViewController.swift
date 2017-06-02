@@ -34,14 +34,12 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }()
 
     fileprivate let currentUser: User
-    fileprivate let repositoryOwner: User
-    fileprivate let repository: Repository
+    fileprivate let repository: FavoriteRepository
     fileprivate var commits: [Commit] = []
 
-    init(client: GitClient, currentUser: User, repository: Repository) {
+    init(client: GitClient, currentUser: User, repository: FavoriteRepository) {
         self.gitClient = client
         self.currentUser = currentUser
-        self.repositoryOwner = repository.owner
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
         title = NSLocalizedString("Commits", comment: "Commits screen navigation bar title")
@@ -89,14 +87,14 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func retrieveCommits() -> Promise<[Commit]> {
-        let request = BitbucketCommitsRequest(userName: repositoryOwner.uuid, repositorySlug: repository.uuid)
+        let request = BitbucketCommitsRequest(userName: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Commit] in
             return result.commits
         })
     }
 
     private func retrievePullRequests() -> Promise<[PullRequest]> {
-        let request = BitbucketPullRequestsRequest(userName: repositoryOwner.uuid, repositorySlug: repository.uuid)
+        let request = BitbucketPullRequestsRequest(userName: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [PullRequest] in
             return result.pullRequests
         })
