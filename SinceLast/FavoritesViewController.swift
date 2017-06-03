@@ -19,6 +19,10 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 60.0
         tableView.tableFooterView = UIView(frame: .zero)
+
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = ThemeColor.darkOrange.color
+        tableView.refreshControl = refreshControl
         return tableView
     }()
 
@@ -78,6 +82,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         tableView.dataSource = self
         tableView.delegate = self
 
+        tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
         emptyView.actionButton.addTarget(self, action: #selector(tappedAddFavorite(_:)), for: .touchUpInside)
         registerForPreviewing(with: self, sourceView: tableView)
 
@@ -96,8 +101,9 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func fetchData() {
-        let _ = self.retrieveUser().then(execute: { user in
+        let _ = self.retrieveUser().then(execute: { user -> Void in
             self.currentUser = user
+            self.tableView.refreshControl?.endRefreshing()
         })
     }
 
@@ -114,10 +120,6 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     private func retrieveUser() -> Promise<User> {
         let request = BitbucketUserRequest()
         return gitClient.send(request: request)
-    }
-
-    private func reload() {
-        tableView.reloadData()
     }
 
     private func updateCurrentUserUIVisibility(_ hasUser: Bool) {
@@ -148,6 +150,10 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         let controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
+    }
+
+    private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
+        fetchData()
     }
 }
 
