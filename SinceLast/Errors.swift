@@ -36,6 +36,12 @@ struct JSONParsingError: Error, CustomStringConvertible {
     }
 }
 
+struct OAuthTokenExpiredError: Error, CustomStringConvertible {
+    var description: String {
+        return "OAuth token expired"
+    }
+}
+
 struct ValidationError: Error {
     let message: String
 

@@ -18,6 +18,20 @@ final class TokenStorage {
     private static let refreshTokenKey = "refreshToken"
     private static let expirationKey = "expiration"
 
+    var token: OAuthAccessToken? {
+        guard
+            let token = keychain[TokenStorage.accessTokenKey],
+            let refreshToken = keychain[TokenStorage.refreshTokenKey],
+            let expirationData = keychain[data: TokenStorage.expirationKey]
+            else { return nil }
+
+        return OAuthAccessToken(token: token, refreshToken: refreshToken, expiration: expirationData.dateRepresentationSince1970)
+    }
+
+    var hasToken: Bool {
+        return token != nil
+    }
+
     init(service: GitService) {
         self.serviceName = service.name.lowercased()
         let name = "com.sincelast.token." + serviceName
@@ -34,15 +48,5 @@ final class TokenStorage {
         keychain[TokenStorage.accessTokenKey] = nil
         keychain[TokenStorage.refreshTokenKey] = nil
         keychain[data: TokenStorage.expirationKey] = nil
-    }
-
-    var token: OAuthAccessToken? {
-        guard
-            let token = keychain[TokenStorage.accessTokenKey],
-            let refreshToken = keychain[TokenStorage.refreshTokenKey],
-            let expirationData = keychain[data: TokenStorage.expirationKey]
-            else { return nil }
-
-        return OAuthAccessToken(token: token, refreshToken: refreshToken, expiration: expirationData.dateRepresentationSince1970)
     }
 }

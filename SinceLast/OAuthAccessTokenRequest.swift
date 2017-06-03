@@ -11,17 +11,34 @@ import Foundation
 struct OAuthAccessTokenRequest: TypedRequest {
     typealias ResultType = OAuthAccessToken
 
+    enum GrantType {
+        case authorization(code: String)
+        case refresh(token: String)
+
+        var queryParameters: [String: String] {
+            switch self {
+            case .authorization(let code):
+                return [
+                    "grant_type": "authorization_code",
+                    "code": code,
+                ]
+            case .refresh(let token):
+                return [
+                    "grant_type": "refresh_token",
+                    "refresh_token": token,
+                ]
+            }
+        }
+    }
+
     let method: RequestMethod = .POST
     let path = "/site/oauth2/access_token"
 
-    let code: String
+    let grantType: GrantType
     private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.shared
 
     var queryParameters: [String: String] {
-        return [
-            "grant_type": "authorization_code",
-            "code": code,
-        ]
+        return grantType.queryParameters
     }
 
     var additionalHeaders: [String : String] {

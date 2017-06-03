@@ -16,8 +16,7 @@ final class AppCoordinator {
 
     var isAuthorized: Bool {
         let tokenStorage = TokenStorage(service: gitClient.service)
-        guard let token = tokenStorage.token else { return false }
-        return !token.isExpired
+        return tokenStorage.hasToken
     }
 
     init() {
@@ -35,7 +34,6 @@ final class AppCoordinator {
     func startLaunchViewController() -> UIViewController {
         let controller: UIViewController
         if isAuthorized {
-//            controller = RepositoriesViewController(client: gitClient)
             controller = FavoritesViewController(client: gitClient)
         } else {
             let credentials: [OAuthCredentials] = [
