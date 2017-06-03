@@ -63,6 +63,7 @@ final class GitClient {
         let request = OAuthAccessTokenRequest(grantType: .refresh(token: token))
         return oAuth.send(request: request).then { (accessToken) -> OAuthAccessToken in
             self.tokenStorage.store(token: accessToken)
+            // TODO the main client doesn't know about this new token
             return accessToken
         }
     }

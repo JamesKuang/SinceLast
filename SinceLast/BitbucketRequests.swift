@@ -18,10 +18,10 @@ struct BitbucketUserRequest: TypedRequest {
 struct BitbucketRepositoriesRequest: TypedRequest {
     typealias ResultType = RepositoriesResult
 
-    let userName: String
+    let uuid: String
 
     var path: String {
-        return "/2.0/repositories/\(userName)"
+        return "/2.0/repositories/\(uuid)"
     }
 
     let queryParameters: [String: String] = [:]
@@ -57,10 +57,10 @@ struct BitbucketTeamsRequest: TypedRequest {
 struct BitbucketTeamRepositoriesRequest: TypedRequest {
     typealias ResultType = RepositoriesResult
 
-    let userName: String
+    let uuid: String
 
     var path: String {
-        return "/2.0/teams/\(userName)/repositories"
+        return "/2.0/teams/\(uuid)/repositories"
     }
 
     let queryParameters: [String: String] = [:]
@@ -78,13 +78,13 @@ struct BitbucketTeamRepositoriesRequest: TypedRequest {
 struct BitbucketCommitsRequest: TypedRequest {
     typealias ResultType = CommitsResult
 
-    let userName: String
+    let uuid: String
     let repositorySlug: String
 
     let queryParameters: [String: String] = [:]
 
     var path: String {
-        return "/2.0/repositories/\(userName)/\(repositorySlug)/commits"
+        return "/2.0/repositories/\(uuid)/\(repositorySlug)/commits"
     }
 
     struct CommitsResult: JSONInitializable {
@@ -100,13 +100,18 @@ struct BitbucketCommitsRequest: TypedRequest {
 struct BitbucketPullRequestsRequest: TypedRequest {
     typealias ResultType = PullRequestsResult
 
-    let userName: String
+    let uuid: String
     let repositorySlug: String
+    let filterUserName: String
 
-    let queryParameters: [String: String] = [:]
+    var queryParameters: [String: String] {
+        let state = "OPEN"
+        let query = "state = \"\(state)\" AND reviewers.username = \"\(filterUserName)\""
+        return ["q": query]
+    }
 
     var path: String {
-        return "/2.0/repositories/\(userName)/\(repositorySlug)/pullrequests"
+        return "/2.0/repositories/\(uuid)/\(repositorySlug)/pullrequests"
     }
 
     struct PullRequestsResult: JSONInitializable {
