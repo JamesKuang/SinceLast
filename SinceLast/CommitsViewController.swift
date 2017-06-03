@@ -23,8 +23,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 80.0
-        tableView.separatorInset = UIEdgeInsets(top: 0.0, left: 56.0, bottom: 0.0, right: 0.0)
+        tableView.estimatedRowHeight = 100.0
         tableView.tableFooterView = UIView(frame: .zero)
 
         let refreshControl = UIRefreshControl()
@@ -132,20 +131,22 @@ extension CommitsViewController: UITableViewDelegate {
 
 private final class HeaderView: UIView {
     private let leftLabel: UILabel = {
-        let leftLabel = UILabel()
-        leftLabel.translatesAutoresizingMaskIntoConstraints = false
-        leftLabel.font = UIFont.preferredFont(forTextStyle: .body)
-        leftLabel.textColor = .gray
-        leftLabel.text = NSLocalizedString("Open Pull Requests:", comment: "Open pull requests label text")
-        return leftLabel
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .gray
+        label.text = NSLocalizedString("Open Pull Requests:", comment: "Open pull requests label text")
+        return label
     }()
 
     private let rightLabel: UILabel = {
-        let rightLabel = UILabel()
-        rightLabel.translatesAutoresizingMaskIntoConstraints = false
-        rightLabel.font = UIFont.preferredFont(forTextStyle: .headline)
-        rightLabel.text = NSLocalizedString("N/A", comment: "Not Available acryonym text")
-        return rightLabel
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.text = NSLocalizedString("N/A", comment: "Not Available acryonym text")
+        return label
     }()
 
     override init(frame: CGRect) {

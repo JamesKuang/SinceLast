@@ -46,6 +46,7 @@
 		1ABD6BBB1ED791F500AD002E /* CommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */; };
 		1ABD6BBD1ED7938600AD002E /* CommitCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6BBC1ED7938600AD002E /* CommitCell.swift */; };
 		1AC3C6641EC5F235001E03B7 /* WebBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */; };
+		1AD3832B1EE2802C0074832B /* FavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AD3832A1EE2802C0074832B /* FavoriteCell.swift */; };
 		1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */; };
 		1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */; };
 		1AE2D07F1EC804960007ACBD /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07E1EC804960007ACBD /* Request.swift */; };
@@ -128,6 +129,7 @@
 		1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitsViewController.swift; sourceTree = "<group>"; };
 		1ABD6BBC1ED7938600AD002E /* CommitCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitCell.swift; sourceTree = "<group>"; };
 		1AC3C6631EC5F235001E03B7 /* WebBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebBrowserViewController.swift; sourceTree = "<group>"; };
+		1AD3832A1EE2802C0074832B /* FavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
 		1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthCredentials.swift; sourceTree = "<group>"; };
 		1AE2D07E1EC804960007ACBD /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -179,6 +181,7 @@
 			children = (
 				1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */,
 				1AA9F0B61EDD0D4A00E13904 /* RepositoryOwnerCell.swift */,
+				1AD3832A1EE2802C0074832B /* FavoriteCell.swift */,
 				1ABD6BBC1ED7938600AD002E /* CommitCell.swift */,
 				1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */,
 				1AA9F0B41EDD0A3200E13904 /* EmptyView.swift */,
@@ -541,6 +544,7 @@
 				1AA9F0B71EDD0D4A00E13904 /* RepositoryOwnerCell.swift in Sources */,
 				1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
+				1AD3832B1EE2802C0074832B /* FavoriteCell.swift in Sources */,
 				1A1420CF1EDFC2C0008C850C /* PersistentStorage.swift in Sources */,
 				1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */,
 				1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */,

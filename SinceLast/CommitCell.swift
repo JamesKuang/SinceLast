@@ -18,6 +18,7 @@ final class CommitCell: UITableViewCell {
     fileprivate let messageLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .body)
         label.numberOfLines = 0
         return label
@@ -26,13 +27,15 @@ final class CommitCell: UITableViewCell {
     fileprivate let committerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
     }()
 
-    fileprivate let shaLabel: UILabel = {
+    fileprivate let timestampLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.textColor = .gray
         return label
@@ -53,17 +56,19 @@ final class CommitCell: UITableViewCell {
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(messageLabel)
         stackView.addArrangedSubview(committerLabel)
-        stackView.addArrangedSubview(shaLabel)
+        stackView.addArrangedSubview(timestampLabel)
 
         let guide = contentView.readableContentGuide
         NSLayoutConstraint.activate([
             avatarView.topAnchor.constraint(equalTo: guide.topAnchor),
             avatarView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
-            avatarView.widthAnchor.constraint(equalToConstant: 32.0),
+            avatarView.widthAnchor.constraint(equalToConstant: 0.0),
+//            avatarView.widthAnchor.constraint(equalToConstant: 32.0),
             avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
             stackView.topAnchor.constraint(equalTo: guide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 10.0),
+            stackView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 0.0),
+//            stackView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 10.0),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
             ])
     }
@@ -77,7 +82,7 @@ final class CommitCell: UITableViewCell {
 
         messageLabel.text = nil
         committerLabel.text = nil
-        shaLabel.text = nil
+        timestampLabel.text = nil
     }
 }
 
@@ -85,6 +90,6 @@ extension CommitCell: ConfigurableCell {
     func configure(with commit: Commit) {
         messageLabel.text = commit.message
         committerLabel.text = commit.author.name
-        shaLabel.text = DateFormatters.commitDisplayFormatter.string(from: commit.date)
+        timestampLabel.text = DateFormatters.commitDisplayFormatter.string(from: commit.date)
     }
 }

@@ -30,7 +30,7 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.backgroundColor = .white
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 70.0
+        tableView.estimatedRowHeight = 44.0
         tableView.tableFooterView = UIView(frame: .zero)
 
         let refreshControl = UIRefreshControl()

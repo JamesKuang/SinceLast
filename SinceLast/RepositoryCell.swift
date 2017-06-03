@@ -9,15 +9,16 @@
 import UIKit
 
 final class RepositoryCell: UITableViewCell {
-//    fileprivate let avatarView: UIImageView = {
-//        let imageView = UIImageView()
-//        imageView.translatesAutoresizingMaskIntoConstraints = false
-//        return imageView
-//    }()
+    fileprivate let avatarView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
 
     fileprivate let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         return label
     }()
@@ -25,6 +26,7 @@ final class RepositoryCell: UITableViewCell {
     fileprivate let ownerLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
         return label
     }()
@@ -32,6 +34,7 @@ final class RepositoryCell: UITableViewCell {
     fileprivate let descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.numberOfLines = 0
         return label
@@ -47,7 +50,7 @@ final class RepositoryCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
-//        contentView.addSubview(avatarView)
+        contentView.addSubview(avatarView)
         contentView.addSubview(stackView)
         stackView.addArrangedSubview(titleLabel)
         stackView.addArrangedSubview(ownerLabel)
@@ -55,12 +58,14 @@ final class RepositoryCell: UITableViewCell {
 
         let guide = contentView.readableContentGuide
         NSLayoutConstraint.activate([
-//            avatarView.topAnchor.constraint(equalTo: guide.topAnchor),
-//            avatarView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            avatarView.topAnchor.constraint(equalTo: guide.topAnchor),
+            avatarView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
+            avatarView.widthAnchor.constraint(equalToConstant: 0.0),
 //            avatarView.widthAnchor.constraint(equalToConstant: 32.0),
-//            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
+            avatarView.widthAnchor.constraint(equalTo: avatarView.heightAnchor),
             stackView.topAnchor.constraint(equalTo: guide.topAnchor),
             stackView.bottomAnchor.constraint(equalTo: guide.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 0.0),
 //            stackView.leadingAnchor.constraint(equalTo: avatarView.trailingAnchor, constant: 10.0),
             stackView.leadingAnchor.constraint(equalTo: guide.leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: guide.trailingAnchor),
