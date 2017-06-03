@@ -25,6 +25,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 100.0
         tableView.tableFooterView = UIView(frame: .zero)
+        tableView.allowsSelection = false
 
         let refreshControl = UIRefreshControl()
         refreshControl.tintColor = ThemeColor.darkOrange.color
@@ -100,7 +101,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func reload(with commits: [Commit]) {
-        self.commits = commits
+        self.commits = commits.filter { $0.committer == self.currentUser }
         tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
@@ -157,9 +158,9 @@ private final class HeaderView: UIView {
 
         let padding: CGFloat = 10.0
         let widthConstraints = [
-            leftLabel.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor, constant: padding),
+            leftLabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor, constant: padding),
             rightLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: padding),
-            rightLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor, constant: -padding),
+            rightLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor, constant: -padding),
             ]
         widthConstraints.forEach { $0.priority = 999 }
 
