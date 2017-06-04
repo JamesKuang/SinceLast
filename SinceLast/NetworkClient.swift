@@ -11,9 +11,9 @@ import PromiseKit
 
 final class NetworkClient {
     let baseURL: String
-    let session: URLSession
+    private(set) var session: URLSession
 
-    init(baseURL: String, configuration: URLSessionConfiguration = .default) {
+    init(baseURL: String, configuration: URLSessionConfiguration) {
         self.baseURL = baseURL
         self.session = URLSession(configuration: configuration)
     }
@@ -29,6 +29,10 @@ final class NetworkClient {
             }.then {
                 return $0.result
         }
+    }
+
+    func renewSession(with configuration: URLSessionConfiguration) {
+        self.session = URLSession(configuration: configuration)
     }
 }
 

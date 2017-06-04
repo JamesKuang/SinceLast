@@ -21,12 +21,7 @@ final class GitClient {
     }()
 
     private lazy var main: NetworkClient = {
-        let configuration = URLSessionConfiguration.default
-        if let token = self.tokenStorage.token {
-            let scheme = AuthorizationHeaderScheme(token: token)
-            configuration.httpAdditionalHeaders = scheme.keyValuePair
-        }
-
+        let configuration = self.makeConfiguration(with: self.tokenStorage)
         return NetworkClient(baseURL: self.service.apiBaseURL, configuration: configuration)
     }()
 
@@ -44,7 +39,8 @@ final class GitClient {
             .recover(execute: { error -> Promise<OutputType> in
                 guard error is OAuthTokenExpiredError else { throw error }
                 return try self.refreshAuthToken().then(execute: { token -> Promise<OutputType> in
-                    self.tokenStorage.store(token: token)
+                    let newConfiguration = self.makeConfiguration(with: self.tokenStorage)
+                    self.main.renewSession(with: newConfiguration)
                     return self.main.send(request: request)
                 })
             })
@@ -66,5 +62,14 @@ final class GitClient {
             // TODO the main client doesn't know about this new token
             return accessToken
         }
+    }
+
+    private func makeConfiguration(with tokenStorage: TokenStorage) -> URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.default
+        if let token = tokenStorage.token {
+            let scheme = AuthorizationHeaderScheme(token: token)
+            configuration.httpAdditionalHeaders = scheme.keyValuePair
+        }
+        return configuration
     }
 }

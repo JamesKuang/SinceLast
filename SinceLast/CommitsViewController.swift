@@ -146,7 +146,6 @@ private final class HeaderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.text = NSLocalizedString("N/A", comment: "Not Available acryonym text")
         return label
     }()
 
