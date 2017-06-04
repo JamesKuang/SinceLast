@@ -38,6 +38,7 @@ final class CommitCell: UITableViewCell {
         label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .footnote)
         label.textColor = .gray
+        label.textAlignment = .right
         return label
     }()
 
@@ -49,14 +50,25 @@ final class CommitCell: UITableViewCell {
         return stackView
     }()
 
+    private let horizontalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 15.0
+        return stackView
+    }()
+
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
         contentView.addSubview(avatarView)
         contentView.addSubview(stackView)
+
         stackView.addArrangedSubview(messageLabel)
-        stackView.addArrangedSubview(committerLabel)
-        stackView.addArrangedSubview(timestampLabel)
+        stackView.addArrangedSubview(horizontalStackView)
+
+        horizontalStackView.addArrangedSubview(committerLabel)
+        horizontalStackView.addArrangedSubview(timestampLabel)
 
         let guide = contentView.readableContentGuide
         NSLayoutConstraint.activate([
