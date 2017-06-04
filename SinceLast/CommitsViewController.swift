@@ -81,7 +81,6 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
         let _ = retrievePullRequests().then { pullRequests -> Void in
             let filtered = pullRequests.filter { $0.author != self.currentUser }
-            print(filtered.count)
             self.headerView.update(with: filtered.count)
         }
     }

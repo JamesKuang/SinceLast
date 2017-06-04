@@ -29,7 +29,7 @@ final class CommitCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .white
         label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = .darkGray
+        label.textColor = .gray
         return label
     }()
 
