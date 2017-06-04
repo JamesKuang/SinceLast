@@ -151,10 +151,12 @@ private final class HeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
 
+        backgroundColor = .white
+
         addSubview(leftLabel)
         addSubview(rightLabel)
 
-        let padding: CGFloat = 10.0
+        let padding: CGFloat = 8.0
         let widthConstraints = [
             leftLabel.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor, constant: padding),
             rightLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: padding),
