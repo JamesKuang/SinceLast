@@ -8,6 +8,15 @@
 
 import Foundation
 
+struct BitbucketArrayResult<T: JSONInitializable>: JSONInitializable {
+    let objects: [T]
+
+    init(json: JSON) throws {
+        guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
+        self.objects = try values.flatMap { try T(json: $0) }
+    }
+}
+
 struct BitbucketUserRequest: TypedRequest {
     typealias ResultType = User
 
@@ -16,7 +25,7 @@ struct BitbucketUserRequest: TypedRequest {
 }
 
 struct BitbucketRepositoriesRequest: TypedRequest {
-    typealias ResultType = RepositoriesResult
+    typealias ResultType = BitbucketArrayResult<Repository>
 
     let uuid: String
 
@@ -25,37 +34,19 @@ struct BitbucketRepositoriesRequest: TypedRequest {
     }
 
     let queryParameters: [String: String] = [:]
-
-    struct RepositoriesResult: JSONInitializable {
-        let repositories: [Repository]
-
-        init(json: JSON) throws {
-            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
-            self.repositories = try values.flatMap { try Repository(json: $0) }
-        }
-    }
 }
 
 struct BitbucketTeamsRequest: TypedRequest {
-    typealias ResultType = TeamsResult
+    typealias ResultType = BitbucketArrayResult<User>
 
     let path = "/2.0/teams"
 
     let queryParameters: [String: String] = ["role": "contributor"]
-
-    struct TeamsResult: JSONInitializable {
-        let teams: [User]
-
-        init(json: JSON) throws {
-            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
-            self.teams = try values.flatMap { try User(json: $0) }
-        }
-    }
 }
 
 // Not used, figure out if this is needed.
 struct BitbucketTeamRepositoriesRequest: TypedRequest {
-    typealias ResultType = RepositoriesResult
+    typealias ResultType = BitbucketArrayResult<Repository>
 
     let uuid: String
 
@@ -64,19 +55,10 @@ struct BitbucketTeamRepositoriesRequest: TypedRequest {
     }
 
     let queryParameters: [String: String] = [:]
-
-    struct RepositoriesResult: JSONInitializable {
-        let repositories: [Repository]
-
-        init(json: JSON) throws {
-            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
-            self.repositories = try values.flatMap { try Repository(json: $0) }
-        }
-    }
 }
 
 struct BitbucketCommitsRequest: TypedRequest {
-    typealias ResultType = CommitsResult
+    typealias ResultType = BitbucketArrayResult<Commit>
 
     let uuid: String
     let repositorySlug: String
@@ -86,19 +68,10 @@ struct BitbucketCommitsRequest: TypedRequest {
     var path: String {
         return "/2.0/repositories/\(uuid)/\(repositorySlug)/commits"
     }
-
-    struct CommitsResult: JSONInitializable {
-        let commits: [Commit]
-
-        init(json: JSON) throws {
-            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
-            self.commits = try values.flatMap { try Commit(json: $0) }
-        }
-    }
 }
 
 struct BitbucketPullRequestsRequest: TypedRequest {
-    typealias ResultType = PullRequestsResult
+    typealias ResultType = BitbucketArrayResult<PullRequest>
 
     let uuid: String
     let repositorySlug: String
@@ -112,14 +85,5 @@ struct BitbucketPullRequestsRequest: TypedRequest {
 
     var path: String {
         return "/2.0/repositories/\(uuid)/\(repositorySlug)/pullrequests"
-    }
-
-    struct PullRequestsResult: JSONInitializable {
-        let pullRequests: [PullRequest]
-
-        init(json: JSON) throws {
-            guard let values = json["values"] as? [JSON] else { throw JSONParsingError() }
-            self.pullRequests = try values.flatMap { try PullRequest(json: $0) }
-        }
     }
 }

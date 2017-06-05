@@ -99,7 +99,7 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
     private func retrieveTeams() -> Promise<[User]> {
         let request = BitbucketTeamsRequest()
         return gitClient.send(request: request).then(execute: { result -> [User] in
-            return result.teams
+            return result.objects
         })
     }
 

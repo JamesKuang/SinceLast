@@ -88,14 +88,14 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     private func retrieveCommits() -> Promise<[Commit]> {
         let request = BitbucketCommitsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Commit] in
-            return result.commits
+            return result.objects
         })
     }
 
     private func retrievePullRequests() -> Promise<[PullRequest]> {
         let request = BitbucketPullRequestsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid, filterUserName: currentUser.name)
         return gitClient.send(request: request).then(execute: { result -> [PullRequest] in
-            return result.pullRequests
+            return result.objects
         })
     }
 
