@@ -33,9 +33,21 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         return tableView
     }()
 
+    private let emptyView: EmptyView = {
+        let view = EmptyView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.messageLabel.text = NSLocalizedString("You have no commit activity in this repository.", comment: "Commits screen empty state message")
+        return view
+    }()
+
     fileprivate let currentUser: User
     fileprivate let repository: FavoriteRepository
-    fileprivate var commits: [Commit] = []
+
+    fileprivate var commits: [Commit] = [] {
+        didSet {
+            updateEmptyStateVisibility()
+        }
+    }
 
     init(client: GitClient, currentUser: User, repository: FavoriteRepository) {
         self.gitClient = client
@@ -45,12 +57,16 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         title = NSLocalizedString("Commits", comment: "Commits screen navigation bar title")
 
         view.addSubview(tableView)
+        view.addSubview(emptyView)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.0),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.0),
+            emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             ])
     }
 
@@ -103,6 +119,10 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         self.commits = commits.filter { $0.committer == self.currentUser }
         tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
+    }
+
+    private func updateEmptyStateVisibility() {
+        emptyView.isHidden = !commits.isEmpty
     }
 
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {

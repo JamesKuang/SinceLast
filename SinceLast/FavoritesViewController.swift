@@ -65,8 +65,8 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.0),
+            emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.0),
             emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             ])
     }
