@@ -25,6 +25,7 @@
 		1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */; };
 		1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B5EA01EC1656200F9EC65 /* User.swift */; };
 		1A8769BD1ED8AB4200895E89 /* GithubOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */; };
+		1A97CB641EE4F64D00EF8BD6 /* BitbucketResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */; };
 		1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88821ED209A400A0D8A6 /* Response.swift */; };
 		1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88861ED22EAF00A0D8A6 /* Repository.swift */; };
 		1A9C78A31EDA30D300BAA9BA /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A9C78A21EDA30D300BAA9BA /* OAuth.plist */; };
@@ -102,6 +103,7 @@
 		1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		1A7B5EA01EC1656200F9EC65 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubOAuth.swift; sourceTree = "<group>"; };
+		1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketResults.swift; sourceTree = "<group>"; };
 		1A9A88821ED209A400A0D8A6 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		1A9A88861ED22EAF00A0D8A6 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		1A9C78A21EDA30D300BAA9BA /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 				1A9A88821ED209A400A0D8A6 /* Response.swift */,
 				1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */,
 				1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */,
+				1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */,
 			);
 			name = Requests;
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */,
 				1AA9F0B71EDD0D4A00E13904 /* RepositoryOwnerCell.swift in Sources */,
 				1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */,
+				1A97CB641EE4F64D00EF8BD6 /* BitbucketResults.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
 				1AD3832B1EE2802C0074832B /* FavoriteCell.swift in Sources */,
 				1A1420CF1EDFC2C0008C850C /* PersistentStorage.swift in Sources */,
