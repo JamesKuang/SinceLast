@@ -33,6 +33,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         }
     }
 
+    fileprivate let loadDistance: CGFloat = 10.0
+
+    fileprivate var nextPage: Int? = nil
+
     init(owner: User, client: GitClient) {
         self.owner = owner
         self.gitClient = client
@@ -79,9 +83,22 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         })
     }
 
-    private func retrieveRepositories(for owner: User) -> Promise<[Repository]> {
-        let request = BitbucketRepositoriesRequest(uuid: owner.uuid)
+    fileprivate func fetchNextPageData() {
+        guard let nextPage = self.nextPage else { return }
+        let _ = retrieveRepositories(for: owner, page: nextPage).then(execute: { repositories in
+            self.repositories += repositories
+        })
+    }
+
+    fileprivate func retrieveRepositories(for owner: User, page: Int = 1) -> Promise<[Repository]> {
+        let request = BitbucketRepositoriesRequest(uuid: owner.uuid, page: page)
         return gitClient.send(request: request).then(execute: { result -> [Repository] in
+            if let page = result.page {
+                self.nextPage = page + 1
+            } else {
+                self.nextPage = nil
+            }
+
             return result.objects
         })
     }
@@ -129,5 +146,10 @@ extension RepositoriesViewController: UITableViewDelegate {
         saveRepositoryAsFavorite(repository)
 
         dismiss()
+    }
+
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard nextPage != nil, indexPath.row == repositories.count - 1 else { return }
+        fetchNextPageData()
     }
 }

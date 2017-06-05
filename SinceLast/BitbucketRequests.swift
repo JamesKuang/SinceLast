@@ -16,15 +16,24 @@ struct BitbucketUserRequest: TypedRequest {
 }
 
 struct BitbucketRepositoriesRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<Repository>
+    typealias ResultType = BitbucketPaginatedResult<Repository>
 
     let uuid: String
+    let page: Int
 
     var path: String {
         return "/2.0/repositories/\(uuid)"
     }
 
-    let queryParameters: [String: String] = [:]
+    var queryParameters: [String: String] {
+        guard page > 1 else { return [:] }
+        return ["page": String(page)]
+    }
+
+    init(uuid: String, page: Int = 1) {
+        self.uuid = uuid
+        self.page = page
+    }
 }
 
 struct BitbucketTeamsRequest: TypedRequest {
