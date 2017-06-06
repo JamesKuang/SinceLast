@@ -53,8 +53,6 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     fileprivate var state: ViewState<[Commit]> = .initial {
         didSet {
             switch state {
-            case .initial:
-                fatalError("Bad view state transition")
             case .loading:
                 showActivity()
             case .loaded(let commits):
@@ -64,6 +62,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
             case .error(let error):
                 hideActivity()
                 print(error)
+            case .initial: fatalError("Bad view state transition")
             }
         }
     }
