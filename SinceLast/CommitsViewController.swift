@@ -37,15 +37,34 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         let view = EmptyView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.messageLabel.text = NSLocalizedString("You have no commit activity in this repository.", comment: "Commits screen empty state message")
+        view.isHidden = true
+        return view
+    }()
+
+    private let activityIndicator: UIActivityIndicatorView = {
+        let view = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
 
     fileprivate let currentUser: User
     fileprivate let repository: FavoriteRepository
 
-    fileprivate var commits: [Commit] = [] {
+    fileprivate var state: ViewState<[Commit]> = .initial {
         didSet {
-            updateEmptyStateVisibility()
+            switch state {
+            case .initial:
+                fatalError("Bad view state transition")
+            case .loading:
+                showActivity()
+            case .loaded(let commits):
+                hideActivity()
+                updateEmptyStateVisibility(with: commits)
+                reload(with: commits)
+            case .error(let error):
+                hideActivity()
+                print(error)
+            }
         }
     }
 
@@ -58,6 +77,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
         view.addSubview(tableView)
         view.addSubview(emptyView)
+        view.addSubview(activityIndicator)
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -67,6 +87,8 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
             emptyView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20.0),
             emptyView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20.0),
             emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             ])
     }
 
@@ -88,11 +110,12 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func fetchData() {
+        state = .loading
         let _ = retrieveCommits()
             .then { commits in
-                self.reload(with: commits)
+                self.state = .loaded(commits.filter { $0.committer == self.currentUser })
             }.catch { error in
-                print(error)
+                self.state = .error(error)
         }
 
         let _ = retrievePullRequests().then { pullRequests -> Void in
@@ -116,13 +139,20 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func reload(with commits: [Commit]) {
-        self.commits = commits.filter { $0.committer == self.currentUser }
         tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
 
-    private func updateEmptyStateVisibility() {
+    private func updateEmptyStateVisibility(with commits: [Commit]) {
         emptyView.isHidden = !commits.isEmpty
+    }
+
+    private func showActivity() {
+        activityIndicator.startAnimating()
+    }
+
+    private func hideActivity() {
+        activityIndicator.stopAnimating()
     }
 
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
@@ -132,10 +162,12 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
 extension CommitsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard case .loaded(let commits) = state else { return 0 }
         return commits.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard case .loaded(let commits) = state else { fatalError("Unexpected view state") }
         let cell = tableView.dequeueCell(of: CommitCell.self, for: indexPath)
         let commit = commits[indexPath.item]
         cell.configure(with: commit)

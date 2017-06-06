@@ -52,6 +52,7 @@
 		1AE2D07D1EC7F7A00007ACBD /* OAuthCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */; };
 		1AE2D07F1EC804960007ACBD /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D07E1EC804960007ACBD /* Request.swift */; };
 		1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */; };
+		1AE9733D1EE64DE000FACE7D /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE9733C1EE64DE000FACE7D /* ViewState.swift */; };
 		1AED93C91ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */; };
 		1AED93CB1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */; };
 		1AED93CF1ECFD9C20017FAD6 /* BitbucketOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93CE1ECFD9C20017FAD6 /* BitbucketOAuth.swift */; };
@@ -136,6 +137,7 @@
 		1AE2D07C1EC7F7A00007ACBD /* OAuthCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthCredentials.swift; sourceTree = "<group>"; };
 		1AE2D07E1EC804960007ACBD /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLRequestBuilder.swift; sourceTree = "<group>"; };
+		1AE9733C1EE64DE000FACE7D /* ViewState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 		1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationHeaderScheme.swift; sourceTree = "<group>"; };
 		1AED93CA1ECFD88D0017FAD6 /* OAuthAccessTokenRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenRequest.swift; sourceTree = "<group>"; };
 		1AED93CE1ECFD9C20017FAD6 /* BitbucketOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketOAuth.swift; sourceTree = "<group>"; };
@@ -250,6 +252,7 @@
 				1A0C2E191ED3DE8800107D5B /* Reusable.swift */,
 				1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */,
 				1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */,
+				1AE9733C1EE64DE000FACE7D /* ViewState.swift */,
 				1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */,
 				1AC3C6621EC5EFEE001E03B7 /* Resources */,
 			);
@@ -564,6 +567,7 @@
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,
 				1A1420CC1EDFBD46008C850C /* FavoriteRepository.swift in Sources */,
+				1AE9733D1EE64DE000FACE7D /* ViewState.swift in Sources */,
 				1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */,
 				1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */,
 				1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */,
