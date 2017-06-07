@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 import Pastel
 
 final class GitServicesAuthorizationViewController: UIViewController {
@@ -140,10 +141,11 @@ final class GitServicesAuthorizationViewController: UIViewController {
     private func startAuthentication(with credentials: OAuthCredentials) {
         let oAuth = OAuth(credentials: credentials)
         print("\(oAuth.fullAuthURL)")
-        let controller = WebBrowserViewController(url: oAuth.fullAuthURL)
+
+        let controller = SFSafariViewController(url: oAuth.fullAuthURL)
         controller.delegate = self
-        let navigationController = UINavigationController(rootViewController: controller)
-        present(navigationController, animated: true)
+        controller.preferredControlTintColor = ThemeColor.darkOrange.color
+        present(controller, animated: true)
     }
 
     private func addMotionEffect(to view: UIView) {
@@ -161,8 +163,8 @@ final class GitServicesAuthorizationViewController: UIViewController {
     }
 }
 
-extension GitServicesAuthorizationViewController: WebBrowserViewControllerDelegate {
-    func controllerDidClose(_ controller: WebBrowserViewController) {
+extension GitServicesAuthorizationViewController: SFSafariViewControllerDelegate {
+    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
         dismiss(animated: true)
     }
 }
