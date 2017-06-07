@@ -89,7 +89,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         emptyView.actionButton.addTarget(self, action: #selector(tappedAddFavorite(_:)), for: .touchUpInside)
         registerForPreviewing(with: self, sourceView: tableView)
 
-        fetchData()
+        fetchData(ignoringCache: false)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -103,8 +103,8 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    private func fetchData() {
-        if let cachedUser = currentUserCache.cachedUser {
+    private func fetchData(ignoringCache: Bool) {
+        if !ignoringCache, let cachedUser = currentUserCache.cachedUser {
             self.currentUser = cachedUser
             return
         }
@@ -162,7 +162,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
-        fetchData()
+        fetchData(ignoringCache: true)
     }
 }
 
