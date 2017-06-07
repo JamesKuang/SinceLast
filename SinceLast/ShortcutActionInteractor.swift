@@ -41,6 +41,7 @@ final class ShortcutActionInteractor {
     func performAction(for shortcutItem: UIApplicationShortcutItem, completion: ((Bool) -> Void)?) -> Bool {
         let returnValue = false // Always return false to application:didFinishLaunchingWithOptions:
         guard shortcutItem.type == ShortcutType.favoriteRepository,
+            let gitClient = coordinator?.gitClient,
             let uuid = shortcutItem.userInfo?["uuid"] as? String else {
                 completion?(false)
                 return returnValue
@@ -52,7 +53,7 @@ final class ShortcutActionInteractor {
             return returnValue
         }
 
-//        let controller = CommitsViewController(client: <#T##GitClient#>, currentUser: <#T##User#>, repository: favorite)
+//        let controller = CommitsViewController(client: gitClient, currentUser: <#T##User#>, repository: favorite)
         let rootNavigationController = coordinator?.startLaunchViewController()
 //        rootNavigationController?.pushViewController(controller, animated: false)
 

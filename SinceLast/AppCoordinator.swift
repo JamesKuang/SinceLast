@@ -14,6 +14,10 @@ final class AppCoordinator {
 
     let gitClient: GitClient = GitClient(service: .bitbucket)
 
+    private(set) lazy var router: AppRouter = {
+        return AppRouter(rootViewController: self.rootViewController)
+    }()
+
     private(set) lazy var shortcutInteractor: ShortcutActionInteractor = ShortcutActionInteractor(coordinator: self)
 
     var isAuthorized: Bool {
