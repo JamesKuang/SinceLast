@@ -17,6 +17,12 @@ final class AppRouter {
 
     func routeToCommits(in repository: FavoriteRepository) {
         guard let favoritesViewController = rootViewController.topViewController as? FavoritesViewController else { return }
-        
+
+        let currentUserCache = CurrentUserCache()
+        guard let currentUser = currentUserCache.cachedUser else { return }
+
+        let gitClient = favoritesViewController.gitClient
+        let controller = CommitsViewController(client: gitClient, currentUser: currentUser, repository: repository)
+        rootViewController.pushViewController(controller, animated: false)
     }
 }
