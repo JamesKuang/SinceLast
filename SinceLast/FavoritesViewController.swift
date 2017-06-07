@@ -47,10 +47,13 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private lazy var storage: PersistentStorage<FavoriteRepository> = PersistentStorage()
+    private let currentUserCache: CurrentUserCache
 
     init(client: GitClient) {
         self.gitClient = client
+        self.currentUserCache = CurrentUserCache()
         super.init(nibName: nil, bundle: nil)
+
         title = NSLocalizedString("Repositories", comment: "Favorites screen navigation bar title")
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings"), style: .plain, target: self, action: #selector(tappedSettingsButton(_:)))
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(tappedAddFavorite(_:)))
@@ -101,7 +104,13 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func fetchData() {
+        if let cachedUser = currentUserCache.cachedUser {
+            self.currentUser = cachedUser
+            return
+        }
+
         let _ = self.retrieveUser().then(execute: { user -> Void in
+            self.currentUserCache.cacheUser(user)
             self.currentUser = user
             self.tableView.refreshControl?.endRefreshing()
         })
