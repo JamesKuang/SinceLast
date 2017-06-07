@@ -9,7 +9,7 @@
 import Foundation
 
 extension Notification.Name {
-    static let persistentStorageDidSave = Notification.Name("persistentStorageDidSave")
+    static let persistentStorageContentDidChange = Notification.Name("persistentStorageContentDidChange")
 }
 
 enum StorageDirectory {
@@ -29,7 +29,7 @@ final class PersistentStorage<T: NSCoding> {
     func save(_ objects: [T]) -> Bool {
         let result = NSKeyedArchiver.archiveRootObject(objects, toFile: storageURL.path)
         if result {
-            NotificationCenter.default.post(name: .persistentStorageDidSave, object: nil)
+            postContentDidChangeNotification()
         } else {
             print("Failed archiving to file '\(fileName)'")
         }
@@ -38,6 +38,19 @@ final class PersistentStorage<T: NSCoding> {
 
     func load() -> [T]? {
         return NSKeyedUnarchiver.unarchiveObject(withFile: storageURL.path) as? [T]
+    }
+
+    func purge() {
+        do {
+            try FileManager.default.removeItem(at: storageURL)
+            postContentDidChangeNotification()
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+
+    private func postContentDidChangeNotification() {
+        NotificationCenter.default.post(name: .persistentStorageContentDidChange, object: nil)
     }
 }
 

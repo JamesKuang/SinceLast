@@ -72,6 +72,10 @@ final class AppCoordinator {
     private dynamic func didLogoutGitService(_ notification: Notification) {
         let tokenStorage = TokenStorage(service: gitClient.service)
         tokenStorage.clearToken()
+
+        let storage = PersistentStorage<FavoriteRepository>()
+        storage.purge()
+        
         startLaunchViewController()
     }
 }

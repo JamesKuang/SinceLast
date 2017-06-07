@@ -20,7 +20,7 @@ final class ShortcutActionInteractor {
     }
 
     func setupShortcutsCreation() {
-        NotificationCenter.default.addObserver(forName: .persistentStorageDidSave, object: nil, queue: OperationQueue(), using: { notification in
+        NotificationCenter.default.addObserver(forName: .persistentStorageContentDidChange, object: nil, queue: OperationQueue(), using: { notification in
             let storage = PersistentStorage<FavoriteRepository>()
             let favorites = storage.load() ?? []
             let actionables = favorites[0..<min(4, favorites.count)]
@@ -33,7 +33,7 @@ final class ShortcutActionInteractor {
                 return UIApplicationShortcutItem(type: type, localizedTitle: actionable.name, localizedSubtitle: actionable.ownerName, icon: icon, userInfo: userInfo)
             }
 
-            UIApplication.shared.shortcutItems = shortcutItems.reversed()
+            UIApplication.shared.shortcutItems = shortcutItems
         })
     }
 
