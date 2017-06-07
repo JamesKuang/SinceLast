@@ -13,6 +13,7 @@ protocol WebBrowserViewControllerDelegate: class {
     func controllerDidClose(_ controller: WebBrowserViewController)
 }
 
+/// This class only used for testing.
 final class WebBrowserViewController: UIViewController {
     let webView: WKWebView = {
         let configuration = WKWebViewConfiguration()

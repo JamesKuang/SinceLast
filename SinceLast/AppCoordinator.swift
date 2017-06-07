@@ -14,24 +14,28 @@ final class AppCoordinator {
 
     let gitClient: GitClient = GitClient(service: .bitbucket)
 
+    private(set) lazy var shortcutInteractor: ShortcutActionInteractor = ShortcutActionInteractor(coordinator: self)
+
     var isAuthorized: Bool {
         let tokenStorage = TokenStorage(service: gitClient.service)
         return tokenStorage.hasToken
     }
 
     init() {
-        setAppearanceProxies()
+        setupAppearanceProxies()
+        shortcutInteractor.setupShortcutsCreation()
+
         NotificationCenter.default.addObserver(self, selector: #selector(didLogoutGitService(_:)), name: .didLogoutGitService, object: nil)
     }
 
-    private func setAppearanceProxies() {
+    private func setupAppearanceProxies() {
         let color = ThemeColor.darkOrange.color
         UIBarButtonItem.appearance().tintColor = color
         UINavigationBar.appearance().tintColor = color
     }
 
     @discardableResult
-    func startLaunchViewController() -> UIViewController {
+    func startLaunchViewController() -> UINavigationController {
         let controller: UIViewController
         if isAuthorized {
             controller = FavoritesViewController(client: gitClient)
@@ -41,6 +45,10 @@ final class AppCoordinator {
                 BitbucketOAuth(),
                 ]
             controller = GitServicesAuthorizationViewController(credentials: credentials)
+        }
+
+        if let presentedViewController = rootViewController.presentedViewController {
+            presentedViewController.dismiss(animated: false)
         }
 
         rootViewController.setViewControllers([controller], animated: false)

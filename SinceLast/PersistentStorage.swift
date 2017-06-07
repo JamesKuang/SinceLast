@@ -8,6 +8,10 @@
 
 import Foundation
 
+extension Notification.Name {
+    static let persistentStorageDidSave = Notification.Name("persistentStorageDidSave")
+}
+
 enum StorageDirectory {
     static let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 }
@@ -24,7 +28,9 @@ final class PersistentStorage<T: NSCoding> {
     @discardableResult
     func save(_ objects: [T]) -> Bool {
         let result = NSKeyedArchiver.archiveRootObject(objects, toFile: storageURL.path)
-        if !result {
+        if result {
+            NotificationCenter.default.post(name: .persistentStorageDidSave, object: nil)
+        } else {
             print("Failed archiving to file '\(fileName)'")
         }
         return result
