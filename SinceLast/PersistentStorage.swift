@@ -36,8 +36,9 @@ final class PersistentStorage<T: NSCoding> {
         return result
     }
 
-    func load() -> [T]? {
-        return NSKeyedUnarchiver.unarchiveObject(withFile: storageURL.path) as? [T]
+    func load() -> [T] {
+        guard let objects = NSKeyedUnarchiver.unarchiveObject(withFile: storageURL.path) as? [T] else { return [] }
+        return objects
     }
 
     func purge() {

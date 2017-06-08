@@ -22,7 +22,7 @@ final class ShortcutActionInteractor {
     func setupShortcutsCreation() {
         NotificationCenter.default.addObserver(forName: .persistentStorageContentDidChange, object: nil, queue: OperationQueue(), using: { notification in
             let storage = PersistentStorage<FavoriteRepository>()
-            let favorites = storage.load() ?? []
+            let favorites = storage.load() 
             let actionables = favorites[0..<min(4, favorites.count)]
 
             let icon = UIApplicationShortcutIcon(type: .favorite)
@@ -47,7 +47,7 @@ final class ShortcutActionInteractor {
         }
 
         let storage = PersistentStorage<FavoriteRepository>()
-        let repositories = storage.load() ?? []
+        let repositories = storage.load()
         guard let repository = repositories.first(where: { $0.uuid == uuid }) else {
             completion?(false)
             return returnValue

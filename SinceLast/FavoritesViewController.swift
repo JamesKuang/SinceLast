@@ -117,7 +117,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func loadFavorites() {
-        favorites = storage.load() ?? []
+        favorites = storage.load() 
         tableView.reloadData()
     }
 

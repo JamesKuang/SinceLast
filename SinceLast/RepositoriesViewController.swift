@@ -112,7 +112,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         let codable = FavoriteRepository(repository)
 
         let storage: PersistentStorage<FavoriteRepository> = PersistentStorage()
-        var favorites = storage.load() ?? []
+        var favorites = storage.load() 
         favorites.append(codable)
 
         storage.save(favorites)

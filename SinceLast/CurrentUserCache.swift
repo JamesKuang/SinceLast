@@ -14,7 +14,7 @@ final class CurrentUserCache {
     init() {}
 
     var cachedUser: User? {
-        guard let currentUser = storage.load()?.first else { return nil }
+        guard let currentUser = storage.load().first else { return nil }
         return User(currentUser)
     }
 
