@@ -21,6 +21,8 @@
 		1A1AFF8A1EE79F690001A210 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1AFF891EE79F690001A210 /* CurrentUser.swift */; };
 		1A1AFF8C1EE7A57E0001A210 /* CurrentUserCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1AFF8B1EE7A57E0001A210 /* CurrentUserCache.swift */; };
 		1A1AFF8E1EE7A74B0001A210 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1AFF8D1EE7A74B0001A210 /* AppRouter.swift */; };
+		1A1AFF901EE8EDBD0001A210 /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A1AFF8F1EE8EDBD0001A210 /* LaunchStoryboard.storyboard */; };
+		1A1AFF921EE8EFB60001A210 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1AFF911EE8EFB60001A210 /* Assets.xcassets */; };
 		1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A680C4B1EC54E50009D2ECC /* GitService.swift */; };
 		1A7AAE4E1ED0B3CB00D29908 /* BitbucketRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */; };
 		1A7ABF4C1EC3F82E00752AF9 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */; };
@@ -35,7 +37,6 @@
 		1A9C78A31EDA30D300BAA9BA /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A9C78A21EDA30D300BAA9BA /* OAuth.plist */; };
 		1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */; };
 		1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */; };
-		1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */; };
 		1AA4FFE41EC15DA100F26BAB /* DateToDataConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */; };
 		1AA4FFEF1EC15DA100F26BAB /* SinceLastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */; };
 		1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFFC1EC161F100F26BAB /* Commit.swift */; };
@@ -104,6 +105,8 @@
 		1A1AFF891EE79F690001A210 /* CurrentUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUser.swift; sourceTree = "<group>"; };
 		1A1AFF8B1EE7A57E0001A210 /* CurrentUserCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrentUserCache.swift; sourceTree = "<group>"; };
 		1A1AFF8D1EE7A74B0001A210 /* AppRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
+		1A1AFF8F1EE8EDBD0001A210 /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
+		1A1AFF911EE8EFB60001A210 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1A680C4B1EC54E50009D2ECC /* GitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
 		1A7AAE4D1ED0B3CB00D29908 /* BitbucketRequests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketRequests.swift; sourceTree = "<group>"; };
 		1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
@@ -119,7 +122,6 @@
 		1AA4FFCB1EC15DA100F26BAB /* SinceLast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinceLast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitServicesAuthorizationViewController.swift; sourceTree = "<group>"; };
-		1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1AA4FFDA1EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFDF1EC15DA100F26BAB /* SinceLastTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SinceLastTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToDataConversionTests.swift; sourceTree = "<group>"; };
@@ -343,8 +345,9 @@
 			isa = PBXGroup;
 			children = (
 				1A9C78A21EDA30D300BAA9BA /* OAuth.plist */,
-				1AA4FFD51EC15DA100F26BAB /* Assets.xcassets */,
+				1A1AFF911EE8EFB60001A210 /* Assets.xcassets */,
 				1AA4FFDA1EC15DA100F26BAB /* Info.plist */,
+				1A1AFF8F1EE8EDBD0001A210 /* LaunchStoryboard.storyboard */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -495,7 +498,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A9C78A31EDA30D300BAA9BA /* OAuth.plist in Resources */,
-				1AA4FFD61EC15DA100F26BAB /* Assets.xcassets in Resources */,
+				1A1AFF921EE8EFB60001A210 /* Assets.xcassets in Resources */,
+				1A1AFF901EE8EDBD0001A210 /* LaunchStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -726,7 +730,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = FPK49A3586;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -747,7 +750,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				DEVELOPMENT_TEAM = FPK49A3586;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
