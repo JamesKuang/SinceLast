@@ -72,7 +72,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         self.currentUser = currentUser
         self.repository = repository
         super.init(nibName: nil, bundle: nil)
-        title = NSLocalizedString("Commits", comment: "Commits screen navigation bar title")
+        title = repository.name
 
         view.addSubview(tableView)
         view.addSubview(emptyView)

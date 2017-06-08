@@ -29,7 +29,7 @@ final class AppRouter {
         rootViewController.setViewControllers([controller], animated: false)
     }
 
-    func routeToCommits(in repository: FavoriteRepository) {
+    func routeToCommits(for repository: FavoriteRepository) {
         guard let favoritesViewController = rootViewController.topViewController as? FavoritesViewController else { return }
 
         let currentUserCache = CurrentUserCache()

@@ -47,14 +47,14 @@ final class ShortcutActionInteractor {
         }
 
         let storage = PersistentStorage<FavoriteRepository>()
-        let favorites = storage.load() ?? []
-        guard let favorite = favorites.first(where: { $0.uuid == uuid }) else {
+        let repositories = storage.load() ?? []
+        guard let repository = repositories.first(where: { $0.uuid == uuid }) else {
             completion?(false)
             return returnValue
         }
 
         coordinator?.startLaunchViewController()
-        coordinator?.router.routeToCommits(in: favorite)
+        coordinator?.router.routeToCommits(for: repository)
 
         completion?(true)
         return returnValue
