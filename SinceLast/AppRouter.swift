@@ -15,6 +15,20 @@ final class AppRouter {
         self.rootViewController = rootViewController
     }
 
+    func routeToLaunchViewController(client: GitClient, isAuthorized: Bool) {
+        let controller: UIViewController
+        if isAuthorized {
+            controller = FavoritesViewController(client: client)
+        } else {
+            let credentials: [OAuthCredentials] = [
+                GithubOAuth(),
+                BitbucketOAuth(),
+                ]
+            controller = GitServicesAuthorizationViewController(credentials: credentials)
+        }
+        rootViewController.setViewControllers([controller], animated: false)
+    }
+
     func routeToCommits(in repository: FavoriteRepository) {
         guard let favoritesViewController = rootViewController.topViewController as? FavoritesViewController else { return }
 

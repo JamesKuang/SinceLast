@@ -14,10 +14,7 @@ final class AppCoordinator {
 
     let gitClient: GitClient = GitClient(service: .bitbucket)
 
-    private(set) lazy var router: AppRouter = {
-        return AppRouter(rootViewController: self.rootViewController)
-    }()
-
+    private(set) lazy var router: AppRouter = AppRouter(rootViewController: self.rootViewController)
     private(set) lazy var shortcutInteractor: ShortcutActionInteractor = ShortcutActionInteractor(coordinator: self)
 
     var isAuthorized: Bool {
@@ -40,22 +37,11 @@ final class AppCoordinator {
 
     @discardableResult
     func startLaunchViewController() -> UINavigationController {
-        let controller: UIViewController
-        if isAuthorized {
-            controller = FavoritesViewController(client: gitClient)
-        } else {
-            let credentials: [OAuthCredentials] = [
-                GithubOAuth(),
-                BitbucketOAuth(),
-                ]
-            controller = GitServicesAuthorizationViewController(credentials: credentials)
-        }
-
         if let presentedViewController = rootViewController.presentedViewController {
             presentedViewController.dismiss(animated: false)
         }
 
-        rootViewController.setViewControllers([controller], animated: false)
+        router.routeToLaunchViewController(client: gitClient, isAuthorized: isAuthorized)
         return rootViewController
     }
 
