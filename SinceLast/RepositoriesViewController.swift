@@ -42,7 +42,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
 
-        title = NSLocalizedString("Repositories", comment: "Repositories screen navigation bar title")
+        title = owner.name
 
         view.addSubview(tableView)
 
