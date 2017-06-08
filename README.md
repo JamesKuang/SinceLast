@@ -1,5 +1,5 @@
 # SinceLast
 
-A work-in-progress iOS app that shows what you did yesterday (since last) by pulling your commit history.
+An iOS app that answers the questions "what did you do yesterday?" and "what will you do today?" using your commit history.
 
 [![Build Status](https://travis-ci.org/JamesKuang/SinceLast.svg?branch=master)](https://travis-ci.org/JamesKuang/SinceLast)
