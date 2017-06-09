@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import OnePasswordExtension
 
 protocol WebBrowserViewControllerDelegate: class {
     func controllerDidClose(_ controller: WebBrowserViewController)
@@ -52,6 +53,14 @@ final class WebBrowserViewController: UIViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Close navigation bar button"), style: .done, target: self, action: #selector(close))
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        if OnePasswordExtension.shared().isAppExtensionAvailable() {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "onepassword-navbar"), style: .plain, target: self, action: #selector(findLoginFrom1Password(_:)))
+        }
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -68,6 +77,14 @@ final class WebBrowserViewController: UIViewController {
         webView.stopLoading()
         delegate?.controllerDidClose(self)
     }
+
+    dynamic private func findLoginFrom1Password(_ sender: UIBarButtonItem) {
+        OnePasswordExtension.shared().fillItem(intoWebView: webView, for: self, sender: sender, showOnlyLogins: true, completion: { success, error in
+            if !success, let error = error {
+                print("Failed to fill into webview: <\(error)>")
+            }
+        })
+    }
 }
 
 extension WebBrowserViewController: WKNavigationDelegate {
@@ -76,8 +93,6 @@ extension WebBrowserViewController: WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
-
-        print(url)
 
         let signUpPathValidator = BitbucketSignupPathValidator(url: url)
         if signUpPathValidator.isValid {
