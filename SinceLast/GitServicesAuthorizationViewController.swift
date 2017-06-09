@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import SafariServices
+//import SafariServices
 import Pastel
 
 final class GitServicesAuthorizationViewController: UIViewController {
@@ -142,10 +142,15 @@ final class GitServicesAuthorizationViewController: UIViewController {
         let oAuth = OAuth(credentials: credentials)
         print("\(oAuth.fullAuthURL)")
 
-        let controller = SFSafariViewController(url: oAuth.fullAuthURL)
+//        let controller = SFSafariViewController(url: oAuth.fullAuthURL)
+//        controller.delegate = self
+//        controller.preferredControlTintColor = ThemeColor.darkOrange.color
+//        present(controller, animated: true)
+
+        let controller = WebBrowserViewController(url: oAuth.fullAuthURL)
         controller.delegate = self
-        controller.preferredControlTintColor = ThemeColor.darkOrange.color
-        present(controller, animated: true)
+        let navigationController = UINavigationController(rootViewController: controller)
+        present(navigationController, animated: true)
     }
 
     private func addMotionEffect(to view: UIView) {
@@ -163,8 +168,14 @@ final class GitServicesAuthorizationViewController: UIViewController {
     }
 }
 
-extension GitServicesAuthorizationViewController: SFSafariViewControllerDelegate {
-    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+//extension GitServicesAuthorizationViewController: SFSafariViewControllerDelegate {
+//    func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
+//        dismiss(animated: true)
+//    }
+//}
+
+extension GitServicesAuthorizationViewController: WebBrowserViewControllerDelegate {
+    func controllerDidClose(_ controller: WebBrowserViewController) {
         dismiss(animated: true)
     }
 }
