@@ -110,12 +110,13 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
     private func fetchData() {
         state = .loading
-        let _ = retrieveCommits()
-            .then { commits in
-                self.state = .loaded(commits.filter { $0.committer == self.currentUser })
-            }.catch { error in
+        let _ = when(fulfilled: retrieveCommits(), retrieveBranches())
+            .then(execute: { commits, branches -> Void in
+                let filteredCommits = commits.filter { $0.committer == self.currentUser }
+                self.state = .loaded(filteredCommits)
+            }).catch(execute: { error in
                 self.state = .error(error)
-        }
+            })
 
         let _ = retrievePullRequests().then { pullRequests -> Void in
             let filtered = pullRequests.filter { $0.author != self.currentUser }
@@ -126,6 +127,13 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     private func retrieveCommits() -> Promise<[Commit]> {
         let request = BitbucketCommitsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Commit] in
+            return result.objects
+        })
+    }
+
+    private func retrieveBranches() -> Promise<[Branch]> {
+        let request = BitbucketBranchesRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
+        return gitClient.send(request: request).then(execute: { result -> [Branch] in
             return result.objects
         })
     }

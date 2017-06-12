@@ -9,16 +9,16 @@
 import Foundation
 
 struct Commit {
-    let sha: String
+    let hash: String
     let message: String
     let date: Date
 
     let author: User
     let committer: User
 
-    init(sha: String, message: String, date: Date, author: User, committer: User? = nil) {
-        precondition(sha.characters.count == 40, "SHA must be 40 characters")
-        self.sha = sha
+    init(hash: String, message: String, date: Date, author: User, committer: User? = nil) {
+        precondition(hash.characters.count == 40, "Hash must be 40 characters")
+        self.hash = hash
         self.message = message.trimmingCharacters(in: .newlines)
         self.date = date
         self.author = author
@@ -29,7 +29,7 @@ struct Commit {
 extension Commit: JSONInitializable {
     init(json: JSON) throws {
         guard
-            let sha = json["hash"] as? String,
+            let hash = json["hash"] as? String,
             let message = json["message"] as? String,
             let dateString = json["date"] as? String,
             let date = DateFormatters.commitJSONFormatter.date(from: dateString),
@@ -37,7 +37,7 @@ extension Commit: JSONInitializable {
             let authorUser = author["user"] as? JSON
             else { throw JSONParsingError() }
 
-        self.init(sha: sha, message: message, date: date, author: try User(json: authorUser))
+        self.init(hash: hash, message: message, date: date, author: try User(json: authorUser))
     }
 }
 
@@ -59,13 +59,13 @@ enum DateFormatters {
 
 extension Commit {
     var shortSHA: String {
-        let index = sha.index(sha.startIndex, offsetBy: 7)
-        return sha.substring(to: index)
+        let index = hash.index(hash.startIndex, offsetBy: 7)
+        return hash.substring(to: index)
     }
 }
 
 extension Commit: Equatable {
     static func == (lhs: Commit, rhs: Commit) -> Bool {
-        return lhs.sha == rhs.sha
+        return lhs.hash == rhs.hash
     }
 }

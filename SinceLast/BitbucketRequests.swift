@@ -87,3 +87,33 @@ struct BitbucketPullRequestsRequest: TypedRequest {
         return "/2.0/repositories/\(uuid)/\(repositorySlug)/pullrequests"
     }
 }
+
+struct BitbucketBranchesRequest: TypedRequest {
+    typealias ResultType = BitbucketArrayResult<Branch>
+
+    let uuid: String
+    let repositorySlug: String
+
+    let queryParameters: [String: String] = [:]
+
+    var path: String {
+        return "/2.0/repositories/\(uuid)/\(repositorySlug)/refs/branches"
+    }
+}
+
+struct Branch {
+    let name: String
+    let targetHash: String
+}
+
+extension Branch: JSONInitializable {
+    init(json: JSON) throws {
+        guard let name = json["name"] as? String,
+            let target = json["target"] as? JSON,
+            let targetHash = target["hash"] as? String
+            else { throw JSONParsingError() }
+
+        self.name = name
+        self.targetHash = targetHash
+    }
+}
