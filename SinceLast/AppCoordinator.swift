@@ -63,8 +63,11 @@ final class AppCoordinator {
         let tokenStorage = TokenStorage(service: gitClient.service)
         tokenStorage.clearToken()
 
-        let storage = PersistentStorage<FavoriteRepository>()
-        storage.purge()
+        let repositoriesStorage = PersistentStorage<FavoriteRepository>()
+        repositoriesStorage.purge()
+
+        let userStorage = PersistentStorage<CurrentUser>()
+        userStorage.purge()
         
         startLaunchViewController()
     }
