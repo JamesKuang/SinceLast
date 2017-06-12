@@ -67,6 +67,7 @@
 		1AED93D61ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */; };
 		1AED93D81ECFEF440017FAD6 /* OAuthAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */; };
 		1AED93DA1ECFF0660017FAD6 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D91ECFF0660017FAD6 /* DateHelpers.swift */; };
+		1AF4FF751EEE42A100937FA3 /* Branch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF4FF741EEE42A100937FA3 /* Branch.swift */; };
 		1AF5E4AD1ED6762500040FA7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */; };
 		1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */; };
 		1AF5E4B11ED67A7200040FA7 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */; };
@@ -158,6 +159,7 @@
 		1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenTests.swift; sourceTree = "<group>"; };
 		1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessToken.swift; sourceTree = "<group>"; };
 		1AED93D91ECFF0660017FAD6 /* DateHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
+		1AF4FF741EEE42A100937FA3 /* Branch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Branch.swift; sourceTree = "<group>"; };
 		1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
 		1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 				1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */,
 				1A9A88861ED22EAF00A0D8A6 /* Repository.swift */,
 				1A7B5EA01EC1656200F9EC65 /* User.swift */,
+				1AF4FF741EEE42A100937FA3 /* Branch.swift */,
 			);
 			name = "Git Models";
 			sourceTree = "<group>";
@@ -604,6 +607,7 @@
 				1A0C2E111ED0A17A00107D5B /* GitClient.swift in Sources */,
 				1A1AFF8E1EE7A74B0001A210 /* AppRouter.swift in Sources */,
 				1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */,
+				1AF4FF751EEE42A100937FA3 /* Branch.swift in Sources */,
 				1AE2D0811EC812BA0007ACBD /* URLRequestBuilder.swift in Sources */,
 				1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */,
 				1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */,

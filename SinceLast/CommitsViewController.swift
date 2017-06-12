@@ -50,7 +50,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     fileprivate let currentUser: User
     fileprivate let repository: FavoriteRepository
 
-    fileprivate var state: ViewState<[Commit]> = .initial {
+    fileprivate var state: ViewState<[CommitDisplayable]> = .initial {
         didSet {
             switch state {
             case .loading:
@@ -113,7 +113,11 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         let _ = when(fulfilled: retrieveCommits(), retrieveBranches())
             .then(execute: { commits, branches -> Void in
                 let filteredCommits = commits.filter { $0.committer == self.currentUser }
-                self.state = .loaded(filteredCommits)
+                let displayables = filteredCommits.map({ commit -> CommitDisplayable in
+                    let branch = branches.first { $0.targetHash == commit.hash }
+                    return CommitDisplayable(commit: commit, branch: branch)
+                })
+                self.state = .loaded(displayables)
             }).catch(execute: { error in
                 self.state = .error(error)
             })
@@ -145,12 +149,12 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         })
     }
 
-    private func reload(with commits: [Commit]) {
+    private func reload(with commits: [CommitDisplayable]) {
         tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
 
-    private func updateEmptyStateVisibility(with commits: [Commit]) {
+    private func updateEmptyStateVisibility(with commits: [CommitDisplayable]) {
         emptyView.isHidden = !commits.isEmpty
     }
 
@@ -186,6 +190,11 @@ extension CommitsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
     }
+}
+
+struct CommitDisplayable {
+    let commit: Commit
+    let branch: Branch?
 }
 
 private final class HeaderView: UIView {

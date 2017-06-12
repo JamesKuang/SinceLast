@@ -43,6 +43,13 @@ final class CommitCell: UITableViewCell {
         return label
     }()
 
+    fileprivate let branchLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.backgroundColor = .white
+        return label
+    }()
+
     private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +73,7 @@ final class CommitCell: UITableViewCell {
         contentView.addSubview(stackView)
 
         stackView.addArrangedSubview(messageLabel)
+        stackView.addArrangedSubview(branchLabel)
         stackView.addArrangedSubview(horizontalStackView)
 
         horizontalStackView.addArrangedSubview(committerLabel)
@@ -94,15 +102,26 @@ final class CommitCell: UITableViewCell {
         super.prepareForReuse()
 
         messageLabel.text = nil
+        branchLabel.text = nil
         committerLabel.text = nil
         timestampLabel.text = nil
     }
 }
 
 extension CommitCell: ConfigurableCell {
-    func configure(with commit: Commit) {
+    func configure(with displayable: CommitDisplayable) {
+        let commit = displayable.commit
         messageLabel.text = commit.message
         committerLabel.text = commit.author.name
         timestampLabel.text = DateFormatters.commitDisplayFormatter.string(from: commit.date)
+
+        if let branchName = displayable.branch?.name {
+            let attributedBranchName = NSAttributedString(string: branchName, attributes: [
+                NSForegroundColorAttributeName: UIColor.white,
+                NSBackgroundColorAttributeName: UIColor.gray,
+                NSFontAttributeName: UIFont.preferredFont(forTextStyle: .subheadline),
+                ])
+            branchLabel.attributedText = attributedBranchName
+        }
     }
 }
