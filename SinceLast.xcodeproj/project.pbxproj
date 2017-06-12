@@ -66,7 +66,7 @@
 		1AED93D41ECFE7B90017FAD6 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AED93D31ECFE7B90017FAD6 /* KeychainAccess.framework */; };
 		1AED93D61ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */; };
 		1AED93D81ECFEF440017FAD6 /* OAuthAccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */; };
-		1AED93DA1ECFF0660017FAD6 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D91ECFF0660017FAD6 /* Helpers.swift */; };
+		1AED93DA1ECFF0660017FAD6 /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AED93D91ECFF0660017FAD6 /* DateHelpers.swift */; };
 		1AF5E4AD1ED6762500040FA7 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */; };
 		1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */; };
 		1AF5E4B11ED67A7200040FA7 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */; };
@@ -157,7 +157,7 @@
 		1AED93D31ECFE7B90017FAD6 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		1AED93D51ECFE8C20017FAD6 /* OAuthAccessTokenTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessTokenTests.swift; sourceTree = "<group>"; };
 		1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthAccessToken.swift; sourceTree = "<group>"; };
-		1AED93D91ECFF0660017FAD6 /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		1AED93D91ECFF0660017FAD6 /* DateHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
 		1AF5E4AC1ED6762500040FA7 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CaseCountable.swift; sourceTree = "<group>"; };
 		1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
@@ -196,6 +196,7 @@
 		1A0C2E211ED5308100107D5B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */,
 				1A0C2E1D1ED5304700107D5B /* RepositoryCell.swift */,
 				1AA9F0B61EDD0D4A00E13904 /* RepositoryOwnerCell.swift */,
 				1AD3832A1EE2802C0074832B /* FavoriteCell.swift */,
@@ -253,24 +254,14 @@
 		1AA4FFCD1EC15DA100F26BAB /* SinceLast */ = {
 			isa = PBXGroup;
 			children = (
-				1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */,
-				1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */,
-				1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */,
-				1A1AFF871EE797D50001A210 /* ShortcutActionInteractor.swift */,
-				1A1AFF8D1EE7A74B0001A210 /* AppRouter.swift */,
+				1AF4FF721EEE32B100937FA3 /* Application */,
 				1AC3C65F1EC5EFA9001E03B7 /* ViewControllers */,
 				1A0C2E211ED5308100107D5B /* Views */,
 				1AC3C6601EC5EFC4001E03B7 /* Git Models */,
 				1AC3C6611EC5EFE0001E03B7 /* Network */,
 				1AAC21D01EC7AE4C0038B14A /* OAuth */,
 				1AED93CD1ECFD8CA0017FAD6 /* Storage */,
-				1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */,
-				1AED93D91ECFF0660017FAD6 /* Helpers.swift */,
-				1A0C2E191ED3DE8800107D5B /* Reusable.swift */,
-				1A0C2E1F1ED5306A00107D5B /* ConfigurableCell.swift */,
-				1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */,
-				1AE9733C1EE64DE000FACE7D /* ViewState.swift */,
-				1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */,
+				1AF4FF731EEE330800937FA3 /* Utilities */,
 				1AC3C6621EC5EFEE001E03B7 /* Resources */,
 			);
 			path = SinceLast;
@@ -388,6 +379,31 @@
 				1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */,
 			);
 			name = "OAuth Services";
+			sourceTree = "<group>";
+		};
+		1AF4FF721EEE32B100937FA3 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */,
+				1AE2D07A1EC7F5EB0007ACBD /* AppCoordinator.swift */,
+				1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */,
+				1A1AFF871EE797D50001A210 /* ShortcutActionInteractor.swift */,
+				1A1AFF8D1EE7A74B0001A210 /* AppRouter.swift */,
+			);
+			name = Application;
+			sourceTree = "<group>";
+		};
+		1AF4FF731EEE330800937FA3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				1A7ABF4D1EC3FC3600752AF9 /* Errors.swift */,
+				1AED93D91ECFF0660017FAD6 /* DateHelpers.swift */,
+				1A0C2E191ED3DE8800107D5B /* Reusable.swift */,
+				1AF5E4AE1ED676FE00040FA7 /* CaseCountable.swift */,
+				1AE9733C1EE64DE000FACE7D /* ViewState.swift */,
+				1A118CD31ED7DD1E00486A88 /* ThemeColor.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -596,7 +612,7 @@
 				1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */,
 				1A118CD41ED7DD1E00486A88 /* ThemeColor.swift in Sources */,
 				1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */,
-				1AED93DA1ECFF0660017FAD6 /* Helpers.swift in Sources */,
+				1AED93DA1ECFF0660017FAD6 /* DateHelpers.swift in Sources */,
 				1AE2D07B1EC7F5EB0007ACBD /* AppCoordinator.swift in Sources */,
 				1AED93D81ECFEF440017FAD6 /* OAuthAccessToken.swift in Sources */,
 				1A0C2E1A1ED3DE8800107D5B /* Reusable.swift in Sources */,
