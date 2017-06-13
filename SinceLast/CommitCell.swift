@@ -43,11 +43,23 @@ final class CommitCell: UITableViewCell {
         return label
     }()
 
-    fileprivate let branchLabel: UILabel = {
-        let label = UILabel()
+    fileprivate let branchLabel: ContentInsetLabel = {
+        let label = ContentInsetLabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .white
+        label.backgroundColor = .lightGray
+        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        label.textColor = .white
+        label.clipsToBounds = true
+        label.layer.cornerRadius = 8.0
+        label.contentInset = UIEdgeInsets(top: 0.0, left: 5.0, bottom: 0.0, right: 5.0)
         return label
+    }()
+
+    fileprivate let branchTrailingFillerView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
     }()
 
     private let stackView: UIStackView = {
@@ -58,7 +70,14 @@ final class CommitCell: UITableViewCell {
         return stackView
     }()
 
-    private let horizontalStackView: UIStackView = {
+    private let branchHorizontalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        return stackView
+    }()
+
+    private let committerHorizontalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -73,11 +92,14 @@ final class CommitCell: UITableViewCell {
         contentView.addSubview(stackView)
 
         stackView.addArrangedSubview(messageLabel)
-        stackView.addArrangedSubview(branchLabel)
-        stackView.addArrangedSubview(horizontalStackView)
+        stackView.addArrangedSubview(branchHorizontalStackView)
+        stackView.addArrangedSubview(committerHorizontalStackView)
 
-        horizontalStackView.addArrangedSubview(committerLabel)
-        horizontalStackView.addArrangedSubview(timestampLabel)
+        branchHorizontalStackView.addArrangedSubview(branchLabel)
+        branchHorizontalStackView.addArrangedSubview(branchTrailingFillerView)
+
+        committerHorizontalStackView.addArrangedSubview(committerLabel)
+        committerHorizontalStackView.addArrangedSubview(timestampLabel)
 
         let guide = contentView.readableContentGuide
         NSLayoutConstraint.activate([
@@ -106,6 +128,20 @@ final class CommitCell: UITableViewCell {
         committerLabel.text = nil
         timestampLabel.text = nil
     }
+
+    func updateBranchName(_ branchName: String?) {
+        if let branchName = branchName {
+            branchLabel.text = branchName
+            branchLabel.isHidden = false
+            branchTrailingFillerView.isHidden = false
+            branchHorizontalStackView.isHidden = false
+        } else {
+            branchLabel.text = nil
+            branchLabel.isHidden = true
+            branchTrailingFillerView.isHidden = true
+            branchHorizontalStackView.isHidden = true
+        }
+    }
 }
 
 extension CommitCell: ConfigurableCell {
@@ -114,14 +150,6 @@ extension CommitCell: ConfigurableCell {
         messageLabel.text = commit.message
         committerLabel.text = commit.author.name
         timestampLabel.text = DateFormatters.commitDisplayFormatter.string(from: commit.date)
-
-        if let branchName = displayable.branch?.name {
-            let attributedBranchName = NSAttributedString(string: branchName, attributes: [
-                NSForegroundColorAttributeName: UIColor.white,
-                NSBackgroundColorAttributeName: UIColor.gray,
-                NSFontAttributeName: UIFont.preferredFont(forTextStyle: .subheadline),
-                ])
-            branchLabel.attributedText = attributedBranchName
-        }
+        updateBranchName(displayable.branch?.name)
     }
 }

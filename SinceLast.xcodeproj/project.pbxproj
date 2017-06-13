@@ -31,6 +31,7 @@
 		1A7ABF501EC3FCF500752AF9 /* JSONParsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */; };
 		1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */; };
 		1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B5EA01EC1656200F9EC65 /* User.swift */; };
+		1A86E98D1EEF87B000A7C007 /* ContentInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A86E98C1EEF87B000A7C007 /* ContentInsetLabel.swift */; };
 		1A8769BD1ED8AB4200895E89 /* GithubOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */; };
 		1A97CB641EE4F64D00EF8BD6 /* BitbucketResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */; };
 		1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88821ED209A400A0D8A6 /* Response.swift */; };
@@ -117,6 +118,7 @@
 		1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParsing.swift; sourceTree = "<group>"; };
 		1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		1A7B5EA01EC1656200F9EC65 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1A86E98C1EEF87B000A7C007 /* ContentInsetLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentInsetLabel.swift; sourceTree = "<group>"; };
 		1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubOAuth.swift; sourceTree = "<group>"; };
 		1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketResults.swift; sourceTree = "<group>"; };
 		1A9A88821ED209A400A0D8A6 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				1ABD6BBC1ED7938600AD002E /* CommitCell.swift */,
 				1AF5E4B01ED67A7200040FA7 /* SettingsCell.swift */,
 				1AA9F0B41EDD0A3200E13904 /* EmptyView.swift */,
+				1A86E98C1EEF87B000A7C007 /* ContentInsetLabel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -591,6 +594,7 @@
 				1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */,
 				1AA9F0B71EDD0D4A00E13904 /* RepositoryOwnerCell.swift in Sources */,
 				1A0C2E201ED5306A00107D5B /* ConfigurableCell.swift in Sources */,
+				1A86E98D1EEF87B000A7C007 /* ContentInsetLabel.swift in Sources */,
 				1A97CB641EE4F64D00EF8BD6 /* BitbucketResults.swift in Sources */,
 				1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */,
 				1AD3832B1EE2802C0074832B /* FavoriteCell.swift in Sources */,
