@@ -94,7 +94,10 @@ struct BitbucketBranchesRequest: TypedRequest {
     let uuid: String
     let repositorySlug: String
 
-    let queryParameters: [String: String] = [:]
+    var queryParameters: [String: String] {
+        let sort = "-target.date"
+        return ["sort": sort]
+    }
 
     var path: String {
         return "/2.0/repositories/\(uuid)/\(repositorySlug)/refs/branches"
