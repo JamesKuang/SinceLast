@@ -33,11 +33,18 @@ extension Commit: JSONInitializable {
             let message = json["message"] as? String,
             let dateString = json["date"] as? String,
             let date = DateFormatters.commitJSONFormatter.date(from: dateString),
-            let author = json["author"] as? JSON,
-            let authorUser = author["user"] as? JSON
+            let author = json["author"] as? JSON
             else { throw JSONParsingError() }
 
-        self.init(hash: hash, message: message, date: date, author: try User(json: authorUser))
+        let user: User
+        if let authorUser = author["user"] as? JSON {
+            user = try User(json: authorUser)
+        } else {
+            let name = author["raw"] as? String ?? "Unknown"
+            user = User(uuid: "", name: name, kind: .user)
+        }
+
+        self.init(hash: hash, message: message, date: date, author: user)
     }
 }
 
