@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +16,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     lazy var coordinator: AppCoordinator = AppCoordinator()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        start3rdPartyApps()
+
         window?.rootViewController = coordinator.startLaunchViewController()
         window?.makeKeyAndVisible()
 
@@ -30,5 +34,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
         coordinator.shortcutInteractor.performAction(for: shortcutItem, completion: completionHandler)
+    }
+
+    func start3rdPartyApps() {
+        Fabric.with([Crashlytics.self])
     }
 }

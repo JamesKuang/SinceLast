@@ -32,6 +32,8 @@
 		1A7ABF531EC4040E00752AF9 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */; };
 		1A7B5EA11EC1656200F9EC65 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A7B5EA01EC1656200F9EC65 /* User.swift */; };
 		1A86E98D1EEF87B000A7C007 /* ContentInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A86E98C1EEF87B000A7C007 /* ContentInsetLabel.swift */; };
+		1A86E9911EEF94DE00A7C007 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A86E98F1EEF94DE00A7C007 /* Fabric.framework */; };
+		1A86E9921EEF94DE00A7C007 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A86E9901EEF94DE00A7C007 /* Crashlytics.framework */; };
 		1A8769BD1ED8AB4200895E89 /* GithubOAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */; };
 		1A97CB641EE4F64D00EF8BD6 /* BitbucketResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */; };
 		1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88821ED209A400A0D8A6 /* Response.swift */; };
@@ -119,6 +121,8 @@
 		1A7ABF521EC4040E00752AF9 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
 		1A7B5EA01EC1656200F9EC65 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		1A86E98C1EEF87B000A7C007 /* ContentInsetLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentInsetLabel.swift; sourceTree = "<group>"; };
+		1A86E98F1EEF94DE00A7C007 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		1A86E9901EEF94DE00A7C007 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		1A8769BC1ED8AB4200895E89 /* GithubOAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubOAuth.swift; sourceTree = "<group>"; };
 		1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketResults.swift; sourceTree = "<group>"; };
 		1A9A88821ED209A400A0D8A6 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
@@ -177,6 +181,8 @@
 				1A0C2E1C1ED52E6300107D5B /* Kingfisher.framework in Frameworks */,
 				1ABD6BB91ED7903000AD002E /* Pastel.framework in Frameworks */,
 				1A4A98CA1EEA3F5600C110EA /* OnePasswordExtension.framework in Frameworks */,
+				1A86E9911EEF94DE00A7C007 /* Fabric.framework in Frameworks */,
+				1A86E9921EEF94DE00A7C007 /* Crashlytics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +230,8 @@
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A86E98F1EEF94DE00A7C007 /* Fabric.framework */,
+				1A86E9901EEF94DE00A7C007 /* Crashlytics.framework */,
 				1A4A98C91EEA3F5600C110EA /* OnePasswordExtension.framework */,
 				1ABD6BB81ED7903000AD002E /* Pastel.framework */,
 				1A0C2E1B1ED52E6300107D5B /* Kingfisher.framework */,
@@ -423,6 +431,7 @@
 				1AA4FFC81EC15DA100F26BAB /* Frameworks */,
 				1AA4FFC91EC15DA100F26BAB /* Resources */,
 				1A7ABF541EC4043600752AF9 /* Carthage Run Script */,
+				1A86E98E1EEF94A500A7C007 /* Crashlytics Run Script */,
 			);
 			buildRules = (
 			);
@@ -564,6 +573,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		1A86E98E1EEF94A500A7C007 /* Crashlytics Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Crashlytics Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run f54dddf4d36ba7a07cfe85c7ef03e8bf7a1c961c 7cd115cec504851cc5db124b6a6467a2edba97ce068d60d4ad027044ff803246";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -765,6 +788,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SinceLast/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
@@ -787,6 +811,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SinceLast/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
