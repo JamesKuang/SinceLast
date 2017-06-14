@@ -38,6 +38,7 @@
 		1A97CB641EE4F64D00EF8BD6 /* BitbucketResults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */; };
 		1A9A88831ED209A400A0D8A6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88821ED209A400A0D8A6 /* Response.swift */; };
 		1A9A88871ED22EAF00A0D8A6 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A9A88861ED22EAF00A0D8A6 /* Repository.swift */; };
+		1A9C19CC1EF0DD9000909D3E /* NSDateTimeAgo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A9C19CB1EF0DD9000909D3E /* NSDateTimeAgo.framework */; };
 		1A9C78A31EDA30D300BAA9BA /* OAuth.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1A9C78A21EDA30D300BAA9BA /* OAuth.plist */; };
 		1AA4FFCF1EC15DA100F26BAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */; };
 		1AA4FFD11EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFD01EC15DA100F26BAB /* GitServicesAuthorizationViewController.swift */; };
@@ -127,6 +128,7 @@
 		1A97CB631EE4F64D00EF8BD6 /* BitbucketResults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitbucketResults.swift; sourceTree = "<group>"; };
 		1A9A88821ED209A400A0D8A6 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		1A9A88861ED22EAF00A0D8A6 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		1A9C19CB1EF0DD9000909D3E /* NSDateTimeAgo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NSDateTimeAgo.framework; path = Carthage/Build/iOS/NSDateTimeAgo.framework; sourceTree = "<group>"; };
 		1A9C78A21EDA30D300BAA9BA /* OAuth.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = OAuth.plist; sourceTree = "<group>"; };
 		1AA4FFCB1EC15DA100F26BAB /* SinceLast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SinceLast.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AA4FFCE1EC15DA100F26BAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				1A4A98CA1EEA3F5600C110EA /* OnePasswordExtension.framework in Frameworks */,
 				1A86E9911EEF94DE00A7C007 /* Fabric.framework in Frameworks */,
 				1A86E9921EEF94DE00A7C007 /* Crashlytics.framework in Frameworks */,
+				1A9C19CC1EF0DD9000909D3E /* NSDateTimeAgo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -230,6 +233,7 @@
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1A9C19CB1EF0DD9000909D3E /* NSDateTimeAgo.framework */,
 				1A86E98F1EEF94DE00A7C007 /* Fabric.framework */,
 				1A86E9901EEF94DE00A7C007 /* Crashlytics.framework */,
 				1A4A98C91EEA3F5600C110EA /* OnePasswordExtension.framework */,
@@ -566,6 +570,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Pastel.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OnePasswordExtension.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/NSDateTimeAgo.framework",
 			);
 			name = "Carthage Run Script";
 			outputPaths = (

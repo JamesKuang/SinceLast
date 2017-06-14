@@ -4,3 +4,4 @@ github "kishikawakatsumi/KeychainAccess" ~> 3.0
 github "onevcat/Kingfisher" ~> 3.9
 github "cruisediary/Pastel" ~> 0.3
 github "AgileBits/onepassword-extension" ~> 1.8
+github "kgn/NSDate-TimeAgo" ~> 1.1

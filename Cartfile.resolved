@@ -1,5 +1,6 @@
 github "AgileBits/onepassword-extension" "framework/1.8.4"
 github "cruisediary/Pastel" "0.3.0"
+github "kgn/NSDate-TimeAgo" "v1.1.1"
 github "kishikawakatsumi/KeychainAccess" "v3.0.2"
 github "mxcl/PromiseKit" "4.2.2"
 github "onevcat/Kingfisher" "3.9.1"
