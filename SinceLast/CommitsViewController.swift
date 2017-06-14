@@ -102,8 +102,10 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.refreshControl?.addTarget(self, action: #selector(refreshControlValueChanged(_:)), for: .valueChanged)
+
         tableView.tableHeaderView = headerView
-        headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 50.0)
+        headerView.frame = CGRect(x: 0.0, y: 0.0, width: tableView.bounds.width, height: 70.0)
+        headerView.segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         
         fetchData()
     }
@@ -169,6 +171,10 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
         fetchData()
     }
+
+    private dynamic func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+
+    }
 }
 
 extension CommitsViewController: UITableViewDataSource {
@@ -216,6 +222,17 @@ private final class HeaderView: UIView {
         return label
     }()
 
+    let segmentedControl: UISegmentedControl = {
+        let control = UISegmentedControl(items: [
+            NSLocalizedString("Since Last", comment: "Since Last tab title in Commits screen"),
+            NSLocalizedString("All", comment: "All tab title in Commits screen"),
+            ])
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.tintColor = ThemeColor.darkOrange.color
+        control.selectedSegmentIndex = 0
+        return control
+    }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -223,6 +240,7 @@ private final class HeaderView: UIView {
 
         addSubview(leftLabel)
         addSubview(rightLabel)
+        addSubview(segmentedControl)
 
         let padding: CGFloat = 8.0
         let widthConstraints = [
@@ -233,10 +251,13 @@ private final class HeaderView: UIView {
         widthConstraints.forEach { $0.priority = 999 }
 
         NSLayoutConstraint.activate(widthConstraints + [
-            leftLabel.topAnchor.constraint(equalTo: topAnchor),
-            leftLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            leftLabel.topAnchor.constraint(equalTo: rightLabel.topAnchor),
+            leftLabel.bottomAnchor.constraint(equalTo: rightLabel.bottomAnchor),
             rightLabel.topAnchor.constraint(equalTo: topAnchor),
-            rightLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            rightLabel.bottomAnchor.constraint(equalTo: segmentedControl.topAnchor),
+            segmentedControl.leadingAnchor.constraint(equalTo: readableContentGuide.leadingAnchor),
+            segmentedControl.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor),
+            segmentedControl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5.0),
             ])
     }
 
