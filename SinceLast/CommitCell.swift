@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import NSDateTimeAgo
 
 final class CommitCell: UITableViewCell {
     fileprivate let avatarView: UIImageView = {
@@ -149,7 +150,7 @@ extension CommitCell: ConfigurableCell {
         let commit = displayable.commit
         messageLabel.text = commit.message
         committerLabel.text = commit.author.name
-        timestampLabel.text = DateFormatters.commitDisplayFormatter.string(from: commit.date)
+        timestampLabel.text = commit.date.timeAgo
         updateBranchName(displayable.branch?.name)
     }
 }
