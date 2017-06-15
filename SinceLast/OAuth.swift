@@ -34,16 +34,35 @@ protocol OAuthKeySecretProviding {
 }
 
 final class OAuthKeySecretProvider: OAuthKeySecretProviding {
-    static let shared = OAuthKeySecretProvider()
+    enum Service {
+        case github
+        case bitbucket
+
+        fileprivate var key: String {
+            switch self {
+            case .github: return "Github.key"
+            case .bitbucket: return "Bitbucket.key"
+            }
+        }
+
+        fileprivate var secret: String {
+            switch self {
+            case .github: return "Github.secret"
+            case .bitbucket: return "Bitbucket.secret"
+            }
+        }
+    }
+
+    static let shared = OAuthKeySecretProvider(service: .bitbucket)
 
     let key: String
     let secret: String
 
-    init() {
+    init(service: Service) {
         let contents = PlistReader(fileName: "OAuth").read()
-        guard let key = contents.value(forKeyPath: "Bitbucket.key") as? String
+        guard let key = contents.value(forKeyPath: service.key) as? String
             else { fatalError("Missing key in Plist") }
-        guard let secret = contents.value(forKeyPath: "Bitbucket.secret") as? String
+        guard let secret = contents.value(forKeyPath: service.secret) as? String
             else { fatalError("Missing secret in Plist") }
 
         self.key = key
