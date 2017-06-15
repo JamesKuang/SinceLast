@@ -21,14 +21,14 @@ enum GitService {
 
     var apiBaseURL: String {
         switch self {
-        case .github: return "" // TODO: NYI
+        case .github: return "https://api.github.com/graphql"
         case .bitbucket: return "https://api.bitbucket.org"
         }
     }
 
     var oAuthBaseURL: String {
         switch self {
-        case .github: return "" // TODO: NYI
+        case .github: return "http://github.com"
         case .bitbucket: return "https://bitbucket.org"
         }
     }
@@ -42,7 +42,7 @@ enum GitService {
 
     var isSupported: Bool {
         switch self {
-        case .github: return false  // TODO: NYI
+        case .github: return true
         case .bitbucket: return true
         }
     }

@@ -53,7 +53,8 @@ final class OAuthKeySecretProvider: OAuthKeySecretProviding {
         }
     }
 
-    static let shared = OAuthKeySecretProvider(service: .bitbucket)
+    static let github = OAuthKeySecretProvider(service: .github)
+    static let bitbucket = OAuthKeySecretProvider(service: .bitbucket)
 
     let key: String
     let secret: String

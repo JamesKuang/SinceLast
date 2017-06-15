@@ -35,7 +35,7 @@ struct OAuthAccessTokenRequest: TypedRequest {
     let path = "/site/oauth2/access_token"
 
     let grantType: GrantType
-    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.shared
+    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.bitbucket
 
     var queryParameters: [String: String] {
         return grantType.queryParameters

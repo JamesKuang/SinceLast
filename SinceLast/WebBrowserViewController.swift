@@ -93,6 +93,7 @@ extension WebBrowserViewController: WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
+        print(url)
 
         let signUpPathValidator = BitbucketSignupPathValidator(url: url)
         if signUpPathValidator.isValid {
