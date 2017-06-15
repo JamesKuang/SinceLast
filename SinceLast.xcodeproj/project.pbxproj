@@ -51,7 +51,7 @@
 		1AAC21CD1EC7AC9D0038B14A /* PlistReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */; };
 		1AAC21CF1EC7AE040038B14A /* ApplicationURLOpening.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */; };
 		1AAC21D21EC7B0B60038B14A /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */; };
-		1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */; };
+		1AAC21D41EC7B5210038B14A /* OAuthCallbackValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAC21D31EC7B5210038B14A /* OAuthCallbackValidator.swift */; };
 		1AAE2A8A1EC2BD62009D1499 /* OAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AAE2A891EC2BD62009D1499 /* OAuth.swift */; };
 		1ABD6BB91ED7903000AD002E /* Pastel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ABD6BB81ED7903000AD002E /* Pastel.framework */; };
 		1ABD6BBB1ED791F500AD002E /* CommitsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */; };
@@ -147,7 +147,7 @@
 		1AAC21CC1EC7AC9D0038B14A /* PlistReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlistReader.swift; sourceTree = "<group>"; };
 		1AAC21CE1EC7AE040038B14A /* ApplicationURLOpening.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationURLOpening.swift; sourceTree = "<group>"; };
 		1AAC21D11EC7B0B60038B14A /* RepositoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoriesViewController.swift; sourceTree = "<group>"; };
-		1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthURLValidator.swift; sourceTree = "<group>"; };
+		1AAC21D31EC7B5210038B14A /* OAuthCallbackValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthCallbackValidator.swift; sourceTree = "<group>"; };
 		1AAE2A891EC2BD62009D1499 /* OAuth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuth.swift; sourceTree = "<group>"; };
 		1ABD6BB81ED7903000AD002E /* Pastel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pastel.framework; path = Carthage/Build/iOS/Pastel.framework; sourceTree = "<group>"; };
 		1ABD6BBA1ED791F500AD002E /* CommitsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommitsViewController.swift; sourceTree = "<group>"; };
@@ -308,7 +308,7 @@
 			children = (
 				1AED93D01ECFD9D30017FAD6 /* OAuth Services */,
 				1AAE2A891EC2BD62009D1499 /* OAuth.swift */,
-				1AAC21D31EC7B5210038B14A /* OAuthURLValidator.swift */,
+				1AAC21D31EC7B5210038B14A /* OAuthCallbackValidator.swift */,
 				1AED93D71ECFEF440017FAD6 /* OAuthAccessToken.swift */,
 				1AED93C81ECFD87C0017FAD6 /* AuthorizationHeaderScheme.swift */,
 			);
@@ -630,7 +630,7 @@
 				1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */,
 				1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */,
 				1AA9F0B51EDD0A3200E13904 /* EmptyView.swift in Sources */,
-				1AAC21D41EC7B5210038B14A /* OAuthURLValidator.swift in Sources */,
+				1AAC21D41EC7B5210038B14A /* OAuthCallbackValidator.swift in Sources */,
 				1ABD6BBD1ED7938600AD002E /* CommitCell.swift in Sources */,
 				1A1AFF8A1EE79F690001A210 /* CurrentUser.swift in Sources */,
 				1AA9F0B31EDD097100E13904 /* RepositoryOwnersViewController.swift in Sources */,

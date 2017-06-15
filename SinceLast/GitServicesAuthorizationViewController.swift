@@ -44,6 +44,8 @@ final class GitServicesAuthorizationViewController: UIViewController {
         return servicesStackView.arrangedSubviews.flatMap { $0 as? UIButton }
     }
 
+    private var selectedService: GitService?
+
     init(credentials: [OAuthCredentials]) {
         self.credentials = credentials
         super.init(nibName: nil, bundle: nil)
@@ -139,6 +141,8 @@ final class GitServicesAuthorizationViewController: UIViewController {
     }
 
     private func startAuthentication(with credentials: OAuthCredentials) {
+        selectedService = credentials.service
+
         let oAuth = OAuth(credentials: credentials)
         print("\(oAuth.fullAuthURL)")
 

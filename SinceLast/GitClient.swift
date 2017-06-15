@@ -25,10 +25,6 @@ final class GitClient {
         return NetworkClient(baseURL: self.service.apiBaseURL, configuration: configuration)
     }()
 
-    private lazy var oAuth: NetworkClient = {
-        return NetworkClient(baseURL: self.service.oAuthBaseURL, configuration: .ephemeral)
-    }()
-
     init(service: GitService) {
         self.service = service
     }
@@ -38,12 +34,38 @@ final class GitClient {
             .send(request: request)
             .recover(execute: { error -> Promise<OutputType> in
                 guard error is OAuthTokenExpiredError else { throw error }
-                return try self.refreshAuthToken().then(execute: { token -> Promise<OutputType> in
+                let oAuthClient = OAuthClient(service: self.service)
+                return try oAuthClient.refreshAuthToken().then(execute: { token -> Promise<OutputType> in
                     let newConfiguration = self.makeConfiguration(with: self.tokenStorage)
                     self.main.renewSession(with: newConfiguration)
                     return self.main.send(request: request)
                 })
             })
+    }
+
+    private func makeConfiguration(with tokenStorage: TokenStorage) -> URLSessionConfiguration {
+        let configuration = URLSessionConfiguration.default
+        if let token = tokenStorage.token {
+            let scheme = AuthorizationHeaderScheme(token: token)
+            configuration.httpAdditionalHeaders = scheme.keyValuePair
+        }
+        return configuration
+    }
+}
+
+final class OAuthClient {
+    let service: GitService
+
+    private lazy var tokenStorage: TokenStorage = {
+        return TokenStorage(service: self.service)
+    }()
+
+    private lazy var oAuth: NetworkClient = {
+        return NetworkClient(baseURL: self.service.oAuthBaseURL, configuration: .ephemeral)
+    }()
+
+    init(service: GitService) {
+        self.service = service
     }
 
     func authorize(code: String) -> Promise<OAuthAccessToken> {
@@ -54,22 +76,12 @@ final class GitClient {
         }
     }
 
-    private func refreshAuthToken() throws -> Promise<OAuthAccessToken> {
+    func refreshAuthToken() throws -> Promise<OAuthAccessToken> {
         guard let token = tokenStorage.token?.refreshToken else { throw NilError() }
         let request = OAuthAccessTokenRequest(grantType: .refresh(token: token))
         return oAuth.send(request: request).then { (accessToken) -> OAuthAccessToken in
             self.tokenStorage.store(token: accessToken)
-            // TODO the main client doesn't know about this new token
             return accessToken
         }
-    }
-
-    private func makeConfiguration(with tokenStorage: TokenStorage) -> URLSessionConfiguration {
-        let configuration = URLSessionConfiguration.default
-        if let token = tokenStorage.token {
-            let scheme = AuthorizationHeaderScheme(token: token)
-            configuration.httpAdditionalHeaders = scheme.keyValuePair
-        }
-        return configuration
     }
 }

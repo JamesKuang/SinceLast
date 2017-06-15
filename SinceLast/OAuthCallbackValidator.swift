@@ -1,5 +1,5 @@
 //
-//  OAuthURLValidator.swift
+//  OAuthCallbackValidator.swift
 //  SinceLast
 //
 //  Created by James Kuang on 5/13/17.
@@ -13,7 +13,12 @@ enum Result<T> {
     case failure(Error)
 }
 
-struct OAuthURLValidator {
+struct OAuthCallbackValidator {
+    struct OAuthCallbackValidationResult {
+        let code: String
+        let service: GitService
+    }
+
     let url: URL
     let urlComponents: URLComponents?
     let expectedScheme: String
@@ -24,11 +29,16 @@ struct OAuthURLValidator {
         self.expectedScheme = expectedScheme
     }
 
-    var result: Result<String> {
+    var result: Result<OAuthCallbackValidationResult> {
         guard let components = urlComponents else { return .failure(NilError()) }
         guard let scheme = components.scheme, scheme == expectedScheme else { return .failure(ValidationError("Scheme does not match")) }
         guard let code = accessCode else { return .failure(ValidationError("Missing access code")) }
-        return .success(code)
+
+        let serviceName = url.lastPathComponent
+        guard let service = GitService(serviceName: serviceName) else { return .failure(ValidationError("Missing service name in path")) }
+
+        let result = OAuthCallbackValidationResult(code: code, service: service)
+        return .success(result)
     }
 
     private var accessCode: String? {

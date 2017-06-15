@@ -46,4 +46,12 @@ enum GitService {
         case .bitbucket: return true
         }
     }
+
+    init?(serviceName: String) {
+        switch serviceName {
+        case "github": self = .github
+        case "bitbucket": self = .bitbucket
+        default: return nil
+        }
+    }
 }
