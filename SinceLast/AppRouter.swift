@@ -21,11 +21,7 @@ final class AppRouter {
         case .authorized(let gitClient):
             controller = FavoritesViewController(client: gitClient)
         case .notAuthorized:
-            let credentials: [OAuthCredentials] = [
-                GithubOAuth(),
-                BitbucketOAuth(),
-                ]
-            controller = GitServicesAuthorizationViewController(credentials: credentials)
+            controller = GitServicesAuthorizationViewController()
         }
         rootViewController.setViewControllers([controller], animated: false)
     }

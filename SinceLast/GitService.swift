@@ -40,6 +40,13 @@ enum GitService {
         }
     }
 
+    var oAuthCredentials: OAuthCredentials {
+        switch self {
+        case .github: return GithubOAuth()
+        case .bitbucket: return BitbucketOAuth()
+        }
+    }
+
     var isSupported: Bool {
         switch self {
         case .github: return true

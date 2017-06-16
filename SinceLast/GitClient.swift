@@ -69,7 +69,15 @@ final class OAuthClient {
     }
 
     func authorize(code: String) -> Promise<OAuthAccessToken> {
-        let request = OAuthAccessTokenRequest(grantType: .authorization(code: code))
+        // FIXME:
+        let request: BitbucketAccessTokenRequest
+        switch service {
+        case .github:
+            request = BitbucketAccessTokenRequest(grantType: .authorization(code: code))
+        case .bitbucket:
+            request = BitbucketAccessTokenRequest(grantType: .authorization(code: code))
+        }
+
         return oAuth.send(request: request).then { (accessToken) -> OAuthAccessToken in
             self.tokenStorage.store(token: accessToken)
             return accessToken
@@ -78,7 +86,15 @@ final class OAuthClient {
 
     func refreshAuthToken() throws -> Promise<OAuthAccessToken> {
         guard let token = tokenStorage.token?.refreshToken else { throw NilError() }
-        let request = OAuthAccessTokenRequest(grantType: .refresh(token: token))
+        // FIXME:
+        let request: BitbucketAccessTokenRequest
+        switch service {
+        case .github:
+            request = BitbucketAccessTokenRequest(grantType: .refresh(token: token))
+        case .bitbucket:
+            request = BitbucketAccessTokenRequest(grantType: .refresh(token: token))
+        }
+
         return oAuth.send(request: request).then { (accessToken) -> OAuthAccessToken in
             self.tokenStorage.store(token: accessToken)
             return accessToken

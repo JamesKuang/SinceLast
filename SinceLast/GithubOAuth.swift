@@ -9,10 +9,11 @@
 import Foundation
 
 struct GithubOAuth: OAuthCredentials {
-    let service: GitService = .github
     let authorizationURL = URL(string: "https://github.com/login/oauth/authorize")!
 
-    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.github
+    let accessTokenPath = "/login/oauth/access_token"
+
+    let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.github
 
     var parameters: [String: String] {
         return ["client_id": keySecretProvider.key,

@@ -11,7 +11,7 @@ import UIKit
 import Pastel
 
 final class GitServicesAuthorizationViewController: UIViewController {
-    let credentials: [OAuthCredentials]
+    let services: [GitService]
 
     private let backgroundView: PastelView = {
         let pastelView = PastelView()
@@ -46,8 +46,8 @@ final class GitServicesAuthorizationViewController: UIViewController {
 
     private var selectedService: GitService?
 
-    init(credentials: [OAuthCredentials]) {
-        self.credentials = credentials
+    init(services: [GitService] = [.github, .bitbucket]) {
+        self.services = services
         super.init(nibName: nil, bundle: nil)
 
         view.backgroundColor = .white
@@ -67,7 +67,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
             servicesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             ])
 
-        let signInButtons = self.credentials.map { self.makeSignInButton(for: $0) }
+        let signInButtons = self.services.map { self.makeSignInButton(for: $0) }
         signInButtons.forEach { button in
             self.servicesStackView.addArrangedSubview(button)
             button.addTarget(self, action: #selector(tappedSignIn(sender:)), for: .touchUpInside)
@@ -92,18 +92,18 @@ final class GitServicesAuthorizationViewController: UIViewController {
         return .lightContent
     }
 
-    private func makeSignInButton(for serviceAuth: OAuthCredentials) -> UIButton {
+    private func makeSignInButton(for service: GitService) -> UIButton {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.black, for: .normal)
-        button.setImage(serviceAuth.service.logoImage.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(service.logoImage.withRenderingMode(.alwaysTemplate), for: .normal)
         button.imageView?.contentMode = .scaleAspectFit
         button.imageView?.tintColor = .white
 
         button.layer.cornerRadius = 8.0
         button.layer.borderWidth = 1.0
 
-        button.isEnabled = serviceAuth.service.isSupported
+        button.isEnabled = service.isSupported
 
         let color = UIColor.white
         if button.isEnabled {
@@ -136,14 +136,14 @@ final class GitServicesAuthorizationViewController: UIViewController {
 
     dynamic func tappedSignIn(sender: UIButton) {
         guard let index = signInButtons.index(of: sender) else { fatalError("Button not found") }
-        let credentials = self.credentials[index]
-        startAuthentication(with: credentials)
+        let service = self.services[index]
+        startAuthentication(with: service)
     }
 
-    private func startAuthentication(with credentials: OAuthCredentials) {
-        selectedService = credentials.service
+    private func startAuthentication(with service: GitService) {
+        selectedService = service
 
-        let oAuth = OAuth(credentials: credentials)
+        let oAuth = OAuth(credentials: service.oAuthCredentials)
         print("\(oAuth.fullAuthURL)")
 
 //        let controller = SFSafariViewController(url: oAuth.fullAuthURL)
