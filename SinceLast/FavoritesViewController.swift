@@ -132,7 +132,6 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func updateCurrentUserUIVisibility(_ hasUser: Bool) {
-        navigationItem.leftBarButtonItem?.isEnabled = hasUser
         navigationItem.rightBarButtonItem?.isEnabled = hasUser
         emptyView.actionButton.isEnabled = hasUser
     }
@@ -148,8 +147,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
-        guard let user = self.currentUser else { return }
-        let controller = SettingsViewController(currentUser: user)
+        let controller = SettingsViewController(gitService: gitClient.service, currentUserName: currentUser?.name)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }
