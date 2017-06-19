@@ -69,16 +69,17 @@ final class OAuthClient {
     }
 
     func authorize(code: String) -> Promise<OAuthAccessToken> {
-        // FIXME:
-        let request: BitbucketAccessTokenRequest
+        let sendPromise: Promise<OAuthAccessToken>
         switch service {
         case .github:
-            request = BitbucketAccessTokenRequest(grantType: .authorization(code: code))
+            let request = GithubAccessTokenRequest(code: code)
+            sendPromise = oAuth.send(request: request)
         case .bitbucket:
-            request = BitbucketAccessTokenRequest(grantType: .authorization(code: code))
+            let request = BitbucketAccessTokenRequest(grantType: .authorization(code: code))
+            sendPromise = oAuth.send(request: request)
         }
 
-        return oAuth.send(request: request).then { (accessToken) -> OAuthAccessToken in
+        return sendPromise.then { accessToken -> OAuthAccessToken in
             self.tokenStorage.store(token: accessToken)
             return accessToken
         }
