@@ -86,17 +86,23 @@ final class OAuthClient {
     }
 
     func refreshAuthToken() throws -> Promise<OAuthAccessToken> {
-        guard let token = tokenStorage.token?.refreshToken else { throw NilError() }
-        // FIXME:
-        let request: BitbucketAccessTokenRequest
-        switch service {
-        case .github:
-            request = BitbucketAccessTokenRequest(grantType: .refresh(token: token))
-        case .bitbucket:
-            request = BitbucketAccessTokenRequest(grantType: .refresh(token: token))
+        guard let token = tokenStorage.token?.refreshToken else {
+            print("Attempting to get a new token, but missing refresh token.")
+            throw NilError()
         }
 
-        return oAuth.send(request: request).then { (accessToken) -> OAuthAccessToken in
+        let sendPromise: Promise<OAuthAccessToken>
+        switch service {
+        case .github:
+            // TODO: Needs to be tested, now sure how to refresh
+            let request = GithubAccessTokenRequest(code: token)
+            sendPromise = oAuth.send(request: request)
+        case .bitbucket:
+            let request = BitbucketAccessTokenRequest(grantType: .refresh(token: token))
+            sendPromise = oAuth.send(request: request)
+        }
+
+        return sendPromise.then { accessToken -> OAuthAccessToken in
             self.tokenStorage.store(token: accessToken)
             return accessToken
         }
