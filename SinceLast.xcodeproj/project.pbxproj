@@ -45,6 +45,7 @@
 		1AA4FFE41EC15DA100F26BAB /* DateToDataConversionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFE31EC15DA100F26BAB /* DateToDataConversionTests.swift */; };
 		1AA4FFEF1EC15DA100F26BAB /* SinceLastUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */; };
 		1AA4FFFD1EC161F100F26BAB /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA4FFFC1EC161F100F26BAB /* Commit.swift */; };
+		1AA84B601EF8B272000F1495 /* OAuthClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA84B5F1EF8B272000F1495 /* OAuthClient.swift */; };
 		1AA9F0B31EDD097100E13904 /* RepositoryOwnersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA9F0B21EDD097100E13904 /* RepositoryOwnersViewController.swift */; };
 		1AA9F0B51EDD0A3200E13904 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA9F0B41EDD0A3200E13904 /* EmptyView.swift */; };
 		1AA9F0B71EDD0D4A00E13904 /* RepositoryOwnerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA9F0B61EDD0D4A00E13904 /* RepositoryOwnerCell.swift */; };
@@ -142,6 +143,7 @@
 		1AA4FFEE1EC15DA100F26BAB /* SinceLastUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinceLastUITests.swift; sourceTree = "<group>"; };
 		1AA4FFF01EC15DA100F26BAB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1AA4FFFC1EC161F100F26BAB /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
+		1AA84B5F1EF8B272000F1495 /* OAuthClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OAuthClient.swift; sourceTree = "<group>"; };
 		1AA9F0B21EDD097100E13904 /* RepositoryOwnersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwnersViewController.swift; sourceTree = "<group>"; };
 		1AA9F0B41EDD0A3200E13904 /* EmptyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		1AA9F0B61EDD0D4A00E13904 /* RepositoryOwnerCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryOwnerCell.swift; sourceTree = "<group>"; };
@@ -349,6 +351,7 @@
 				1AED93CC1ECFD8A20017FAD6 /* Requests */,
 				1A7ABF4B1EC3F82E00752AF9 /* NetworkClient.swift */,
 				1A0C2E101ED0A17A00107D5B /* GitClient.swift */,
+				1AA84B5F1EF8B272000F1495 /* OAuthClient.swift */,
 				1A680C4B1EC54E50009D2ECC /* GitService.swift */,
 				1A7ABF4F1EC3FCF500752AF9 /* JSONParsing.swift */,
 				1AE2D0801EC812BA0007ACBD /* URLRequestBuilder.swift */,
@@ -631,6 +634,7 @@
 				1AD3832B1EE2802C0074832B /* FavoriteCell.swift in Sources */,
 				1A1420CF1EDFC2C0008C850C /* PersistentStorage.swift in Sources */,
 				1AF5E4AF1ED676FE00040FA7 /* CaseCountable.swift in Sources */,
+				1AA84B601EF8B272000F1495 /* OAuthClient.swift in Sources */,
 				1A0C2E1E1ED5304700107D5B /* RepositoryCell.swift in Sources */,
 				1AA9F0B51EDD0A3200E13904 /* EmptyView.swift in Sources */,
 				1AAC21D41EC7B5210038B14A /* OAuthCallbackValidator.swift in Sources */,

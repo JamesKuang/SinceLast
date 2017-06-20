@@ -49,3 +49,11 @@ struct ValidationError: Error {
         self.message = message
     }
 }
+
+struct UnavailableError: Error {
+    let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+}
