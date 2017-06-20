@@ -19,7 +19,7 @@ struct URLRequestBuilder {
 
     var url: URL? {
         guard var urlComponents = URLComponents(string: baseURL) else { return nil }
-        urlComponents.path = request.path
+        urlComponents.path = urlComponents.path.appending(request.path)
         if request.method == .GET {
             urlComponents.queryItems = queryItems
         }
