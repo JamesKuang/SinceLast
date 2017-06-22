@@ -17,8 +17,15 @@ protocol WebBrowserViewControllerDelegate: class {
 /// This class only used for testing.
 final class WebBrowserViewController: UIViewController {
     let webView: WKWebView = {
+        let contentController = WKUserContentController()
+        let source = "var x = document.getElementsByClassName('signup-link'); for (i = 0; i < x.length; i++) { x[i].parentNode.removeChild(x[i]); }"
+        let script = WKUserScript(source: source, injectionTime: .atDocumentEnd, forMainFrameOnly: false)
+        contentController.addUserScript(script)
+
         let configuration = WKWebViewConfiguration()
+        configuration.userContentController = contentController
         configuration.websiteDataStore = WKWebsiteDataStore.nonPersistent()
+
         let webView = WKWebView(frame: .zero, configuration: configuration)
         webView.translatesAutoresizingMaskIntoConstraints = false
         return webView
@@ -95,12 +102,6 @@ extension WebBrowserViewController: WKNavigationDelegate {
         }
         print(url)
 
-        let signUpPathValidator = BitbucketSignupPathValidator(url: url)
-        if signUpPathValidator.isValid {
-            decisionHandler(.cancel)
-            return
-        }
-
         let schemeValidator = WebViewNavigationActionValidator(url: url, expectedScheme: "sincelast")
         guard schemeValidator.isSchemeValid else {
             decisionHandler(.allow)
@@ -131,18 +132,5 @@ private struct WebViewNavigationActionValidator {
         self.url = url
         self.expectedScheme = expectedScheme
         self.urlOpener = urlOpener
-    }
-}
-
-private struct BitbucketSignupPathValidator {
-    let url: URL
-
-    var isValid: Bool {
-        if let host = url.host,
-            host == "bitbucket.org",
-            url.lastPathComponent == "signup" {
-            return true
-        }
-        return false
     }
 }
