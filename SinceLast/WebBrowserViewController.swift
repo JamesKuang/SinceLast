@@ -101,12 +101,6 @@ extension WebBrowserViewController: WKNavigationDelegate {
             return
         }
 
-        let signUpPathValidator = BitbucketSignupPathValidator(url: url)
-        if signUpPathValidator.isValid {
-            decisionHandler(.cancel)
-            return
-        }
-
         let schemeValidator = WebViewNavigationActionValidator(url: url, expectedScheme: "sincelast")
         guard schemeValidator.isSchemeValid else {
             decisionHandler(.allow)
@@ -137,18 +131,5 @@ private struct WebViewNavigationActionValidator {
         self.url = url
         self.expectedScheme = expectedScheme
         self.urlOpener = urlOpener
-    }
-}
-
-private struct BitbucketSignupPathValidator {
-    let url: URL
-
-    var isValid: Bool {
-        if let host = url.host,
-            host == "bitbucket.org",
-            url.lastPathComponent == "signup" {
-            return true
-        }
-        return false
     }
 }
