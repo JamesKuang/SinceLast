@@ -17,6 +17,7 @@ protocol Request {
     var method: RequestMethod { get }
     var path: String { get }
     var queryParameters: [String: String] { get }
+    var bodyParameters: [String: Any] { get }
     var additionalHeaders: [String: String] { get }
     var parser: RequestParser { get }
 }
@@ -33,6 +34,8 @@ extension Request {
     var parser: RequestParser {
         return JSONParser()
     }
+
+    var bodyParameters: [String: Any] { return [:] }
 }
 
 protocol TypedRequest: Request {

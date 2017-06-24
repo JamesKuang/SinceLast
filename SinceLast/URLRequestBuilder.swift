@@ -33,10 +33,15 @@ struct URLRequestBuilder {
         }
     }
 
+//    var body: Data? {
+//        var urlComponents = URLComponents()
+//        urlComponents.queryItems = queryItems
+//        return urlComponents.query?.data(using: .ascii)
+//    }
+
     var body: Data? {
-        var urlComponents = URLComponents()
-        urlComponents.queryItems = queryItems
-        return urlComponents.query?.data(using: .ascii)
+        guard request.method != .GET else { return nil }
+        return try? JSONSerialization.data(withJSONObject: request.bodyParameters, options: [])
     }
 
     var urlRequest: URLRequest? {
