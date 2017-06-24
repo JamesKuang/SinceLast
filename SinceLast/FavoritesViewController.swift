@@ -112,8 +112,9 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         let _ = self.retrieveUser().then(execute: { user -> Void in
             self.currentUserCache.cacheUser(user)
             self.currentUser = user
+        }).always {
             self.tableView.refreshControl?.endRefreshing()
-        })
+        }
     }
 
     private func loadFavorites() {
