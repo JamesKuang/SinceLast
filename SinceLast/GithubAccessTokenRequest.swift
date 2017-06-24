@@ -21,10 +21,17 @@ struct GithubAccessTokenRequest: TypedRequest {
     }
 
     var additionalHeaders: [String : String] {
-        return ["Accept": "application/json"]
+        return [
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+        ]
     }
 
-    var queryParameters: [String: String] {
+    var queryParameters: [String : String] {
+        return [:]
+    }
+
+    var bodyParameters: [String: Any] {
         return [
             "client_id": credentials.keySecretProvider.key,
             "client_secret": credentials.keySecretProvider.secret,

@@ -19,6 +19,10 @@ struct GithubUserRequest: TypedRequest {
     ]
 
     var queryParameters: [String : String] {
+        return [:]
+    }
+
+    var bodyParameters: [String : Any] {
         return [
             "query": "query { viewer { login }}",
         ]
