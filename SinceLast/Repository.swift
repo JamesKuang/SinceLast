@@ -8,7 +8,16 @@
 
 import Foundation
 
-struct Repository {
+protocol Repository: JSONInitializable, UUIDEquatable {
+    var uuid: String { get }
+    var name: String { get }
+    var description: String { get }
+
+}
+
+// MARK: - BitbucketRepository
+
+struct BitbucketRepository {
     let uuid: String
     let name: String
     let description: String
@@ -17,7 +26,7 @@ struct Repository {
     let avatarURL: String
 }
 
-extension Repository: JSONInitializable {
+extension BitbucketRepository: JSONInitializable {
     init(json: JSON) throws {
         guard
             let uuid = json["uuid"] as? String,
@@ -36,11 +45,5 @@ extension Repository: JSONInitializable {
         self.language = language
         self.owner = try BitbucketUser(json: owner) // FIXME:
         self.avatarURL = avatarURL
-    }
-}
-
-extension Repository: Equatable {
-    static func == (lhs: Repository, rhs: Repository) -> Bool {
-        return lhs.uuid == rhs.uuid
     }
 }

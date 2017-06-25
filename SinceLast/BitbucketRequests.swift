@@ -16,7 +16,7 @@ struct BitbucketUserRequest: TypedRequest {
 }
 
 struct BitbucketRepositoriesRequest: TypedRequest {
-    typealias ResultType = BitbucketPaginatedResult<Repository>
+    typealias ResultType = BitbucketPaginatedResult<BitbucketRepository>
 
     let uuid: String
     let page: Int
@@ -46,7 +46,7 @@ struct BitbucketTeamsRequest: TypedRequest {
 
 // Not used, figure out if this is needed.
 struct BitbucketTeamRepositoriesRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<Repository>
+    typealias ResultType = BitbucketArrayResult<BitbucketRepository>
 
     let uuid: String
 

@@ -129,7 +129,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func loadFavorites() {
-        favorites = storage.load() 
+        favorites = storage.load()
         tableView.reloadData()
     }
 
@@ -165,7 +165,8 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
 
     private dynamic func tappedAddFavorite(_ sender: UIBarButtonItem) {
         guard let user = self.currentUser else { return }
-        let controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
+        let controller = RepositoriesViewController(owner: user, client: gitClient)
+//        let controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }

@@ -8,16 +8,38 @@
 
 import Foundation
 
-struct GithubUserRequest: TypedRequest {
-    typealias ResultType = GithubUser
+protocol GithubTypedRequest: TypedRequest {}
 
-    let method: RequestMethod = .POST
-    let contentType: ContentType = .json
-    let path = ""
+extension GithubTypedRequest {
+    var method: RequestMethod {
+        return .POST
+    }
+
+    var contentType: ContentType {
+        return .json
+    }
+
+    var path: String {
+        return ""
+    }
 
     var queryParameters: [String : String] {
         return [:]
     }
+}
+
+struct GithubUserRequest: GithubTypedRequest {
+    typealias ResultType = GithubUser
+
+    var bodyParameters: [String : Any] {
+        return [
+            "query": "query { viewer { login id }}",
+        ]
+    }
+}
+
+struct GithubRepositoriesRequest: GithubTypedRequest {
+    typealias ResultType = GithubUser
 
     var bodyParameters: [String : Any] {
         return [
