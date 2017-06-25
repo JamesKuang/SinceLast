@@ -110,9 +110,11 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
     private func fetchData() {
         state = .loading
+        let equatableCurrentUser = UUIDEquality(self.currentUser)
+
         let _ = when(fulfilled: retrieveCommits(), retrieveBranches())
             .then(execute: { commits, branches -> Void in
-                let filteredCommits = commits.filter { $0.committer == self.currentUser }
+                let filteredCommits = commits.filter { UUIDEquality($0.committer) == equatableCurrentUser }
                 let displayables = filteredCommits.map({ commit -> CommitDisplayable in
                     let branch = branches.first { $0.targetHash == commit.hash }
                     return CommitDisplayable(commit: commit, branch: branch)
@@ -123,7 +125,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
             })
 
         let _ = retrievePullRequests().then { pullRequests -> Void in
-            let filtered = pullRequests.filter { $0.author != self.currentUser }
+            let filtered = pullRequests.filter { UUIDEquality($0.author) != equatableCurrentUser }
             self.headerView.update(with: filtered.count)
         }
     }

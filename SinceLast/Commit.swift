@@ -38,10 +38,10 @@ extension Commit: JSONInitializable {
 
         let user: User
         if let authorUser = author["user"] as? JSON {
-            user = try User(json: authorUser)
+            user = try BitbucketUser(json: authorUser)  // FIXME:
         } else {
             let name = author["raw"] as? String ?? "Unknown"
-            user = User(uuid: "", name: name, kind: .user)
+            user = BitbucketUser(uuid: "", name: name, kind: .user) // FIXME:
         }
 
         self.init(hash: hash, message: message, date: date, author: user)

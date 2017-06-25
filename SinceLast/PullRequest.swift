@@ -21,6 +21,6 @@ extension PullRequest: JSONInitializable {
             else { throw JSONParsingError() }
         
         self.title = title
-        self.author = try User(json: author)
+        self.author = try BitbucketUser(json: author)   // FIXME:
     }
 }

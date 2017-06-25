@@ -8,8 +8,8 @@
 
 import Foundation
 
-struct AnyJSONRequest<ConcreteResult: JSONInitializable>: TypedRequest {
-    typealias ResultType = ConcreteResult
+struct AnyJSONRequest<Result: JSONInitializable>: TypedRequest {
+    typealias ResultType = Result
 
     let method: RequestMethod
     let contentType: ContentType
@@ -20,8 +20,20 @@ struct AnyJSONRequest<ConcreteResult: JSONInitializable>: TypedRequest {
     let parser: RequestParser
 }
 
-extension AnyJSONRequest where ConcreteResult == User {
-    init<R>(_ request: R) where R: TypedRequest, R.ResultType == ConcreteResult {
+extension AnyJSONRequest {
+    init<R: TypedRequest>(_ request: R) where R.ResultType == BitbucketUser {
+        self.method = request.method
+        self.contentType = request.contentType
+        self.path = request.path
+        self.queryParameters = request.queryParameters
+        self.bodyParameters = request.bodyParameters
+        self.additionalHeaders = request.additionalHeaders
+        self.parser = request.parser
+    }
+}
+
+extension AnyJSONRequest {
+    init<R: TypedRequest>(_ request: R) where R.ResultType == GithubUser {
         self.method = request.method
         self.contentType = request.contentType
         self.path = request.path
@@ -33,7 +45,7 @@ extension AnyJSONRequest where ConcreteResult == User {
 }
 
 //extension AnyJSONRequest where Concrete == BitbucketArrayResult<Repository> {
-//    init<R>(_ request: R) where R: TypedRequest, R.ResultType == ConcreteResult {
+//    init<R>(_ request: R) where R: TypedRequest, R.ResultType == Result {
 //        self.path = request.path
 //        self.queryParameters = request.queryParameters
 //    }

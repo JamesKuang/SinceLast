@@ -8,7 +8,16 @@
 
 import Foundation
 
-struct User {
+protocol User: JSONInitializable, UUIDEquatable {
+    var uuid: String { get }
+    var name: String { get }
+
+    init(_ currentUser: CurrentUser)
+}
+
+// MARK: - BitbucketUser
+
+struct BitbucketUser: User {
     enum Kind: String {
         case user = "user"
         case team = "team"
@@ -19,7 +28,13 @@ struct User {
     let kind: Kind
 }
 
-extension User: JSONInitializable {
+extension BitbucketUser: Equatable {
+    static func == (lhs: BitbucketUser, rhs: BitbucketUser) -> Bool {
+        return lhs.uuid == rhs.uuid
+    }
+}
+
+extension BitbucketUser: JSONInitializable {
     init(json: JSON) throws {
         guard
             let uuid = json["uuid"] as? String,
@@ -33,19 +48,43 @@ extension User: JSONInitializable {
     }
 }
 
-//extension User: GithubJSONInitializable {
-//    init(json: JSON) throws {
-//        guard
-//            let name = json["name"] as? String
-//            else { throw JSONParsingError() }
-//        self.uuid = ""
-//        self.name = name
-//        self.kind = .user
-//    }
-//}
+extension BitbucketUser {
+    init(_ currentUser: CurrentUser) {
+        self.uuid = currentUser.uuid
+        self.name = currentUser.name
+        self.kind = .user
+    }
+}
 
-extension User: Equatable {
-    static func == (lhs: User, rhs: User) -> Bool {
+// MARK: - GithubUser
+
+struct GithubUser: User {
+    let uuid: String
+    let name: String
+}
+
+extension GithubUser: Equatable {
+    static func == (lhs: GithubUser, rhs: GithubUser) -> Bool {
         return lhs.uuid == rhs.uuid
+    }
+}
+
+extension GithubUser: JSONInitializable {
+    init(json: JSON) throws {
+        guard
+            let data = json["data"] as? JSON,
+            let viewer = data["viewer"] as? JSON,
+            let id = viewer["id"] as? String,
+            let name = viewer["login"] as? String
+            else { throw JSONParsingError() }
+        self.uuid = id
+        self.name = name
+    }
+}
+
+extension GithubUser {
+    init(_ currentUser: CurrentUser) {
+        self.uuid = currentUser.uuid
+        self.name = currentUser.name
     }
 }

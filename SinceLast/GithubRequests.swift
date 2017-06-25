@@ -9,7 +9,7 @@
 import Foundation
 
 struct GithubUserRequest: TypedRequest {
-    typealias ResultType = User
+    typealias ResultType = GithubUser
 
     let method: RequestMethod = .POST
     let contentType: ContentType = .json
@@ -21,7 +21,7 @@ struct GithubUserRequest: TypedRequest {
 
     var bodyParameters: [String : Any] {
         return [
-            "query": "query { viewer { login }}",
+            "query": "query { viewer { login id }}",
         ]
     }
 }

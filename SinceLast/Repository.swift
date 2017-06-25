@@ -34,7 +34,7 @@ extension Repository: JSONInitializable {
         self.name = name
         self.description = description
         self.language = language
-        self.owner = try User(json: owner)
+        self.owner = try BitbucketUser(json: owner) // FIXME:
         self.avatarURL = avatarURL
     }
 }

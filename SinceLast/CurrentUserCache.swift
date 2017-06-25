@@ -11,11 +11,18 @@ import Foundation
 final class CurrentUserCache {
     private let storage = PersistentStorage<CurrentUser>()
 
-    init() {}
+    let service: GitService
+
+    init(service: GitService) {
+        self.service = service
+    }
 
     var cachedUser: User? {
         guard let currentUser = storage.load().first else { return nil }
-        return User(currentUser)
+        switch service {
+        case .bitbucket: return BitbucketUser(currentUser)
+        case .github: return GithubUser(currentUser)
+        }
     }
 
     func cacheUser(_ user: User) {

@@ -9,7 +9,7 @@
 import Foundation
 
 struct BitbucketUserRequest: TypedRequest {
-    typealias ResultType = User
+    typealias ResultType = BitbucketUser
 
     let path = "/2.0/user"
     let queryParameters: [String: String] = [:]
@@ -37,7 +37,7 @@ struct BitbucketRepositoriesRequest: TypedRequest {
 }
 
 struct BitbucketTeamsRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<User>
+    typealias ResultType = BitbucketArrayResult<BitbucketUser>
 
     let path = "/2.0/teams"
 

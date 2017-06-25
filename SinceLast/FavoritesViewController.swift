@@ -51,7 +51,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
 
     init(client: GitClient) {
         self.gitClient = client
-        self.currentUserCache = CurrentUserCache()
+        self.currentUserCache = CurrentUserCache(service: client.service)
         super.init(nibName: nil, bundle: nil)
 
         title = NSLocalizedString("Repositories", comment: "Favorites screen navigation bar title")
@@ -109,10 +109,21 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
             return
         }
 
-        let _ = self.retrieveUser().then(execute: { user -> Void in
-            self.currentUserCache.cacheUser(user)
-            self.currentUser = user
-        }).always {
+        let userPromise: Promise<Void>
+        switch gitClient.service {
+        case .github:
+            userPromise = self.retrieveUser().then { (user: GithubUser) -> Void in
+                self.currentUserCache.cacheUser(user)
+                self.currentUser = user
+            }
+        case .bitbucket:
+            userPromise = self.retrieveUser().then { (user: BitbucketUser) -> Void in
+                self.currentUserCache.cacheUser(user)
+                self.currentUser = user
+            }
+        }
+
+        userPromise.always {
             self.tableView.refreshControl?.endRefreshing()
         }
     }
@@ -127,9 +138,8 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         storage.save(favorites)
     }
 
-    private func retrieveUser() -> Promise<User> {
-        let request = gitClient.service.userRequest
-        return gitClient.send(request: request)
+    private func retrieveUser<T: User>() -> Promise<T> {
+        return gitClient.send(request: gitClient.service.userRequest())
     }
 
     private func updateCurrentUserUIVisibility(_ hasUser: Bool) {

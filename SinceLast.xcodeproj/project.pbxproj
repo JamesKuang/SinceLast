@@ -23,6 +23,7 @@
 		1A1AFF8E1EE7A74B0001A210 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A1AFF8D1EE7A74B0001A210 /* AppRouter.swift */; };
 		1A1AFF901EE8EDBD0001A210 /* LaunchStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1A1AFF8F1EE8EDBD0001A210 /* LaunchStoryboard.storyboard */; };
 		1A1AFF921EE8EFB60001A210 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1AFF911EE8EFB60001A210 /* Assets.xcassets */; };
+		1A3E76181F001C1C007FD285 /* UUIDEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A3E76171F001C1C007FD285 /* UUIDEquatable.swift */; };
 		1A4A98CA1EEA3F5600C110EA /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A4A98C91EEA3F5600C110EA /* OnePasswordExtension.framework */; };
 		1A5508D91EFFF52400B34513 /* AnyJSONRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A5508D81EFFF52400B34513 /* AnyJSONRequest.swift */; };
 		1A680C4C1EC54E50009D2ECC /* GitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A680C4B1EC54E50009D2ECC /* GitService.swift */; };
@@ -117,6 +118,7 @@
 		1A1AFF8D1EE7A74B0001A210 /* AppRouter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		1A1AFF8F1EE8EDBD0001A210 /* LaunchStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchStoryboard.storyboard; sourceTree = "<group>"; };
 		1A1AFF911EE8EFB60001A210 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1A3E76171F001C1C007FD285 /* UUIDEquatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UUIDEquatable.swift; sourceTree = "<group>"; };
 		1A4A98C91EEA3F5600C110EA /* OnePasswordExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OnePasswordExtension.framework; path = Carthage/Build/iOS/OnePasswordExtension.framework; sourceTree = "<group>"; };
 		1A5508D81EFFF52400B34513 /* AnyJSONRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyJSONRequest.swift; sourceTree = "<group>"; };
 		1A680C4B1EC54E50009D2ECC /* GitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitService.swift; sourceTree = "<group>"; };
@@ -238,6 +240,14 @@
 			name = "Codable Objects";
 			sourceTree = "<group>";
 		};
+		1A3E76191F001C31007FD285 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				1A3E76171F001C1C007FD285 /* UUIDEquatable.swift */,
+			);
+			name = Protocols;
+			sourceTree = "<group>";
+		};
 		1A7ABF511EC4040E00752AF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +350,7 @@
 		1AC3C6601EC5EFC4001E03B7 /* Git Models */ = {
 			isa = PBXGroup;
 			children = (
+				1A3E76191F001C31007FD285 /* Protocols */,
 				1AA4FFFC1EC161F100F26BAB /* Commit.swift */,
 				1A18C61A1EDA8CC30039A9E0 /* PullRequest.swift */,
 				1A9A88861ED22EAF00A0D8A6 /* Repository.swift */,
@@ -647,6 +658,7 @@
 				1AAC21D41EC7B5210038B14A /* OAuthCallbackValidator.swift in Sources */,
 				1ABD6BBD1ED7938600AD002E /* CommitCell.swift in Sources */,
 				1A1AFF8A1EE79F690001A210 /* CurrentUser.swift in Sources */,
+				1A3E76181F001C1C007FD285 /* UUIDEquatable.swift in Sources */,
 				1AA9F0B31EDD097100E13904 /* RepositoryOwnersViewController.swift in Sources */,
 				1AF5E4B11ED67A7200040FA7 /* SettingsCell.swift in Sources */,
 				1ABD6BBB1ED791F500AD002E /* CommitsViewController.swift in Sources */,
