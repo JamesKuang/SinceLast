@@ -128,8 +128,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func retrieveUser() -> Promise<User> {
-//        let request = BitbucketUserRequest()
-        let request = GithubUserRequest()
+        let request = gitClient.service.userRequest
         return gitClient.send(request: request)
     }
 

@@ -62,3 +62,12 @@ enum GitService {
         }
     }
 }
+
+extension GitService {
+    var userRequest: AnyJSONRequest<User> {
+        switch self {
+        case .github: return AnyJSONRequest(GithubUserRequest())
+        case .bitbucket: return AnyJSONRequest(BitbucketUserRequest())
+        }
+    }
+}
