@@ -19,8 +19,8 @@ struct User {
     let kind: Kind
 }
 
-extension User: BitbucketJSONInitializable {
-    init(fromBitbucket json: JSON) throws {
+extension User: JSONInitializable {
+    init(json: JSON) throws {
         guard
             let uuid = json["uuid"] as? String,
             let userName = json["username"] as? String,
@@ -34,7 +34,7 @@ extension User: BitbucketJSONInitializable {
 }
 
 //extension User: GithubJSONInitializable {
-//    init(fromGithub json: JSON) throws {
+//    init(json: JSON) throws {
 //        guard
 //            let name = json["name"] as? String
 //            else { throw JSONParsingError() }

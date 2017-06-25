@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct GithubUserRequest: GithubTyedRequest {
+struct GithubUserRequest: TypedRequest {
     typealias ResultType = User
 
     let method: RequestMethod = .POST
