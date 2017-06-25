@@ -13,6 +13,8 @@ struct GithubAccessTokenRequest: TypedRequest {
 
     let method: RequestMethod = .POST
 
+    let contentType: ContentType = .json
+
     let credentials: OAuthCredentials = GithubOAuth()
     let code: String
 
@@ -22,7 +24,6 @@ struct GithubAccessTokenRequest: TypedRequest {
 
     var additionalHeaders: [String : String] {
         return [
-            "Content-Type": "application/json",
             "Accept": "application/json",
         ]
     }

@@ -13,8 +13,18 @@ enum RequestMethod: String {
     case POST
 }
 
+enum ContentType: String {
+    case ascii = "application/x-www-form-urlencoded"
+    case json = "application/json"
+
+    var httpHeaderField: String {
+        return "Content-Type"
+    }
+}
+
 protocol Request {
     var method: RequestMethod { get }
+    var contentType: ContentType { get }
     var path: String { get }
     var queryParameters: [String: String] { get }
     var bodyParameters: [String: Any] { get }
@@ -25,6 +35,10 @@ protocol Request {
 extension Request {
     var method: RequestMethod {
         return .GET
+    }
+
+    var contentType: ContentType {
+        return .ascii
     }
 
     var additionalHeaders: [String: String] {

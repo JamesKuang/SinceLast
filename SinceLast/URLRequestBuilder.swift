@@ -41,7 +41,14 @@ struct URLRequestBuilder {
 
     var body: Data? {
         guard request.method != .GET else { return nil }
-        return try? JSONSerialization.data(withJSONObject: request.bodyParameters, options: [])
+        switch request.contentType {
+        case .ascii:
+            var urlComponents = URLComponents()
+            urlComponents.queryItems = queryItems
+            return urlComponents.query?.data(using: .ascii)
+        case .json:
+            return try? JSONSerialization.data(withJSONObject: request.bodyParameters, options: [])
+        }
     }
 
     var urlRequest: URLRequest? {
@@ -53,9 +60,11 @@ struct URLRequestBuilder {
             urlRequest.httpBody = body
         }
 
+        urlRequest.addValue(request.contentType.rawValue, forHTTPHeaderField: request.contentType.httpHeaderField)
         request.additionalHeaders.forEach { key, value in
             urlRequest.addValue(value, forHTTPHeaderField: key)
         }
+
         return urlRequest
     }
 }

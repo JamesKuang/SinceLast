@@ -12,11 +12,8 @@ struct GithubUserRequest: TypedRequest {
     typealias ResultType = User
 
     let method: RequestMethod = .POST
+    let contentType: ContentType = .json
     let path = ""
-
-    let additionalHeaders: [String : String] = [
-        "Content-Type": "application/json",
-    ]
 
     var queryParameters: [String : String] {
         return [:]
