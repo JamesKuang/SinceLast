@@ -57,3 +57,33 @@ extension BitbucketRepository: JSONInitializable {
         self.avatarURL = avatarURL
     }
 }
+
+// MARK: GithubRepository
+
+//struct GithubRepository: Repository {
+//    let uuid: String
+//    let name: String
+//    let description: String
+//    let owner: GithubUser
+//
+//    var ownerUUID: String {
+//        return owner.uuid
+//    }
+//
+//    var ownerName: String {
+//        return owner.name
+//    }
+//}
+//
+//extension GithubRepository: JSONInitializable {
+//    init(json: JSON) throws {
+//        guard   // TODO:
+//            let uuid = json["uuid"] as? String,
+//            let name = json["name"] as? String,
+//            let description = json["description"] as? String
+//            else { throw JSONParsingError() }
+//        self.uuid = uuid
+//        self.name = name
+//        self.description = description
+//    }
+//}
