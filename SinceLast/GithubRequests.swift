@@ -43,7 +43,7 @@ struct GithubRepositoriesRequest: GithubTypedRequest {
 
     var bodyParameters: [String : Any] {
         return [
-            "query": "query { viewer { login id }}",
+            "query": "query { viewer { repositories(first: 50, orderBy: {field: PUSHED_AT, direction: DESC}) { edges { node { id name description owner { id login } } } } } }",
         ]
     }
 }
