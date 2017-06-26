@@ -13,17 +13,27 @@ protocol Repository: JSONInitializable, UUIDEquatable {
     var name: String { get }
     var description: String { get }
 
+    var ownerUUID: String { get }
+    var ownerName: String { get }
 }
 
 // MARK: - BitbucketRepository
 
-struct BitbucketRepository {
+struct BitbucketRepository: Repository {
     let uuid: String
     let name: String
     let description: String
     let language: String
     let owner: User
     let avatarURL: String
+
+    var ownerUUID: String {
+        return owner.uuid
+    }
+
+    var ownerName: String {
+        return owner.name
+    }
 }
 
 extension BitbucketRepository: JSONInitializable {
@@ -43,7 +53,7 @@ extension BitbucketRepository: JSONInitializable {
         self.name = name
         self.description = description
         self.language = language
-        self.owner = try BitbucketUser(json: owner) // FIXME:
+        self.owner = try BitbucketUser(json: owner)
         self.avatarURL = avatarURL
     }
 }

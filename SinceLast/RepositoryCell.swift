@@ -101,7 +101,7 @@ extension RepositoryCell: ConfigurableCell {
 //        })
 
         titleLabel.text = repository.name
-        ownerLabel.text = repository.owner.name
+        ownerLabel.text = repository.ownerName
         descriptionLabel.text = repository.description
     }
 }
