@@ -10,6 +10,10 @@ import Foundation
 
 protocol GithubTypedRequest: TypedRequest {}
 
+protocol GithubGraphTraversing {
+    static var connections: [String] { get }
+}
+
 extension GithubTypedRequest {
     var method: RequestMethod {
         return .POST
@@ -38,12 +42,16 @@ struct GithubUserRequest: GithubTypedRequest {
     }
 }
 
-struct GithubRepositoriesRequest: GithubTypedRequest {
-    typealias ResultType = GithubUser
+struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing {
+    typealias ResultType = GithubArrayResult<GithubRepository, GithubRepositoriesRequest>
 
     var bodyParameters: [String : Any] {
         return [
             "query": "query { viewer { repositories(first: 50, orderBy: {field: PUSHED_AT, direction: DESC}) { edges { node { id name description owner { id login } } } } } }",
         ]
+    }
+
+    static var connections: [String] {
+        return ["data", "viewer", "repositories", "edges"]
     }
 }

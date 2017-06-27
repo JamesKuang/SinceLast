@@ -91,13 +91,14 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     fileprivate func retrieveRepositories(for owner: User, page: Int = 1) -> Promise<[Repository]> {
-        let request = BitbucketRepositoriesRequest(uuid: owner.uuid, page: page)
+        let request = GithubRepositoriesRequest()   // FIXME:
+//        let request = BitbucketRepositoriesRequest(uuid: owner.uuid, page: page)
         return gitClient.send(request: request).then(execute: { result -> [Repository] in
-            if let page = result.page {
-                self.nextPage = page + 1
-            } else {
-                self.nextPage = nil
-            }
+//            if let page = result.page {
+//                self.nextPage = page + 1
+//            } else {
+//                self.nextPage = nil
+//            }
 
             return result.objects
         })
