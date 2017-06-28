@@ -44,6 +44,18 @@ extension AnyJSONRequest {
     }
 }
 
+extension AnyJSONRequest {
+    init<R: TypedRequest>(_ request: R) where R.ResultType: JSONInitializable {
+        self.method = request.method
+        self.contentType = request.contentType
+        self.path = request.path
+        self.queryParameters = request.queryParameters
+        self.bodyParameters = request.bodyParameters
+        self.additionalHeaders = request.additionalHeaders
+        self.parser = request.parser
+    }
+}
+
 //extension AnyJSONRequest where Concrete == BitbucketArrayResult<Repository> {
 //    init<R>(_ request: R) where R: TypedRequest, R.ResultType == Result {
 //        self.path = request.path

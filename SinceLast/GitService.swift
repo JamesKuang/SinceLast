@@ -70,4 +70,11 @@ extension GitService {
         case .bitbucket: return AnyJSONRequest(BitbucketUserRequest())
         }
     }
+
+    func repositoriesRequest<T: JSONInitializable>(page: Int, ownerUUID: String) -> AnyJSONRequest<T> {
+        switch self {
+        case .github: return AnyJSONRequest(GithubRepositoriesRequest(page: page))
+        case .bitbucket: return AnyJSONRequest(BitbucketRepositoriesRequest(uuid: ownerUUID, page: page))
+        }
+    }
 }

@@ -165,8 +165,15 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
 
     private dynamic func tappedAddFavorite(_ sender: UIBarButtonItem) {
         guard let user = self.currentUser else { return }
-        let controller = RepositoriesViewController(owner: user, client: gitClient) // FIXME:
-//        let controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
+
+        let controller: UIViewController
+        switch gitClient.service {
+        case .github:
+            controller = RepositoriesViewController(owner: user, client: gitClient, dismissable: true)
+        case .bitbucket:
+            controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
+        }
+
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }

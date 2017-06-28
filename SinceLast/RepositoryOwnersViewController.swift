@@ -53,7 +53,7 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
 
         title = NSLocalizedString("Add Repository", comment: "Repository owners screen navigation bar title")
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Close settings navigation bar button"), style: .plain, target: self, action: #selector(tappedCloseButton(_:)))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Dismiss screen navigation bar button"), style: .plain, target: self, action: #selector(tappedCloseButton(_:)))
 
         view.addSubview(tableView)
 
@@ -114,7 +114,7 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         case .userOwner: repositoryOwner = userOwner[indexPath.row]
         case .teamOwners: repositoryOwner = teamOwners[indexPath.row]
         }
-        return RepositoriesViewController(owner: repositoryOwner, client: gitClient)
+        return RepositoriesViewController(owner: repositoryOwner, client: gitClient, dismissable: false)
     }
 
     private dynamic func tappedCloseButton(_ sender: UIBarButtonItem) {

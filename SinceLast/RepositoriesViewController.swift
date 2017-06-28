@@ -37,7 +37,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     fileprivate var nextPage: Int? = nil
 
-    init(owner: User, client: GitClient) {
+    init(owner: User, client: GitClient, dismissable: Bool) {
         self.owner = owner
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
@@ -52,6 +52,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ])
+
+        if dismissable {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Dismiss screen navigation bar button"), style: .plain, target: self, action: #selector(tappedCloseButton(_:)))
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -78,22 +82,44 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     private func fetchData() {
-        let _ = retrieveRepositories(for: owner).then(execute: { repositories in
-            self.repositories = repositories
-        })
+        let repositoriesPromise: Promise<Void>
+        switch gitClient.service {
+        case .github:
+            repositoriesPromise = retrieveRepositories(for: owner).then(execute: { (repositories: [GithubRepository]) in
+                self.repositories = repositories
+            })
+        case .bitbucket:
+            repositoriesPromise = retrieveRepositories(for: owner).then(execute: { (repositories: [BitbucketRepository]) in
+                self.repositories = repositories
+            })
+        }
+
+        repositoriesPromise.always {
+            self.tableView.refreshControl?.endRefreshing()
+        }
     }
 
     fileprivate func fetchNextPageData() {
         guard let nextPage = self.nextPage else { return }
-        let _ = retrieveRepositories(for: owner, page: nextPage).then(execute: { repositories in
-            self.repositories += repositories
-        })
+
+        switch gitClient.service {
+        case .github:
+            let _ = retrieveRepositories(for: owner, page: nextPage).then(execute: { (repositories: [GithubRepository]) in
+                for repository in repositories {
+                    self.repositories.append(repository)
+                }
+            })
+        case .bitbucket:
+            let _ = retrieveRepositories(for: owner, page: nextPage).then(execute: { (repositories: [BitbucketRepository]) in
+                for repository in repositories {
+                    self.repositories.append(repository)
+                }
+            })
+        }
     }
 
-    fileprivate func retrieveRepositories(for owner: User, page: Int = 1) -> Promise<[Repository]> {
-        let request = GithubRepositoriesRequest()   // FIXME:
-//        let request = BitbucketRepositoriesRequest(uuid: owner.uuid, page: page)
-        return gitClient.send(request: request).then(execute: { result -> [Repository] in
+    fileprivate func retrieveRepositories<T: Repository>(for owner: User, page: Int = 1) -> Promise<[T]> {
+        return gitClient.send(request: gitClient.service.repositoriesRequest(page: page, ownerUUID: owner.uuid)).then(execute: { result -> [T] in
 //            if let page = result.page {
 //                self.nextPage = page + 1
 //            } else {
@@ -105,7 +131,6 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     private func reload() {
-        tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
 
@@ -117,6 +142,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         favorites.append(codable)
 
         storage.save(favorites)
+    }
+
+    private dynamic func tappedCloseButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {

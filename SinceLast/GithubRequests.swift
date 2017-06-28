@@ -45,6 +45,8 @@ struct GithubUserRequest: GithubTypedRequest {
 struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing {
     typealias ResultType = GithubArrayResult<GithubRepository, GithubRepositoriesRequest>
 
+    let page: Int
+
     var bodyParameters: [String : Any] {
         return [
             "query": "query { viewer { repositories(first: 50, orderBy: {field: PUSHED_AT, direction: DESC}) { edges { node { id name description owner { id login } } } } } }",
