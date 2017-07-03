@@ -23,7 +23,7 @@ struct GithubArrayResult<T: JSONInitializable, U: GithubGraphTraversing>: JSONIn
                 self.objects = try values.flatMap { try T(json: $0) }
                 return
             } else {
-                throw JSONParsingError()
+                break
             }
         }
         throw JSONParsingError()

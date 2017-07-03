@@ -80,13 +80,13 @@ extension GithubRepository: JSONInitializable {
         guard
             let node = json["node"] as? JSON,
             let uuid = node["id"] as? String,
-            let name = node["name"] as? String,
-            let description = node["description"] as? String,
-            let owner = node["owner"] as? JSON
+            let name = node["name"] as? String
+//            let owner = node["owner"] as? JSON
             else { throw JSONParsingError() }
+
         self.uuid = uuid
         self.name = name
-        self.description = description
+        self.description = node["description"] as? String ?? ""
         self.owner = GithubUser(uuid: "", name: "")
     }
 }
