@@ -35,7 +35,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
 
     fileprivate let loadDistance: CGFloat = 10.0
 
-    fileprivate var nextPage: Int? = nil
+    fileprivate var nextPage: Int? = 0
 
     init(owner: User, client: GitClient, dismissable: Bool) {
         self.owner = owner
@@ -81,53 +81,45 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    private func fetchData() {
-        let repositoriesPromise: Promise<Void>
-        switch gitClient.service {
-        case .github:
-            repositoriesPromise = retrieveRepositories(for: owner).then(execute: { (repositories: [GithubRepository]) in
-                self.repositories = repositories
-            })
-        case .bitbucket:
-            repositoriesPromise = retrieveRepositories(for: owner).then(execute: { (repositories: [BitbucketRepository]) in
-                self.repositories = repositories
-            })
-        }
-
-        repositoriesPromise.always {
-            self.tableView.refreshControl?.endRefreshing()
-        }
-    }
-
-    fileprivate func fetchNextPageData() {
+    fileprivate func fetchData() {
         guard let nextPage = self.nextPage else { return }
+        fetchNextPageData(page: nextPage)
+            .then(execute: { objects in
+                self.repositories.append(contentsOf: objects)
+            })
+            .always {
+                self.tableView.refreshControl?.endRefreshing()
+        }
+    }
 
+    private func fetchNextPageData(page: Int) -> Promise<[Repository]> {
         switch gitClient.service {
         case .github:
-            let _ = retrieveRepositories(for: owner, page: nextPage).then(execute: { (repositories: [GithubRepository]) in
-                for repository in repositories {
-                    self.repositories.append(repository)
-                }
+            return retrieveRepositories(for: owner, page: page).then(execute: { (result: GithubArrayResult<GithubRepository, GithubRepositoriesRequest>) -> [Repository] in
+                // TODO: pagination for Github
+//                if let page = result.page {
+//                    self.nextPage = page + 1
+//                } else {
+//                    self.nextPage = nil
+//                }
+
+                return result.objects
             })
         case .bitbucket:
-            let _ = retrieveRepositories(for: owner, page: nextPage).then(execute: { (repositories: [BitbucketRepository]) in
-                for repository in repositories {
-                    self.repositories.append(repository)
+            return retrieveRepositories(for: owner, page: page).then(execute: { (result: BitbucketPaginatedResult<BitbucketRepository>) -> Promise<[Repository]> in
+                if let page = result.page {
+                    self.nextPage = page + 1
+                } else {
+                    self.nextPage = nil
                 }
+
+                return Promise(value: result.objects)
             })
         }
     }
 
-    fileprivate func retrieveRepositories<T: Repository>(for owner: User, page: Int = 1) -> Promise<[T]> {
-        return gitClient.send(request: gitClient.service.repositoriesRequest(page: page, ownerUUID: owner.uuid)).then(execute: { result -> [T] in
-//            if let page = result.page {
-//                self.nextPage = page + 1
-//            } else {
-//                self.nextPage = nil
-//            }
-
-            return result.objects
-        })
+    fileprivate func retrieveRepositories<T: JSONInitializable>(for owner: User, page: Int) -> Promise<T> {
+        return gitClient.send(request: gitClient.service.repositoriesRequest(page: page, ownerUUID: owner.uuid))
     }
 
     private func reload() {
@@ -180,6 +172,6 @@ extension RepositoriesViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard nextPage != nil, indexPath.row == repositories.count - 1 else { return }
-        fetchNextPageData()
+        _ = fetchData()
     }
 }
