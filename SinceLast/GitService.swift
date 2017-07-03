@@ -61,6 +61,15 @@ enum GitService {
         default: return nil
         }
     }
+
+    func configureSessionConfiguration(_ configuration: URLSessionConfiguration) {
+        switch self {
+        case .github:
+            configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        case .bitbucket:
+            break
+        }
+    }
 }
 
 extension GitService {

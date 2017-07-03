@@ -49,6 +49,7 @@ final class GitClient {
             let scheme = AuthorizationHeaderScheme(token: token)
             configuration.httpAdditionalHeaders = scheme.keyValuePair
         }
+        service.configureSessionConfiguration(configuration)
         return configuration
     }
 }
