@@ -14,6 +14,10 @@ protocol GithubGraphTraversing {
     static var connections: [String] { get }
 }
 
+protocol GithubGraphPaginating {
+    static var pageInfo: [String] { get }
+}
+
 extension GithubTypedRequest {
     var method: RequestMethod {
         return .POST
@@ -42,18 +46,23 @@ struct GithubUserRequest: GithubTypedRequest {
     }
 }
 
-struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing {
+struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing, GithubGraphPaginating {
     typealias ResultType = GithubArrayResult<GithubRepository, GithubRepositoriesRequest>
 
     let page: Int
+    let pageSize = 20
 
     var bodyParameters: [String : Any] {
         return [
-            "query": "query { viewer { repositories(first: 50, orderBy: {field: PUSHED_AT, direction: DESC}) { edges { node { id name description owner { id login } } } } } }",
+            "query": "query { viewer { repositories(first: \(pageSize), orderBy: {field: PUSHED_AT, direction: DESC}) { pageInfo { endCursor hasNextPage } edges { node { id name description owner { id login } } } } } }",
         ]
     }
 
     static var connections: [String] {
         return ["data", "viewer", "repositories", "edges"]
+    }
+
+    static var pageInfo: [String] {
+        return ["data", "viewer", "repositories", "pageInfo"]
     }
 }
