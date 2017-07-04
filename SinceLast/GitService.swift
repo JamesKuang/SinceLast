@@ -85,8 +85,7 @@ extension GitService {
         case .github:
             return AnyJSONRequest(GithubRepositoriesRequest(cursor: page.cursorPage))
         case .bitbucket:
-            guard let next = page.integerPage else { fatalError("Bitbucket requires integer pagination") }
-            return AnyJSONRequest(BitbucketRepositoriesRequest(uuid: ownerUUID, page: next))
+            return AnyJSONRequest(BitbucketRepositoriesRequest(uuid: ownerUUID, page: page.integerPage ?? 1))
         }
     }
 }
