@@ -20,8 +20,12 @@ enum Pagination {
     }
 
     var integerPage: Int? {
-        guard case .integer(let page) = self else { return nil }
-        return page
+        switch self {
+        case .initial: return 1
+        case .integer(let page): return page
+        case .cursor: return nil
+        case .none: return nil
+        }
     }
 
     var cursorPage: String? {
