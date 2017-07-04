@@ -49,12 +49,21 @@ struct GithubUserRequest: GithubTypedRequest {
 struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing, GithubGraphPaginating {
     typealias ResultType = GithubArrayResult<GithubRepository, GithubRepositoriesRequest>
 
-    let page: Int
-    let pageSize = 20
+    let cursor: String?
+    let pageSize: Int = 20
+
+    // DEBT: Clean up into objects
+    private var repositoriesParams: String {
+        if let cursor = cursor {
+            return "first: \(pageSize), after:\"\(cursor)\", orderBy: {field: PUSHED_AT, direction: DESC"
+        } else {
+            return "first: \(pageSize), orderBy: {field: PUSHED_AT, direction: DESC"
+        }
+    }
 
     var bodyParameters: [String : Any] {
         return [
-            "query": "query { viewer { repositories(first: \(pageSize), orderBy: {field: PUSHED_AT, direction: DESC}) { pageInfo { endCursor hasNextPage } edges { node { id name description owner { id login } } } } } }",
+            "query": "query { viewer { repositories(\(repositoriesParams)}) { pageInfo { endCursor hasNextPage } edges { node { id name description owner { id login } } } } } }",
         ]
     }
 

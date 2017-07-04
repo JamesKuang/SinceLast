@@ -80,10 +80,13 @@ extension GitService {
         }
     }
 
-    func repositoriesRequest<T: JSONInitializable>(page: Int, ownerUUID: String) -> AnyJSONRequest<T> {
+    func repositoriesRequest<T: JSONInitializable>(page: Pagination, ownerUUID: String) -> AnyJSONRequest<T> {
         switch self {
-        case .github: return AnyJSONRequest(GithubRepositoriesRequest(page: page))
-        case .bitbucket: return AnyJSONRequest(BitbucketRepositoriesRequest(uuid: ownerUUID, page: page))
+        case .github:
+            return AnyJSONRequest(GithubRepositoriesRequest(cursor: page.cursorPage))
+        case .bitbucket:
+            guard let next = page.integerPage else { fatalError("Bitbucket requires integer pagination") }
+            return AnyJSONRequest(BitbucketRepositoriesRequest(uuid: ownerUUID, page: next))
         }
     }
 }

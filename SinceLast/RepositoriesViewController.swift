@@ -33,9 +33,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    fileprivate let loadDistance: CGFloat = 10.0
-
-    fileprivate var nextPage: Int? = 0
+    fileprivate var nextPage: Pagination = .initial
 
     init(owner: User, client: GitClient, dismissable: Bool) {
         self.owner = owner
@@ -82,7 +80,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
     }
 
     fileprivate func fetchData() {
-        guard let nextPage = self.nextPage else { return }
+        guard nextPage.hasNextPage else { return }
         fetchNextPageData(page: nextPage)
             .then(execute: { objects in
                 self.repositories.append(contentsOf: objects)
@@ -92,25 +90,24 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    private func fetchNextPageData(page: Int) -> Promise<[Repository]> {
+    private func fetchNextPageData(page: Pagination) -> Promise<[Repository]> {
         switch gitClient.service {
         case .github:
             return retrieveRepositories(for: owner, page: page).then(execute: { (result: GithubArrayResult<GithubRepository, GithubRepositoriesRequest>) -> [Repository] in
-                // TODO: pagination for Github
-//                if let page = result.page {
-//                    self.nextPage = page + 1
-//                } else {
-//                    self.nextPage = nil
-//                }
+                if result.hasNextPage {
+                    self.nextPage = .cursor(result.endCursor)
+                } else {
+                    self.nextPage = .none
+                }
 
                 return result.objects
             })
         case .bitbucket:
             return retrieveRepositories(for: owner, page: page).then(execute: { (result: BitbucketPaginatedResult<BitbucketRepository>) -> Promise<[Repository]> in
                 if let page = result.page {
-                    self.nextPage = page + 1
+                    self.nextPage = .integer(page + 1)
                 } else {
-                    self.nextPage = nil
+                    self.nextPage = .none
                 }
 
                 return Promise(value: result.objects)
@@ -118,7 +115,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    fileprivate func retrieveRepositories<T: JSONInitializable>(for owner: User, page: Int) -> Promise<T> {
+    fileprivate func retrieveRepositories<T: JSONInitializable>(for owner: User, page: Pagination) -> Promise<T> {
         return gitClient.send(request: gitClient.service.repositoriesRequest(page: page, ownerUUID: owner.uuid))
     }
 
@@ -171,7 +168,7 @@ extension RepositoriesViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard nextPage != nil, indexPath.row == repositories.count - 1 else { return }
+        guard nextPage.hasNextPage, indexPath.row == repositories.count - 1 else { return }
         _ = fetchData()
     }
 }
