@@ -75,3 +75,35 @@ struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing, Git
         return ["data", "viewer", "repositories", "pageInfo"]
     }
 }
+
+//struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing {
+//    typealias ResultType = GithubArrayResult<GithubRepository, GithubCommitsRequest>
+//
+//    let authorID: String
+//}
+//
+//{
+//    viewer {
+//        repository(name: "SinceLast") {
+//            refs(last: 5, refPrefix: "refs/heads/") {
+//                edges {
+//                    node {
+//                        name
+//                        target {
+//                            ... on Commit {
+//                                history(first: 20, author: {id: "MDQ6VXNlcjEyMzE1MTM="}, since: "2017-07-01T00:00:00+00:00") {
+//                                    edges {
+//                                        node {
+//                                            message
+//                                            committedDate
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
