@@ -76,12 +76,42 @@ struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing, Git
     }
 }
 
-//struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing {
-//    typealias ResultType = GithubArrayResult<GithubRepository, GithubCommitsRequest>
-//
-//    let authorID: String
-//}
-//
+struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGraphPaginating {
+    typealias ResultType = GithubArrayResult<GithubRepository, GithubCommitsRequest>
+
+    let repositoryName: String
+    let authorID: String
+    let since: Date
+
+    let refPrefix = "refs/heads/"
+
+    var formattedSinceDate: String {
+        // TODO: fix timestamp format
+        return ISO8601DateFormatter.string(from: since, timeZone: TimeZone.current, formatOptions: [])
+    }
+
+    var bodyParameters: [String : Any] {
+        return [
+            "query": "query { viewer { repository(name: \"\(repositoryName)\") { refs(last: 5, refPrefix: \"\(refPrefix)\") { pageInfo { endCursor hasNextPage } edges { node { name target { ... on Commit { history(first: 20, author: {id: \"\(authorID)\"}, since: \"\(formattedSinceDate)\") { edges { node { message committedDate } } } } } } } } } } }",
+        ]
+    }
+
+    init(repositoryName: String, authorID: String, daysAgo: Int = 3) {
+        self.repositoryName = repositoryName
+        self.authorID = authorID
+        guard let since = Calendar.current.date(byAdding: .day, value: -daysAgo, to: Date()) else { fatalError("Unable to create a date from calendar") }
+        self.since = since
+    }
+
+    static var connections: [String] {
+        return ["data", "viewer", "repository", "refs", "edges"]
+    }
+
+    static var pageInfo: [String] {
+        return ["data", "viewer", "repository", "refs", "pageInfo"]
+    }
+}
+
 //{
 //    viewer {
 //        repository(name: "SinceLast") {

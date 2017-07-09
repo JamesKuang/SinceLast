@@ -89,4 +89,13 @@ extension GitService {
             return AnyJSONRequest(BitbucketRepositoriesRequest(uuid: ownerUUID, page: next))
         }
     }
+
+    func commitsRequest<T: JSONInitializable>(repository: FavoriteRepository, currentUserID: String) -> AnyJSONRequest<T> {
+        switch self {
+        case .github:
+            return AnyJSONRequest(GithubCommitsRequest(repositoryName: repository.name, authorID: currentUserID))
+        case .bitbucket:
+            return AnyJSONRequest(BitbucketCommitsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid))
+        }
+    }
 }
