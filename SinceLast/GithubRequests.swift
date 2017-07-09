@@ -86,13 +86,12 @@ struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGr
     let refPrefix = "refs/heads/"
 
     var formattedSinceDate: String {
-        // TODO: fix timestamp format
-        return ISO8601DateFormatter.string(from: since, timeZone: TimeZone.current, formatOptions: [])
+        return ISO8601DateFormatter.string(from: since, timeZone: TimeZone.current, formatOptions: .withInternetDateTime)
     }
 
     var bodyParameters: [String : Any] {
         return [
-            "query": "query { viewer { repository(name: \"\(repositoryName)\") { refs(last: 5, refPrefix: \"\(refPrefix)\") { pageInfo { endCursor hasNextPage } edges { node { name target { ... on Commit { history(first: 20, author: {id: \"\(authorID)\"}, since: \"\(formattedSinceDate)\") { edges { node { message committedDate } } } } } } } } } } }",
+            "query": "query { viewer { repository(name: \"\(repositoryName)\") { refs(last: 5, refPrefix: \"\(refPrefix)\") { pageInfo { endCursor hasNextPage } edges { node { name target { ... on Commit { history(first: 20, author: {id: \"\(authorID)\"}, since: \"\(formattedSinceDate)\") { edges { node { old message committedDate } } } } } } } } } } }",
         ]
     }
 
@@ -111,29 +110,3 @@ struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGr
         return ["data", "viewer", "repository", "refs", "pageInfo"]
     }
 }
-
-//{
-//    viewer {
-//        repository(name: "SinceLast") {
-//            refs(last: 5, refPrefix: "refs/heads/") {
-//                edges {
-//                    node {
-//                        name
-//                        target {
-//                            ... on Commit {
-//                                history(first: 20, author: {id: "MDQ6VXNlcjEyMzE1MTM="}, since: "2017-07-01T00:00:00+00:00") {
-//                                    edges {
-//                                        node {
-//                                            message
-//                                            committedDate
-//                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}

@@ -81,7 +81,7 @@ extension GithubRepository: JSONInitializable {
             let node = json["node"] as? JSON,
             let uuid = node["id"] as? String,
             let name = node["name"] as? String
-//            let owner = node["owner"] as? JSON    // TODO:
+//            let owner = node["owner"] as? JSON    // TODO: this may or may not be needed for Github
             else { throw JSONParsingError() }
 
         self.uuid = uuid
