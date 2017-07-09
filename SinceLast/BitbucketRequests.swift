@@ -89,7 +89,7 @@ struct BitbucketPullRequestsRequest: TypedRequest {
 }
 
 struct BitbucketBranchesRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<Branch>
+    typealias ResultType = BitbucketArrayResult<BitbucketBranch>
 
     let uuid: String
     let repositorySlug: String
