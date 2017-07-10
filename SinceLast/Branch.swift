@@ -47,19 +47,20 @@ struct GithubBranch {
 
 extension GithubBranch: JSONInitializable {
     init(json: JSON) throws {
-        guard let name = json["name"] as? String,
-            let target = json["target"] as? JSON,
+        guard let node = json["node"] as? JSON,
+            let name = node["name"] as? String,
+            let target = node["target"] as? JSON,
             let history = target["history"] as? JSON,
             let edges = history["edges"] as? [JSON]
             else { throw JSONParsingError() }
 
         guard let first = edges.first,
-            let node = first["node"] as? JSON,
-            let old = node["old"] as? String
-            else { throw NilError() }
+            let edgeNode = first["node"] as? JSON,
+            let oid = edgeNode["oid"] as? String
+            else { throw NilError() } // TODO: Throw a new, different error here, catch that error higher up to continue and not fail
 
         self.name = name
-        self.targetHash = old
+        self.targetHash = oid
     }
 }
 

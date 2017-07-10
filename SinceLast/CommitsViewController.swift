@@ -133,7 +133,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     private func retrieveCommitsAndBranches() -> Promise<([Commit], [Branch])> {
         switch gitClient.service {
         case .github:
-            return gitClient.send(request: GithubCommitsRequest(repositoryName: repository.name, authorID: currentUser.uuid)).then(execute: { (result: GithubArrayResult<GithubRepository, GithubCommitsRequest>) -> Promise<([Commit], [Branch])> in
+            return gitClient.send(request: GithubCommitsRequest(repositoryName: repository.name, authorID: currentUser.uuid)).then(execute: { (result: GithubArrayResult<GithubBranch, GithubCommitsRequest>) -> Promise<([Commit], [Branch])> in
                 // TODO:
                 return Promise(value: ([], []))
             })
@@ -152,7 +152,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     private func retrieveBranches() -> Promise<[Branch]> {
         let request = BitbucketBranchesRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Branch] in
-            return result.objects.flatMap { $0 as? Branch } // TODO: Test this
+            return result.objects.flatMap { $0 as? Branch }
         })
     }
 

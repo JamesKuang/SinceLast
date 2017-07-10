@@ -77,7 +77,7 @@ struct GithubRepositoriesRequest: GithubTypedRequest, GithubGraphTraversing, Git
 }
 
 struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGraphPaginating {
-    typealias ResultType = GithubArrayResult<GithubRepository, GithubCommitsRequest>
+    typealias ResultType = GithubArrayResult<GithubBranch, GithubCommitsRequest>
 
     let repositoryName: String
     let authorID: String
@@ -91,7 +91,7 @@ struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGr
 
     var bodyParameters: [String : Any] {
         return [
-            "query": "query { viewer { repository(name: \"\(repositoryName)\") { refs(last: 5, refPrefix: \"\(refPrefix)\") { pageInfo { endCursor hasNextPage } edges { node { name target { ... on Commit { history(first: 20, author: {id: \"\(authorID)\"}, since: \"\(formattedSinceDate)\") { edges { node { old message committedDate } } } } } } } } } } }",
+            "query": "query { viewer { repository(name: \"\(repositoryName)\") { refs(last: 5, refPrefix: \"\(refPrefix)\") { pageInfo { endCursor hasNextPage } edges { node { name target { ... on Commit { history(first: 20, author: {id: \"\(authorID)\"}, since: \"\(formattedSinceDate)\") { edges { node { oid message committedDate } } } } } } } } } } }",
         ]
     }
 
