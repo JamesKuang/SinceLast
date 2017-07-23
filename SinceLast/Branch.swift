@@ -43,6 +43,7 @@ extension BitbucketBranch: UUIDEquatable {
 struct GithubBranch: Branch {
     let name: String
     let targetHash: String
+    let commits: [GithubCommit]
 }
 
 extension GithubBranch: JSONInitializable {
@@ -59,8 +60,12 @@ extension GithubBranch: JSONInitializable {
             let oid = edgeNode["oid"] as? String
             else { throw GithubDiscardRefError() }
 
+        // TODO: Test this
+        let commits = try edges.flatMap ({ try GithubCommit(json: $0) })
+
         self.name = name
         self.targetHash = oid
+        self.commits = commits
     }
 }
 

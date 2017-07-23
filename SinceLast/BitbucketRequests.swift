@@ -58,7 +58,7 @@ struct BitbucketTeamRepositoriesRequest: TypedRequest {
 }
 
 struct BitbucketCommitsRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<Commit>
+    typealias ResultType = BitbucketArrayResult<BitbucketCommit>
 
     let uuid: String
     let repositorySlug: String

@@ -110,12 +110,10 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
     private func fetchData() {
         state = .loading
-        let equatableCurrentUser = UUIDEquality(self.currentUser)
 
         let _ = retrieveCommitsAndBranches()
             .then(execute: { commits, branches -> Void in
-                let filteredCommits = commits.filter { UUIDEquality($0.committer) == equatableCurrentUser }
-                let displayables = filteredCommits.map({ commit -> CommitDisplayable in
+                let displayables = commits.map({ commit -> CommitDisplayable in
                     let branch = branches.first { $0.targetHash == commit.hash }
                     return CommitDisplayable(commit: commit, branch: branch)
                 })
@@ -124,6 +122,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
                 self.state = .error(error)
             })
 
+        let equatableCurrentUser = UUIDEquality(self.currentUser)
         let _ = retrievePullRequests().then { pullRequests -> Void in
             let filtered = pullRequests.filter { UUIDEquality($0.author) != equatableCurrentUser }
             self.headerView.update(with: filtered.count)
@@ -138,21 +137,23 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
                 return Promise(value: ([], result.objects))
             })
         case .bitbucket:
-            return when(fulfilled: retrieveCommits(), retrieveBranches())
+            return when(fulfilled: retrieveBitbucketCommits(), retrieveBitbucketBranches())
         }
     }
 
-    private func retrieveCommits() -> Promise<[Commit]> {
+    private func retrieveBitbucketCommits() -> Promise<[Commit]> {
+        let equatableCurrentUser = UUIDEquality(self.currentUser)
         let request = BitbucketCommitsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Commit] in
-            return result.objects
+            let filteredCommits = result.objects.filter { UUIDEquality($0.committer) == equatableCurrentUser }
+            return filteredCommits
         })
     }
 
-    private func retrieveBranches() -> Promise<[Branch]> {
+    private func retrieveBitbucketBranches() -> Promise<[Branch]> {
         let request = BitbucketBranchesRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Branch] in
-            return result.objects.flatMap { $0 as? Branch }
+            return result.objects
         })
     }
 

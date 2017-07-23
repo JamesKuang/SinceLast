@@ -8,7 +8,28 @@
 
 import Foundation
 
-struct Commit {
+protocol Commit {
+    var hash: String { get }
+    var message: String { get }
+    var date: Date { get }
+}
+
+extension Commit {
+    var shortSHA: String {
+        let index = hash.index(hash.startIndex, offsetBy: 7)
+        return hash.substring(to: index)
+    }
+}
+
+enum DateFormatters {
+    static let ISO8601: ISO8601DateFormatter = {
+        return ISO8601DateFormatter()
+    }()
+}
+
+// MARK: - BitbucketCommit
+
+struct BitbucketCommit: Commit {
     let hash: String
     let message: String
     let date: Date
@@ -26,7 +47,7 @@ struct Commit {
     }
 }
 
-extension Commit: JSONInitializable {
+extension BitbucketCommit: JSONInitializable {
     init(json: JSON) throws {
         guard
             let hash = json["hash"] as? String,
@@ -48,21 +69,36 @@ extension Commit: JSONInitializable {
     }
 }
 
-enum DateFormatters {
-    static let ISO8601: ISO8601DateFormatter = {
-        return ISO8601DateFormatter()
-    }()
-}
-
-extension Commit {
-    var shortSHA: String {
-        let index = hash.index(hash.startIndex, offsetBy: 7)
-        return hash.substring(to: index)
+extension BitbucketCommit: Equatable {
+    static func == (lhs: BitbucketCommit, rhs: BitbucketCommit) -> Bool {
+        return lhs.hash == rhs.hash
     }
 }
 
-extension Commit: Equatable {
-    static func == (lhs: Commit, rhs: Commit) -> Bool {
-        return lhs.hash == rhs.hash
+// MARK: - GithubCommit
+
+struct GithubCommit: Commit {
+    let hash: String
+    let message: String
+    let date: Date
+
+    init(hash: String, message: String, date: Date) {
+        precondition(hash.characters.count == 40, "Hash must be 40 characters")
+        self.hash = hash
+        self.message = message
+        self.date = date
+    }
+}
+
+extension GithubCommit: JSONInitializable {
+    init(json: JSON) throws {
+        guard
+            let hash = json["oid"] as? String,
+            let message = json["message"] as? String,
+            let dateString = json["committedDate"] as? String,
+            let date = DateFormatters.ISO8601.date(from: dateString)
+            else { throw JSONParsingError() }
+
+        self.init(hash: hash, message: message, date: date)
     }
 }
