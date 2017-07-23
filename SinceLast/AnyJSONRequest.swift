@@ -8,6 +8,8 @@
 
 import Foundation
 
+// TODO: Remove all of this, just switch on types in the VC
+
 struct AnyJSONRequest<Result: JSONInitializable>: TypedRequest {
     typealias ResultType = Result
 
@@ -43,10 +45,3 @@ extension AnyJSONRequest {
         self.parser = request.parser
     }
 }
-
-//extension AnyJSONRequest where Concrete == BitbucketArrayResult<Repository> {
-//    init<R>(_ request: R) where R: TypedRequest, R.ResultType == Result {
-//        self.path = request.path
-//        self.queryParameters = request.queryParameters
-//    }
-//}
