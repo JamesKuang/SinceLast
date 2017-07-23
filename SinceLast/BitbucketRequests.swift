@@ -71,7 +71,7 @@ struct BitbucketCommitsRequest: TypedRequest {
 }
 
 struct BitbucketPullRequestsRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<PullRequest>
+    typealias ResultType = BitbucketArrayResult<BitbucketPullRequest>
 
     let uuid: String
     let repositorySlug: String

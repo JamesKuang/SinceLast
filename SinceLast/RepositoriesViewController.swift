@@ -94,12 +94,7 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         switch gitClient.service {
         case .github:
             return retrieveRepositories(for: owner, page: page).then(execute: { (result: GithubArrayResult<GithubRepository, GithubRepositoriesRequest>) -> [Repository] in
-                if result.hasNextPage {
-                    self.nextPage = .cursor(result.endCursor)
-                } else {
-                    self.nextPage = .none
-                }
-
+                self.nextPage = result.pagination
                 return result.objects
             })
         case .bitbucket:

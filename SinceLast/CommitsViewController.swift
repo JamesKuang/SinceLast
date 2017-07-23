@@ -122,10 +122,8 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
                 self.state = .error(error)
             })
 
-        let equatableCurrentUser = UUIDEquality(self.currentUser)
         let _ = retrievePullRequests().then { pullRequests -> Void in
-            let filtered = pullRequests.filter { UUIDEquality($0.author) != equatableCurrentUser }
-            self.headerView.update(with: filtered.count)
+            self.headerView.update(with: pullRequests.count)
         }
     }
 
@@ -161,12 +159,17 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     private func retrievePullRequests() -> Promise<[PullRequest]> {
         switch gitClient.service {
         case .github:
-            // TODO:
-            return Promise(value: [])
-        case .bitbucket:
-            let request = BitbucketPullRequestsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid, filterUserName: currentUser.name)
-            return gitClient.send(request: request).then(execute: { result -> [PullRequest] in
+            let request = GithubPullRequestsRequest(repositoryName: repository.name)
+            return gitClient.send(request: request).then(execute: { (result) -> [PullRequest] in
                 return result.objects
+            })
+        case .bitbucket:
+            let equatableCurrentUser = UUIDEquality(self.currentUser)
+            let request = BitbucketPullRequestsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid, filterUserName: currentUser.name)
+            return gitClient.send(request: request).then(execute: { result -> [BitbucketPullRequest] in
+                return result.objects
+            }).then(execute: { pullRequests -> [PullRequest] in
+                return pullRequests.filter { UUIDEquality($0.author) != equatableCurrentUser }
             })
         }
     }

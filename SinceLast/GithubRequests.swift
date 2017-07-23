@@ -91,7 +91,7 @@ struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGr
 
     var bodyParameters: [String : Any] {
         return [
-            "query": "query { viewer { repository(name: \"\(repositoryName)\") { refs(last: 5, refPrefix: \"\(refPrefix)\") { pageInfo { endCursor hasNextPage } edges { node { name target { ... on Commit { history(first: 20, author: {id: \"\(authorID)\"}, since: \"\(formattedSinceDate)\") { edges { node { oid message committedDate } } } } } } } } } } }",
+            "query": "query { viewer { repository(name: \"\(repositoryName)\") { pullRequests(states: OPEN) { totalCount } refs(last: 5, refPrefix: \"\(refPrefix)\") { pageInfo { endCursor hasNextPage } edges { node { name target { ... on Commit { history(first: 20, author: {id: \"\(authorID)\"}, since: \"\(formattedSinceDate)\") { edges { node { oid message committedDate } } } } } } } } } } }",
         ]
     }
 
@@ -108,5 +108,25 @@ struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGr
 
     static var pageInfo: [String] {
         return ["data", "viewer", "repository", "refs", "pageInfo"]
+    }
+}
+
+struct GithubPullRequestsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGraphPaginating {
+    typealias ResultType = GithubArrayResult<GithubPullRequest, GithubPullRequestsRequest>
+
+    let repositoryName: String
+
+    var bodyParameters: [String : Any] {
+        return [
+            "query": "query { viewer { repository(name: \"\(repositoryName)\") { pullRequests(states: OPEN, first: 10) { pageInfo { endCursor hasNextPage } edges { node { viewerDidAuthor } } } } } }",
+        ]
+    }
+
+    static var connections: [String] {
+        return ["data", "viewer", "repository", "pullRequests", "edges"]
+    }
+
+    static var pageInfo: [String] {
+        return ["data", "viewer", "repository", "pullRequests", "pageInfo"]
     }
 }

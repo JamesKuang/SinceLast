@@ -10,8 +10,7 @@ import Foundation
 
 struct GithubArrayResult<T: JSONInitializable, U>: JSONInitializable where U: GithubGraphTraversing, U: GithubGraphPaginating {
     let objects: [T]
-    let hasNextPage: Bool
-    let endCursor: String
+    let pagination: Pagination
 
     init(json: JSON) throws {
         func findJSON<X>(traversals: [String], in json: JSON) throws -> X {
@@ -35,10 +34,14 @@ struct GithubArrayResult<T: JSONInitializable, U>: JSONInitializable where U: Gi
 
         let pageInfo: JSON = try findJSON(traversals: U.pageInfo, in: json)
         guard let hasNextPage = pageInfo["hasNextPage"] as? Bool,
-            let endCursor = pageInfo["endCursor"] as? String
+            let endCursor = pageInfo["endCursor"]
             else { throw JSONParsingError() }
-        self.hasNextPage = hasNextPage
-        self.endCursor = endCursor
+
+        if hasNextPage, let cursor = endCursor as? String {
+            self.pagination = .cursor(cursor)
+        } else {
+            self.pagination = .none
+        }
 
         let edges: [JSON] = try findJSON(traversals: U.connections, in: json)
 
