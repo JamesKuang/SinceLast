@@ -36,13 +36,17 @@ extension GithubTypedRequest {
     }
 }
 
-struct GithubUserRequest: GithubTypedRequest {
-    typealias ResultType = GithubUser
+struct GithubUserRequest: GithubTypedRequest, GithubGraphTraversing {
+    typealias ResultType = GithubResult<GithubUser, GithubUserRequest>
 
     var bodyParameters: [String : Any] {
         return [
             "query": "query { viewer { login id }}",
         ]
+    }
+
+    static var connections: [String] {
+        return ["data", "viewer"]
     }
 }
 

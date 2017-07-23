@@ -109,21 +109,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
             return
         }
 
-        let userPromise: Promise<Void>
-        switch gitClient.service {
-        case .github:
-            userPromise = self.retrieveUser().then { (user: GithubUser) -> Void in
-                self.currentUserCache.cacheUser(user)
-                self.currentUser = user
-            }
-        case .bitbucket:
-            userPromise = self.retrieveUser().then { (user: BitbucketUser) -> Void in
-                self.currentUserCache.cacheUser(user)
-                self.currentUser = user
-            }
-        }
-
-        userPromise.always {
+        _ = self.retrieveUser().always {
             self.tableView.refreshControl?.endRefreshing()
         }
     }
@@ -138,8 +124,24 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         storage.save(favorites)
     }
 
-    private func retrieveUser<T: User>() -> Promise<T> {
-        return gitClient.send(request: gitClient.service.userRequest())
+    private func retrieveUser() -> Promise<User> {
+        switch gitClient.service {
+        case .github:
+            let request = GithubUserRequest()
+            return gitClient.send(request: request).then { (result: GithubResult) -> User in
+                let user = result.object
+                self.currentUserCache.cacheUser(user)
+                self.currentUser = user
+                return user
+            }
+        case .bitbucket:
+            let request = BitbucketUserRequest()
+            return gitClient.send(request: request).then { (user: BitbucketUser) -> User in
+                self.currentUserCache.cacheUser(user)
+                self.currentUser = user
+                return user
+            }
+        }
     }
 
     private func updateCurrentUserUIVisibility(_ hasUser: Bool) {

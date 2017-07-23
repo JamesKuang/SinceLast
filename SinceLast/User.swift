@@ -72,10 +72,8 @@ extension GithubUser: Equatable {
 extension GithubUser: JSONInitializable {
     init(json: JSON) throws {
         guard
-            let data = json["data"] as? JSON,
-            let viewer = data["viewer"] as? JSON,
-            let id = viewer["id"] as? String,
-            let name = viewer["login"] as? String
+            let id = json["id"] as? String,
+            let name = json["login"] as? String
             else { throw JSONParsingError() }
         self.uuid = id
         self.name = name

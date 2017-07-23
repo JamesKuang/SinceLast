@@ -73,13 +73,6 @@ enum GitService {
 }
 
 extension GitService {
-    func userRequest<T: User>() -> AnyJSONRequest<T> {
-        switch self {
-        case .github: return AnyJSONRequest(GithubUserRequest())
-        case .bitbucket: return AnyJSONRequest(BitbucketUserRequest())
-        }
-    }
-
     func repositoriesRequest<T: JSONInitializable>(page: Pagination, ownerUUID: String) -> AnyJSONRequest<T> {
         switch self {
         case .github:

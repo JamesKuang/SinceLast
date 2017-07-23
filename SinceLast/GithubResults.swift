@@ -56,3 +56,31 @@ struct GithubArrayResult<T: JSONInitializable, U>: JSONInitializable where U: Gi
         }
     }
 }
+
+struct GithubResult<T: JSONInitializable, U>: JSONInitializable where U: GithubGraphTraversing {
+    let object: T
+
+    init(json: JSON) throws {
+        func findJSON<X>(traversals: [String], in json: JSON) throws -> X {
+            var dictionary = json
+            for traversal in traversals {
+                let value = dictionary[traversal]
+                if let next = value as? JSON {
+                    dictionary = next
+                } else if let values = value as? X {
+                    return values
+                } else {
+                    break
+                }
+            }
+
+            if let values = dictionary as? X {
+                return values
+            }
+            throw JSONParsingError()
+        }
+
+        let edge: JSON = try findJSON(traversals: U.connections, in: json)
+        self.object = try T(json: edge)
+    }
+}
