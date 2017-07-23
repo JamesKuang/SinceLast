@@ -10,24 +10,15 @@ import Foundation
 
 struct OAuthAccessToken {
     let token: String
-    let refreshToken: String
-    let expiration: Date
-
-    var isExpired: Bool {
-        return Date().compare(expiration) == .orderedDescending
-    }
+    let refreshToken: String?
 }
 
 extension OAuthAccessToken: JSONInitializable {
     init(json: JSON) throws {
-        guard
-            let token = json["access_token"] as? String,
-            let refreshToken = json["refresh_token"] as? String,
-            let expiresIn = json["expires_in"] as? Int
+        guard let token = json["access_token"] as? String
             else { throw JSONParsingError() }
 
         self.token = token
-        self.refreshToken = refreshToken
-        self.expiration = Date(timeIntervalSinceNow: TimeInterval(expiresIn))
+        self.refreshToken = json["refresh_token"] as? String
     }
 }

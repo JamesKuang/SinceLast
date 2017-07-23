@@ -51,7 +51,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
 
     init(client: GitClient) {
         self.gitClient = client
-        self.currentUserCache = CurrentUserCache()
+        self.currentUserCache = CurrentUserCache(service: client.service)
         super.init(nibName: nil, bundle: nil)
 
         title = NSLocalizedString("Repositories", comment: "Favorites screen navigation bar title")
@@ -109,15 +109,13 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
             return
         }
 
-        let _ = self.retrieveUser().then(execute: { user -> Void in
-            self.currentUserCache.cacheUser(user)
-            self.currentUser = user
+        _ = self.retrieveUser().always {
             self.tableView.refreshControl?.endRefreshing()
-        })
+        }
     }
 
     private func loadFavorites() {
-        favorites = storage.load() 
+        favorites = storage.load()
         tableView.reloadData()
     }
 
@@ -127,12 +125,26 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private func retrieveUser() -> Promise<User> {
-        let request = BitbucketUserRequest()
-        return gitClient.send(request: request)
+        switch gitClient.service {
+        case .github:
+            let request = GithubUserRequest()
+            return gitClient.send(request: request).then { (result: GithubResult) -> User in
+                let user = result.object
+                self.currentUserCache.cacheUser(user)
+                self.currentUser = user
+                return user
+            }
+        case .bitbucket:
+            let request = BitbucketUserRequest()
+            return gitClient.send(request: request).then { (user: BitbucketUser) -> User in
+                self.currentUserCache.cacheUser(user)
+                self.currentUser = user
+                return user
+            }
+        }
     }
 
     private func updateCurrentUserUIVisibility(_ hasUser: Bool) {
-        navigationItem.leftBarButtonItem?.isEnabled = hasUser
         navigationItem.rightBarButtonItem?.isEnabled = hasUser
         emptyView.actionButton.isEnabled = hasUser
     }
@@ -148,15 +160,22 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
     }
 
     private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
-        guard let user = self.currentUser else { return }
-        let controller = SettingsViewController(currentUser: user)
+        let controller = SettingsViewController(gitService: gitClient.service, currentUserName: currentUser?.name)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }
 
     private dynamic func tappedAddFavorite(_ sender: UIBarButtonItem) {
         guard let user = self.currentUser else { return }
-        let controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
+
+        let controller: UIViewController
+        switch gitClient.service {
+        case .github:
+            controller = RepositoriesViewController(owner: user, client: gitClient, dismissable: true)
+        case .bitbucket:
+            controller = RepositoryOwnersViewController(currentUser: user, client: gitClient)
+        }
+
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }

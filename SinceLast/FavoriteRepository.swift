@@ -52,6 +52,6 @@ final class FavoriteRepository: NSObject, NSCoding {
 
 extension FavoriteRepository {
     convenience init(_ repository: Repository) {
-        self.init(uuid: repository.uuid, name: repository.name, ownerUUID: repository.owner.uuid, ownerName: repository.owner.name)
+        self.init(uuid: repository.uuid, name: repository.name, ownerUUID: repository.ownerUUID, ownerName: repository.ownerName)
     }
 }

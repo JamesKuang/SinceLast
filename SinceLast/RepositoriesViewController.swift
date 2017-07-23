@@ -33,11 +33,9 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    fileprivate let loadDistance: CGFloat = 10.0
+    fileprivate var nextPage: Pagination = .initial
 
-    fileprivate var nextPage: Int? = nil
-
-    init(owner: User, client: GitClient) {
+    init(owner: User, client: GitClient, dismissable: Bool) {
         self.owner = owner
         self.gitClient = client
         super.init(nibName: nil, bundle: nil)
@@ -52,6 +50,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             ])
+
+        if dismissable {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Dismiss screen navigation bar button"), style: .plain, target: self, action: #selector(tappedCloseButton(_:)))
+        }
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -77,34 +79,42 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         }
     }
 
-    private func fetchData() {
-        let _ = retrieveRepositories(for: owner).then(execute: { repositories in
-            self.repositories = repositories
-        })
+    fileprivate func fetchData() {
+        guard nextPage.hasNextPage else { return }
+        fetchNextPageData(page: nextPage)
+            .then(execute: { objects in
+                self.repositories.append(contentsOf: objects)
+            })
+            .always {
+                self.tableView.refreshControl?.endRefreshing()
+        }
     }
 
-    fileprivate func fetchNextPageData() {
-        guard let nextPage = self.nextPage else { return }
-        let _ = retrieveRepositories(for: owner, page: nextPage).then(execute: { repositories in
-            self.repositories += repositories
-        })
+    private func fetchNextPageData(page: Pagination) -> Promise<[Repository]> {
+        switch gitClient.service {
+        case .github:
+            return retrieveRepositories(for: owner, page: page).then(execute: { (result: GithubArrayResult<GithubRepository, GithubRepositoriesRequest>) -> [Repository] in
+                self.nextPage = result.pagination
+                return result.objects
+            })
+        case .bitbucket:
+            return retrieveRepositories(for: owner, page: page).then(execute: { (result: BitbucketPaginatedResult<BitbucketRepository>) -> Promise<[Repository]> in
+                if let page = result.page {
+                    self.nextPage = .integer(page + 1)
+                } else {
+                    self.nextPage = .none
+                }
+
+                return Promise(value: result.objects)
+            })
+        }
     }
 
-    fileprivate func retrieveRepositories(for owner: User, page: Int = 1) -> Promise<[Repository]> {
-        let request = BitbucketRepositoriesRequest(uuid: owner.uuid, page: page)
-        return gitClient.send(request: request).then(execute: { result -> [Repository] in
-            if let page = result.page {
-                self.nextPage = page + 1
-            } else {
-                self.nextPage = nil
-            }
-
-            return result.objects
-        })
+    fileprivate func retrieveRepositories<T: JSONInitializable>(for owner: User, page: Pagination) -> Promise<T> {
+        return gitClient.send(request: gitClient.service.repositoriesRequest(page: page, ownerUUID: owner.uuid))
     }
 
     private func reload() {
-        tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
 
@@ -116,6 +126,10 @@ final class RepositoriesViewController: UIViewController, GitClientRequiring {
         favorites.append(codable)
 
         storage.save(favorites)
+    }
+
+    private dynamic func tappedCloseButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
     }
 
     private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
@@ -149,7 +163,7 @@ extension RepositoriesViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        guard nextPage != nil, indexPath.row == repositories.count - 1 else { return }
-        fetchNextPageData()
+        guard nextPage.hasNextPage, indexPath.row == repositories.count - 1 else { return }
+        _ = fetchData()
     }
 }

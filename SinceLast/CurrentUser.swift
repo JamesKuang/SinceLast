@@ -43,11 +43,3 @@ extension CurrentUser {
         self.init(uuid: user.uuid, name: user.name)
     }
 }
-
-extension User {
-    init(_ currentUser: CurrentUser) {
-        self.uuid = currentUser.uuid
-        self.name = currentUser.name
-        self.kind = .user
-    }
-}

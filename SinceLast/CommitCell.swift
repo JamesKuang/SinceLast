@@ -149,7 +149,6 @@ extension CommitCell: ConfigurableCell {
     func configure(with displayable: CommitDisplayable) {
         let commit = displayable.commit
         messageLabel.text = commit.message
-        committerLabel.text = commit.author.name
         timestampLabel.text = commit.date.timeAgo
         updateBranchName(displayable.branch?.name)
     }

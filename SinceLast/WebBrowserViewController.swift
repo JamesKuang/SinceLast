@@ -100,6 +100,7 @@ extension WebBrowserViewController: WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
+        print(url)
 
         let schemeValidator = WebViewNavigationActionValidator(url: url, expectedScheme: "sincelast")
         guard schemeValidator.isSchemeValid else {

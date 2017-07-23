@@ -8,16 +8,35 @@
 
 import Foundation
 
-struct Repository {
+protocol Repository: JSONInitializable, UUIDEquatable {
+    var uuid: String { get }
+    var name: String { get }
+    var description: String { get }
+
+    var ownerUUID: String { get }
+    var ownerName: String { get }
+}
+
+// MARK: - BitbucketRepository
+
+struct BitbucketRepository: Repository {
     let uuid: String
     let name: String
     let description: String
     let language: String
     let owner: User
     let avatarURL: String
+
+    var ownerUUID: String {
+        return owner.uuid
+    }
+
+    var ownerName: String {
+        return owner.name
+    }
 }
 
-extension Repository: JSONInitializable {
+extension BitbucketRepository: JSONInitializable {
     init(json: JSON) throws {
         guard
             let uuid = json["uuid"] as? String,
@@ -34,13 +53,40 @@ extension Repository: JSONInitializable {
         self.name = name
         self.description = description
         self.language = language
-        self.owner = try User(json: owner)
+        self.owner = try BitbucketUser(json: owner)
         self.avatarURL = avatarURL
     }
 }
 
-extension Repository: Equatable {
-    static func == (lhs: Repository, rhs: Repository) -> Bool {
-        return lhs.uuid == rhs.uuid
+// MARK: GithubRepository
+
+struct GithubRepository: Repository {
+    let uuid: String
+    let name: String
+    let description: String
+    let owner: GithubUser
+
+    var ownerUUID: String {
+        return owner.uuid
+    }
+
+    var ownerName: String {
+        return owner.name
+    }
+}
+
+extension GithubRepository: JSONInitializable {
+    init(json: JSON) throws {
+        guard
+            let node = json["node"] as? JSON,
+            let uuid = node["id"] as? String,
+            let name = node["name"] as? String,
+            let owner = node["owner"] as? JSON
+            else { throw JSONParsingError() }
+
+        self.uuid = uuid
+        self.name = name
+        self.description = node["description"] as? String ?? ""
+        self.owner = try GithubUser(json: owner)
     }
 }

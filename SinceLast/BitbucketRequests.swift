@@ -9,14 +9,14 @@
 import Foundation
 
 struct BitbucketUserRequest: TypedRequest {
-    typealias ResultType = User
+    typealias ResultType = BitbucketUser
 
     let path = "/2.0/user"
     let queryParameters: [String: String] = [:]
 }
 
 struct BitbucketRepositoriesRequest: TypedRequest {
-    typealias ResultType = BitbucketPaginatedResult<Repository>
+    typealias ResultType = BitbucketPaginatedResult<BitbucketRepository>
 
     let uuid: String
     let page: Int
@@ -37,7 +37,7 @@ struct BitbucketRepositoriesRequest: TypedRequest {
 }
 
 struct BitbucketTeamsRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<User>
+    typealias ResultType = BitbucketArrayResult<BitbucketUser>
 
     let path = "/2.0/teams"
 
@@ -46,7 +46,7 @@ struct BitbucketTeamsRequest: TypedRequest {
 
 // Not used, figure out if this is needed.
 struct BitbucketTeamRepositoriesRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<Repository>
+    typealias ResultType = BitbucketArrayResult<BitbucketRepository>
 
     let uuid: String
 
@@ -58,7 +58,7 @@ struct BitbucketTeamRepositoriesRequest: TypedRequest {
 }
 
 struct BitbucketCommitsRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<Commit>
+    typealias ResultType = BitbucketArrayResult<BitbucketCommit>
 
     let uuid: String
     let repositorySlug: String
@@ -71,7 +71,7 @@ struct BitbucketCommitsRequest: TypedRequest {
 }
 
 struct BitbucketPullRequestsRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<PullRequest>
+    typealias ResultType = BitbucketArrayResult<BitbucketPullRequest>
 
     let uuid: String
     let repositorySlug: String
@@ -89,7 +89,7 @@ struct BitbucketPullRequestsRequest: TypedRequest {
 }
 
 struct BitbucketBranchesRequest: TypedRequest {
-    typealias ResultType = BitbucketArrayResult<Branch>
+    typealias ResultType = BitbucketArrayResult<BitbucketBranch>
 
     let uuid: String
     let repositorySlug: String

@@ -88,7 +88,8 @@ final class SettingsViewController: UIViewController {
         }
     }
 
-    fileprivate let currentUser: User
+    fileprivate let gitServiceName: String
+    fileprivate let currentUserName: String?
 
     private let tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .grouped)
@@ -108,8 +109,9 @@ final class SettingsViewController: UIViewController {
         return label
     }()
 
-    init(currentUser: User) {
-        self.currentUser = currentUser
+    init(gitService: GitService, currentUserName: String?) {
+        self.gitServiceName = gitService.name
+        self.currentUserName = currentUserName
         super.init(nibName: nil, bundle: nil)
 
         title = NSLocalizedString("Settings", comment: "Settings screen navigation bar title")
@@ -196,7 +198,11 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch Section(section) {
         case .help: return NSLocalizedString("Help", comment: "Help section title in Settings")
-        case .logout: return currentUser.name
+        case .logout:
+            if let userName = currentUserName {
+                return "\(gitServiceName) (\(userName))"
+            }
+            return gitServiceName
         }
     }
 }

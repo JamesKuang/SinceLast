@@ -8,7 +8,34 @@
 
 import Foundation
 
-struct Commit {
+protocol Commit: UUIDEquatable {
+    var hash: String { get }
+    var message: String { get }
+    var date: Date { get }
+}
+
+extension Commit {
+    var uuid: String {
+        return hash
+    }
+}
+
+extension Commit {
+    var shortSHA: String {
+        let index = hash.index(hash.startIndex, offsetBy: 7)
+        return hash.substring(to: index)
+    }
+}
+
+enum DateFormatters {
+    static let ISO8601: ISO8601DateFormatter = {
+        return ISO8601DateFormatter()
+    }()
+}
+
+// MARK: - BitbucketCommit
+
+struct BitbucketCommit: Commit {
     let hash: String
     let message: String
     let date: Date
@@ -26,45 +53,77 @@ struct Commit {
     }
 }
 
-extension Commit: JSONInitializable {
+extension BitbucketCommit: JSONInitializable {
     init(json: JSON) throws {
         guard
             let hash = json["hash"] as? String,
             let message = json["message"] as? String,
             let dateString = json["date"] as? String,
-            let date = DateFormatters.commitJSONFormatter.date(from: dateString),
+            let date = DateFormatters.ISO8601.date(from: dateString),
             let author = json["author"] as? JSON
             else { throw JSONParsingError() }
 
         let user: User
         if let authorUser = author["user"] as? JSON {
-            user = try User(json: authorUser)
+            user = try BitbucketUser(json: authorUser)  // FIXME:
         } else {
             let name = author["raw"] as? String ?? "Unknown"
-            user = User(uuid: "", name: name, kind: .user)
+            user = BitbucketUser(uuid: "", name: name, kind: .user) // FIXME:
         }
 
         self.init(hash: hash, message: message, date: date, author: user)
     }
 }
 
-enum DateFormatters {
-    static let commitJSONFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        return formatter
-    }()
-}
-
-extension Commit {
-    var shortSHA: String {
-        let index = hash.index(hash.startIndex, offsetBy: 7)
-        return hash.substring(to: index)
+extension BitbucketCommit: Equatable {
+    static func == (lhs: BitbucketCommit, rhs: BitbucketCommit) -> Bool {
+        return lhs.hash == rhs.hash
     }
 }
 
-extension Commit: Equatable {
-    static func == (lhs: Commit, rhs: Commit) -> Bool {
+// MARK: - GithubCommit
+
+struct GithubCommit: Commit {
+    let hash: String
+    let message: String
+    let date: Date
+
+    init(hash: String, message: String, date: Date) {
+        precondition(hash.characters.count == 40, "Hash must be 40 characters")
+        self.hash = hash
+        self.message = message
+        self.date = date
+    }
+}
+
+extension GithubCommit: JSONInitializable {
+    init(json: JSON) throws {
+        guard
+            let node = json["node"] as? JSON,
+            let hash = node["oid"] as? String,
+            let message = node["message"] as? String,
+            let dateString = node["committedDate"] as? String,
+            let date = DateFormatters.ISO8601.date(from: dateString)
+            else { throw JSONParsingError() }
+
+        self.init(hash: hash, message: message, date: date)
+    }
+}
+
+extension GithubCommit: Equatable {
+    static func == (lhs: GithubCommit, rhs: GithubCommit) -> Bool {
         return lhs.hash == rhs.hash
+    }
+}
+
+extension GithubCommit: Hashable {
+    var hashValue: Int {
+        return hash.hashValue
+    }
+}
+
+extension GithubCommit: Comparable {
+    static func <(lhs: GithubCommit, rhs: GithubCommit) -> Bool {
+        return lhs.date > rhs.date
     }
 }

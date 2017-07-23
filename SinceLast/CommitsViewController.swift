@@ -110,10 +110,10 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
     private func fetchData() {
         state = .loading
-        let _ = when(fulfilled: retrieveCommits(), retrieveBranches())
+
+        let _ = retrieveCommitsAndBranches()
             .then(execute: { commits, branches -> Void in
-                let filteredCommits = commits.filter { $0.committer == self.currentUser }
-                let displayables = filteredCommits.map({ commit -> CommitDisplayable in
+                let displayables = commits.map({ commit -> CommitDisplayable in
                     let branch = branches.first { $0.targetHash == commit.hash }
                     return CommitDisplayable(commit: commit, branch: branch)
                 })
@@ -123,19 +123,33 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
             })
 
         let _ = retrievePullRequests().then { pullRequests -> Void in
-            let filtered = pullRequests.filter { $0.author != self.currentUser }
-            self.headerView.update(with: filtered.count)
+            self.headerView.update(with: pullRequests.count)
         }
     }
 
-    private func retrieveCommits() -> Promise<[Commit]> {
+    private func retrieveCommitsAndBranches() -> Promise<([Commit], [Branch])> {
+        switch gitClient.service {
+        case .github:
+            return gitClient.send(request: GithubCommitsRequest(repositoryName: repository.name, authorID: currentUser.uuid)).then(execute: { (result: GithubArrayResult<GithubBranch, GithubCommitsRequest>) -> Promise<([Commit], [Branch])> in
+                let commits = result.objects.flatMap { $0.commits }
+                let uniqueCommits = Array(Set<GithubCommit>(commits)).sorted()
+                return Promise(value: (uniqueCommits, result.objects))
+            })
+        case .bitbucket:
+            return when(fulfilled: retrieveBitbucketCommits(), retrieveBitbucketBranches())
+        }
+    }
+
+    private func retrieveBitbucketCommits() -> Promise<[Commit]> {
+        let equatableCurrentUser = UUIDEquality(self.currentUser)
         let request = BitbucketCommitsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Commit] in
-            return result.objects
+            let filteredCommits = result.objects.filter { UUIDEquality($0.committer) == equatableCurrentUser }
+            return filteredCommits
         })
     }
 
-    private func retrieveBranches() -> Promise<[Branch]> {
+    private func retrieveBitbucketBranches() -> Promise<[Branch]> {
         let request = BitbucketBranchesRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid)
         return gitClient.send(request: request).then(execute: { result -> [Branch] in
             return result.objects
@@ -143,10 +157,21 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func retrievePullRequests() -> Promise<[PullRequest]> {
-        let request = BitbucketPullRequestsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid, filterUserName: currentUser.name)
-        return gitClient.send(request: request).then(execute: { result -> [PullRequest] in
-            return result.objects
-        })
+        switch gitClient.service {
+        case .github:
+            let request = GithubPullRequestsRequest(repositoryName: repository.name)
+            return gitClient.send(request: request).then(execute: { (result) -> [PullRequest] in
+                return result.objects.filter { !$0.viewerDidAuthor }
+            })
+        case .bitbucket:
+            let equatableCurrentUser = UUIDEquality(self.currentUser)
+            let request = BitbucketPullRequestsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid, filterUserName: currentUser.name)
+            return gitClient.send(request: request).then(execute: { result -> [BitbucketPullRequest] in
+                return result.objects
+            }).then(execute: { pullRequests -> [PullRequest] in
+                return pullRequests.filter { UUIDEquality($0.author) != equatableCurrentUser }
+            })
+        }
     }
 
     private func reload(with commits: [CommitDisplayable]) {

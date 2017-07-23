@@ -1,5 +1,5 @@
 //
-//  OAuthAccessTokenRequest.swift
+//  BitbucketAccessTokenRequest.swift
 //  SinceLast
 //
 //  Created by James Kuang on 5/19/17.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct OAuthAccessTokenRequest: TypedRequest {
+struct BitbucketAccessTokenRequest: TypedRequest {
     typealias ResultType = OAuthAccessToken
 
     enum GrantType {
@@ -32,17 +32,20 @@ struct OAuthAccessTokenRequest: TypedRequest {
     }
 
     let method: RequestMethod = .POST
-    let path = "/site/oauth2/access_token"
 
+    let credentials: OAuthCredentials = BitbucketOAuth()
     let grantType: GrantType
-    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.shared
+
+    var path: String {
+        return credentials.accessTokenPath
+    }
 
     var queryParameters: [String: String] {
         return grantType.queryParameters
     }
 
     var additionalHeaders: [String : String] {
-        let scheme: AuthorizationHeaderScheme = .basic(user: keySecretProvider.key, password: keySecretProvider.secret)
+        let scheme: AuthorizationHeaderScheme = .basic(user: credentials.keySecretProvider.key, password: credentials.keySecretProvider.secret)
         return scheme.keyValuePair
     }
 }

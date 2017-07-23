@@ -15,16 +15,13 @@ final class AppRouter {
         self.rootViewController = rootViewController
     }
 
-    func routeToLaunchViewController(client: GitClient, isAuthorized: Bool) {
+    func routeToLaunchViewController(authState: AuthState) {
         let controller: UIViewController
-        if isAuthorized {
-            controller = FavoritesViewController(client: client)
-        } else {
-            let credentials: [OAuthCredentials] = [
-                GithubOAuth(),
-                BitbucketOAuth(),
-                ]
-            controller = GitServicesAuthorizationViewController(credentials: credentials)
+        switch authState {
+        case .authorized(let gitClient):
+            controller = FavoritesViewController(client: gitClient)
+        case .notAuthorized:
+            controller = GitServicesAuthorizationViewController()
         }
         rootViewController.setViewControllers([controller], animated: false)
     }
@@ -32,10 +29,10 @@ final class AppRouter {
     func routeToCommits(for repository: FavoriteRepository) {
         guard let favoritesViewController = rootViewController.topViewController as? FavoritesViewController else { return }
 
-        let currentUserCache = CurrentUserCache()
+        let gitClient = favoritesViewController.gitClient
+        let currentUserCache = CurrentUserCache(service: gitClient.service)
         guard let currentUser = currentUserCache.cachedUser else { return }
 
-        let gitClient = favoritesViewController.gitClient
         let controller = CommitsViewController(client: gitClient, currentUser: currentUser, repository: repository)
         rootViewController.pushViewController(controller, animated: false)
     }

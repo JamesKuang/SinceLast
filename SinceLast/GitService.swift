@@ -21,14 +21,14 @@ enum GitService {
 
     var apiBaseURL: String {
         switch self {
-        case .github: return "" // TODO: NYI
+        case .github: return "https://api.github.com/graphql"
         case .bitbucket: return "https://api.bitbucket.org"
         }
     }
 
     var oAuthBaseURL: String {
         switch self {
-        case .github: return "" // TODO: NYI
+        case .github: return "http://github.com"
         case .bitbucket: return "https://bitbucket.org"
         }
     }
@@ -40,10 +40,55 @@ enum GitService {
         }
     }
 
+    var oAuthCredentials: OAuthCredentials {
+        switch self {
+        case .github: return GithubOAuth()
+        case .bitbucket: return BitbucketOAuth()
+        }
+    }
+
     var isSupported: Bool {
         switch self {
-        case .github: return false  // TODO: NYI
+        case .github: return true
         case .bitbucket: return true
+        }
+    }
+
+    init?(serviceName: String) {
+        switch serviceName {
+        case "github": self = .github
+        case "bitbucket": self = .bitbucket
+        default: return nil
+        }
+    }
+
+    func configureSessionConfiguration(_ configuration: URLSessionConfiguration) {
+        switch self {
+        case .github:
+            configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        case .bitbucket:
+            break
+        }
+    }
+}
+
+extension GitService {
+    func repositoriesRequest<T: JSONInitializable>(page: Pagination, ownerUUID: String) -> AnyJSONRequest<T> {
+        switch self {
+        case .github:
+            return AnyJSONRequest(GithubRepositoriesRequest(cursor: page.cursorPage))
+        case .bitbucket:
+            guard let next = page.integerPage else { fatalError("Bitbucket requires integer pagination") }
+            return AnyJSONRequest(BitbucketRepositoriesRequest(uuid: ownerUUID, page: next))
+        }
+    }
+
+    func commitsRequest<T: JSONInitializable>(repository: FavoriteRepository, currentUserID: String) -> AnyJSONRequest<T> {
+        switch self {
+        case .github:
+            return AnyJSONRequest(GithubCommitsRequest(repositoryName: repository.name, authorID: currentUserID))
+        case .bitbucket:
+            return AnyJSONRequest(BitbucketCommitsRequest(uuid: repository.ownerUUID, repositorySlug: repository.uuid))
         }
     }
 }

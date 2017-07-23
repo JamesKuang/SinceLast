@@ -49,3 +49,17 @@ struct ValidationError: Error {
         self.message = message
     }
 }
+
+struct UnavailableError: Error {
+    let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+}
+
+struct GithubDiscardRefError: Error, CustomStringConvertible {
+    var description: String {
+        return "Discarding this Github ref because there are no commits associated with it."
+    }
+}

@@ -8,17 +8,16 @@
 
 import Foundation
 
-// TODO: NYI
-
 struct GithubOAuth: OAuthCredentials {
-    let service: GitService = .github
-    let authorizationURL = URL(string: "https://api.github.com/authorizations")!
+    let authorizationURL = URL(string: "https://github.com/login/oauth/authorize")!
 
-    private let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.shared
+    let accessTokenPath = "/login/oauth/access_token"
+
+    let keySecretProvider: OAuthKeySecretProviding = OAuthKeySecretProvider.github
 
     var parameters: [String: String] {
         return ["client_id": keySecretProvider.key,
-                "response_type": "code",
+                "allow_signup": "false",
         ]
     }
 }
