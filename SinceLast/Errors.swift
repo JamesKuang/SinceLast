@@ -58,6 +58,8 @@ struct UnavailableError: Error {
     }
 }
 
-struct GithubDiscardRefError: Error {
-
+struct GithubDiscardRefError: Error, CustomStringConvertible {
+    var description: String {
+        return "Discarding this Github ref because there are no commits associated with it."
+    }
 }

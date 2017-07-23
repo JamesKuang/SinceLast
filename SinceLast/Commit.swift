@@ -32,7 +32,7 @@ extension Commit: JSONInitializable {
             let hash = json["hash"] as? String,
             let message = json["message"] as? String,
             let dateString = json["date"] as? String,
-            let date = DateFormatters.commitJSONFormatter.date(from: dateString),
+            let date = DateFormatters.ISO8601.date(from: dateString),
             let author = json["author"] as? JSON
             else { throw JSONParsingError() }
 
@@ -49,10 +49,8 @@ extension Commit: JSONInitializable {
 }
 
 enum DateFormatters {
-    static let commitJSONFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZZ"
-        return formatter
+    static let ISO8601: ISO8601DateFormatter = {
+        return ISO8601DateFormatter()
     }()
 }
 
