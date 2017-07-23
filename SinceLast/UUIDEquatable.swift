@@ -12,8 +12,12 @@ protocol UUIDEquatable {
     var uuid: String { get }
 }
 
-struct UUIDEquality: Equatable {
+struct UUIDEquality: Equatable, Hashable {
     let equatable: UUIDEquatable
+
+    var hashValue: Int {
+        return equatable.uuid.hashValue
+    }
 
     init(_ equatable: UUIDEquatable) {
         self.equatable = equatable

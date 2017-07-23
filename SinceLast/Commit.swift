@@ -109,3 +109,21 @@ extension GithubCommit: JSONInitializable {
         self.init(hash: hash, message: message, date: date)
     }
 }
+
+extension GithubCommit: Equatable {
+    static func == (lhs: GithubCommit, rhs: GithubCommit) -> Bool {
+        return lhs.hash == rhs.hash
+    }
+}
+
+extension GithubCommit: Hashable {
+    var hashValue: Int {
+        return hash.hashValue
+    }
+}
+
+extension GithubCommit: Comparable {
+    static func <(lhs: GithubCommit, rhs: GithubCommit) -> Bool {
+        return lhs.date > rhs.date
+    }
+}

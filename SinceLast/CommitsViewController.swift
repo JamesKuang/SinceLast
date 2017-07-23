@@ -134,7 +134,8 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         case .github:
             return gitClient.send(request: GithubCommitsRequest(repositoryName: repository.name, authorID: currentUser.uuid)).then(execute: { (result: GithubArrayResult<GithubBranch, GithubCommitsRequest>) -> Promise<([Commit], [Branch])> in
                 let commits = result.objects.flatMap { $0.commits }
-                return Promise(value: (commits, result.objects))
+                let uniqueCommits = Array(Set<GithubCommit>(commits)).sorted()
+                return Promise(value: (uniqueCommits, result.objects))
             })
         case .bitbucket:
             return when(fulfilled: retrieveBitbucketCommits(), retrieveBitbucketBranches())
