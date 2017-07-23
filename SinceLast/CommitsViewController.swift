@@ -161,7 +161,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         case .github:
             let request = GithubPullRequestsRequest(repositoryName: repository.name)
             return gitClient.send(request: request).then(execute: { (result) -> [PullRequest] in
-                return result.objects
+                return result.objects.filter { !$0.viewerDidAuthor }
             })
         case .bitbucket:
             let equatableCurrentUser = UUIDEquality(self.currentUser)
