@@ -133,8 +133,8 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         switch gitClient.service {
         case .github:
             return gitClient.send(request: GithubCommitsRequest(repositoryName: repository.name, authorID: currentUser.uuid)).then(execute: { (result: GithubArrayResult<GithubBranch, GithubCommitsRequest>) -> Promise<([Commit], [Branch])> in
-                // TODO:
-                return Promise(value: ([], result.objects))
+                let commits = result.objects.flatMap { $0.commits }
+                return Promise(value: (commits, result.objects))
             })
         case .bitbucket:
             return when(fulfilled: retrieveBitbucketCommits(), retrieveBitbucketBranches())

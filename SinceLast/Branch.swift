@@ -13,6 +13,12 @@ protocol Branch: JSONInitializable, UUIDEquatable {
     var targetHash: String { get }
 }
 
+extension Branch {
+    var uuid: String {
+        return targetHash
+    }
+}
+
 // MARK: - BitbucketBranch
 
 struct BitbucketBranch: Branch {
@@ -29,12 +35,6 @@ extension BitbucketBranch: JSONInitializable {
 
         self.name = name
         self.targetHash = targetHash
-    }
-}
-
-extension BitbucketBranch: UUIDEquatable {
-    var uuid: String {
-        return targetHash
     }
 }
 
@@ -60,17 +60,10 @@ extension GithubBranch: JSONInitializable {
             let oid = edgeNode["oid"] as? String
             else { throw GithubDiscardRefError() }
 
-        // TODO: Test this
         let commits = try edges.flatMap ({ try GithubCommit(json: $0) })
 
         self.name = name
         self.targetHash = oid
         self.commits = commits
-    }
-}
-
-extension GithubBranch: UUIDEquatable {
-    var uuid: String {
-        return targetHash
     }
 }

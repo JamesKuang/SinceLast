@@ -8,10 +8,16 @@
 
 import Foundation
 
-protocol Commit {
+protocol Commit: UUIDEquatable {
     var hash: String { get }
     var message: String { get }
     var date: Date { get }
+}
+
+extension Commit {
+    var uuid: String {
+        return hash
+    }
 }
 
 extension Commit {
@@ -93,9 +99,10 @@ struct GithubCommit: Commit {
 extension GithubCommit: JSONInitializable {
     init(json: JSON) throws {
         guard
-            let hash = json["oid"] as? String,
-            let message = json["message"] as? String,
-            let dateString = json["committedDate"] as? String,
+            let node = json["node"] as? JSON,
+            let hash = node["oid"] as? String,
+            let message = node["message"] as? String,
+            let dateString = node["committedDate"] as? String,
             let date = DateFormatters.ISO8601.date(from: dateString)
             else { throw JSONParsingError() }
 
