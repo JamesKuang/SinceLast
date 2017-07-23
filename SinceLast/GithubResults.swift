@@ -41,6 +41,15 @@ struct GithubArrayResult<T: JSONInitializable, U>: JSONInitializable where U: Gi
         self.endCursor = endCursor
 
         let edges: [JSON] = try findJSON(traversals: U.connections, in: json)
-        self.objects = try edges.flatMap { try T(json: $0) }
+
+        self.objects = try edges.flatMap { edge in
+            do {
+                return try T(json: edge)
+            } catch _ as GithubDiscardRefError {
+                return nil
+            } catch let error {
+                throw error
+            }
+        }
     }
 }

@@ -57,3 +57,7 @@ struct UnavailableError: Error {
         self.message = message
     }
 }
+
+struct GithubDiscardRefError: Error {
+
+}

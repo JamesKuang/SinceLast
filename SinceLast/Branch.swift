@@ -15,7 +15,7 @@ protocol Branch: JSONInitializable, UUIDEquatable {
 
 // MARK: - BitbucketBranch
 
-struct BitbucketBranch {
+struct BitbucketBranch: Branch {
     let name: String
     let targetHash: String
 }
@@ -40,7 +40,7 @@ extension BitbucketBranch: UUIDEquatable {
 
 // MARK: - GithubBranch
 
-struct GithubBranch {
+struct GithubBranch: Branch {
     let name: String
     let targetHash: String
 }
@@ -57,7 +57,7 @@ extension GithubBranch: JSONInitializable {
         guard let first = edges.first,
             let edgeNode = first["node"] as? JSON,
             let oid = edgeNode["oid"] as? String
-            else { throw NilError() } // TODO: Throw a new, different error here, catch that error higher up to continue and not fail
+            else { throw GithubDiscardRefError() }
 
         self.name = name
         self.targetHash = oid

@@ -135,7 +135,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         case .github:
             return gitClient.send(request: GithubCommitsRequest(repositoryName: repository.name, authorID: currentUser.uuid)).then(execute: { (result: GithubArrayResult<GithubBranch, GithubCommitsRequest>) -> Promise<([Commit], [Branch])> in
                 // TODO:
-                return Promise(value: ([], []))
+                return Promise(value: ([], result.objects))
             })
         case .bitbucket:
             return when(fulfilled: retrieveCommits(), retrieveBranches())
