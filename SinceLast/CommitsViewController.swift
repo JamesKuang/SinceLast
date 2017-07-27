@@ -49,6 +49,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
 
     fileprivate let currentUser: User
     fileprivate let repository: FavoriteRepository
+    fileprivate var commits: [CommitDisplayable] = []
 
     fileprivate var state: ViewState<[CommitDisplayable]> = .initial {
         didSet {
@@ -175,6 +176,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func reload(with commits: [CommitDisplayable]) {
+        self.commits = commits
         tableView.refreshControl?.endRefreshing()
         tableView.reloadData()
     }
@@ -184,6 +186,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     }
 
     private func showActivity() {
+        guard commits.isEmpty else { return }
         activityIndicator.startAnimating()
     }
 
@@ -203,7 +206,6 @@ extension CommitsViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard case .loaded(let commits) = state else { fatalError("Unexpected view state") }
         let cell = tableView.dequeueCell(of: CommitCell.self, for: indexPath)
         let commit = commits[indexPath.item]
         cell.configure(with: commit)
