@@ -25,15 +25,6 @@ final class CommitCell: UITableViewCell {
         return label
     }()
 
-    fileprivate let committerLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.backgroundColor = .white
-        label.font = UIFont.preferredFont(forTextStyle: .subheadline)
-        label.textColor = .gray
-        return label
-    }()
-
     fileprivate let timestampLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -78,14 +69,6 @@ final class CommitCell: UITableViewCell {
         return stackView
     }()
 
-    private let committerHorizontalStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .horizontal
-        stackView.spacing = 15.0
-        return stackView
-    }()
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -94,13 +77,10 @@ final class CommitCell: UITableViewCell {
 
         stackView.addArrangedSubview(messageLabel)
         stackView.addArrangedSubview(branchHorizontalStackView)
-        stackView.addArrangedSubview(committerHorizontalStackView)
 
         branchHorizontalStackView.addArrangedSubview(branchLabel)
         branchHorizontalStackView.addArrangedSubview(branchTrailingFillerView)
-
-        committerHorizontalStackView.addArrangedSubview(committerLabel)
-        committerHorizontalStackView.addArrangedSubview(timestampLabel)
+        branchHorizontalStackView.addArrangedSubview(timestampLabel)
 
         let guide = contentView.readableContentGuide
         NSLayoutConstraint.activate([
@@ -126,7 +106,6 @@ final class CommitCell: UITableViewCell {
 
         messageLabel.text = nil
         branchLabel.text = nil
-        committerLabel.text = nil
         timestampLabel.text = nil
     }
 
@@ -134,13 +113,9 @@ final class CommitCell: UITableViewCell {
         if let branchName = branchName {
             branchLabel.text = branchName
             branchLabel.isHidden = false
-            branchTrailingFillerView.isHidden = false
-            branchHorizontalStackView.isHidden = false
         } else {
             branchLabel.text = nil
             branchLabel.isHidden = true
-            branchTrailingFillerView.isHidden = true
-            branchHorizontalStackView.isHidden = true
         }
     }
 }
