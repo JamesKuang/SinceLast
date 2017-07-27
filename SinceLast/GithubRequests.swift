@@ -99,7 +99,7 @@ struct GithubCommitsRequest: GithubTypedRequest, GithubGraphTraversing, GithubGr
         ]
     }
 
-    init(repositoryName: String, authorID: String, daysAgo: Int = 3) {
+    init(repositoryName: String, authorID: String, daysAgo: Int = 5) {
         self.repositoryName = repositoryName
         self.authorID = authorID
         guard let since = Calendar.current.date(byAdding: .day, value: -daysAgo, to: Date()) else { fatalError("Unable to create a date from calendar") }

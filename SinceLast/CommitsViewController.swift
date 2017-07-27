@@ -36,7 +36,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
     private lazy var emptyView: EmptyView = {
         let view = EmptyView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.messageLabel.text = String(format: NSLocalizedString("%@ has no commit activity in this repository.", comment: "Commits screen empty state message"), self.currentUser.name)
+        view.messageLabel.text = String(format: NSLocalizedString("%@ has no recent commit activity in this repository.", comment: "Commits screen empty state message"), self.currentUser.name)
         view.isHidden = true
         return view
     }()
