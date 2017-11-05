@@ -62,7 +62,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             imageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 30.0),
+            imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30.0),
             servicesStackView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 20.0),
             servicesStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             ])
