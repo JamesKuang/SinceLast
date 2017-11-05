@@ -1,8 +1,8 @@
-osx_image: xcode8.3
+osx_image: xcode9.1
 language: objective-c
 xcode_project: SinceLast.xcodeproj
 xcode_scheme: SinceLastTests
 before_install: 
   - carthage bootstrap
 script:
-  - xcodebuild clean build test -sdk iphonesimulator -project SinceLast.xcodeproj -scheme SinceLastTests -destination 'platform=iOS Simulator,name=iPhone 7' CODE_SIGNING_REQUIRED=NO | xcpretty
+  - xcodebuild clean build test -sdk iphonesimulator -project SinceLast.xcodeproj -scheme SinceLastTests -destination 'platform=iOS Simulator,name=iPhone 8' CODE_SIGNING_REQUIRED=NO | xcpretty
