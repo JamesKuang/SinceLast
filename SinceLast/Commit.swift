@@ -44,7 +44,7 @@ struct BitbucketCommit: Commit {
     let committer: User
 
     init(hash: String, message: String, date: Date, author: User, committer: User? = nil) {
-        precondition(hash.characters.count == 40, "Hash must be 40 characters")
+        precondition(hash.count == 40, "Hash must be 40 characters")
         self.hash = hash
         self.message = message.trimmingCharacters(in: .newlines)
         self.date = date
@@ -89,7 +89,7 @@ struct GithubCommit: Commit {
     let date: Date
 
     init(hash: String, message: String, date: Date) {
-        precondition(hash.characters.count == 40, "Hash must be 40 characters")
+        precondition(hash.count == 40, "Hash must be 40 characters")
         self.hash = hash
         self.message = message
         self.date = date

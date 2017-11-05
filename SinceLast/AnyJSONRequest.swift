@@ -35,7 +35,7 @@ extension AnyJSONRequest {
 }
 
 extension AnyJSONRequest {
-    init<R: TypedRequest>(_ request: R) where R.ResultType: JSONInitializable {
+    init<R: TypedRequest>(_ request: R) {
         self.method = request.method
         self.contentType = request.contentType
         self.path = request.path

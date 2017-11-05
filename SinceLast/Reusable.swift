@@ -22,20 +22,20 @@ extension UITableViewCell: Reusable {}
 extension UITableViewHeaderFooterView: Reusable {}
 
 extension UITableView {
-    func register<T: UITableViewCell>(cell cellType: T.Type) where T: Reusable {
+    func register<T: UITableViewCell>(cell cellType: T.Type) {
         self.register(cellType.self, forCellReuseIdentifier: cellType.reuseIdentifier)
     }
 
-    func dequeueCell<T: UITableViewCell>(of cellType: T.Type, for indexPath: IndexPath) -> T where T: Reusable {
+    func dequeueCell<T: UITableViewCell>(of cellType: T.Type, for indexPath: IndexPath) -> T {
         guard let cell = self.dequeueReusableCell(withIdentifier: cellType.reuseIdentifier, for:  indexPath) as? T else { fatalError("Unexpected cell reuse identifier") }
         return cell
     }
 
-    func register<T: UITableViewHeaderFooterView>(headerFooter viewType: T.Type) where T: Reusable {
+    func register<T: UITableViewHeaderFooterView>(headerFooter viewType: T.Type) {
         self.register(viewType.self, forHeaderFooterViewReuseIdentifier: viewType.reuseIdentifier)
     }
 
-    func dequeueHeaderFooter<T: UITableViewHeaderFooterView>(of viewType: T.Type) -> T where T: Reusable {
+    func dequeueHeaderFooter<T: UITableViewHeaderFooterView>(of viewType: T.Type) -> T {
         guard let view = self.dequeueReusableHeaderFooterView(withIdentifier: viewType.reuseIdentifier) as? T else { fatalError("Unexpected header/footer reuse identifier") }
         return view
     }
@@ -46,20 +46,20 @@ extension UITableView {
 extension UICollectionReusableView: Reusable {}
 
 extension UICollectionView {
-    func register<T: UICollectionViewCell>(cell cellType: T.Type) where T: Reusable {
+    func register<T: UICollectionViewCell>(cell cellType: T.Type) {
         self.register(cellType.self, forCellWithReuseIdentifier: cellType.reuseIdentifier)
     }
 
-    func dequeueCell<T: UICollectionViewCell>(of cellType: T.Type, for indexPath: IndexPath) -> T where T: Reusable {
+    func dequeueCell<T: UICollectionViewCell>(of cellType: T.Type, for indexPath: IndexPath) -> T {
         guard let cell = self.dequeueReusableCell(withReuseIdentifier: cellType.reuseIdentifier, for: indexPath) as? T else { fatalError("Unexpected cell reuse identifier") }
         return cell
     }
 
-    func register<T: UICollectionReusableView>(view viewType: T.Type, forSupplementaryViewOfKind kind: String) where T: Reusable {
+    func register<T: UICollectionReusableView>(view viewType: T.Type, forSupplementaryViewOfKind kind: String) {
         self.register(viewType.self, forSupplementaryViewOfKind: kind, withReuseIdentifier: viewType.reuseIdentifier)
     }
 
-    func dequeueReusableSupplementaryView<T: UICollectionReusableView>(of viewType: T.Type, kind: String, for indexPath: IndexPath) -> T where T: Reusable {
+    func dequeueReusableSupplementaryView<T: UICollectionReusableView>(of viewType: T.Type, kind: String, for indexPath: IndexPath) -> T {
         guard let view = self.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: viewType.reuseIdentifier, for: indexPath) as? T else { fatalError("Unexpected reusable supplementary view reuse identifier") }
         return view
     }
