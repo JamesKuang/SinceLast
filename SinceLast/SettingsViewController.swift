@@ -147,7 +147,7 @@ final class SettingsViewController: UIViewController {
         }
     }
 
-    private dynamic func tappedCloseButton(_ sender: UIBarButtonItem) {
+    @objc private func tappedCloseButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
 

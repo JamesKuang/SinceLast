@@ -194,7 +194,7 @@ final class CommitsViewController: UIViewController, GitClientRequiring {
         activityIndicator.stopAnimating()
     }
 
-    private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
         fetchData()
     }
 }
@@ -257,7 +257,7 @@ private final class HeaderView: UIView {
             rightLabel.leadingAnchor.constraint(equalTo: leftLabel.trailingAnchor, constant: padding),
             rightLabel.trailingAnchor.constraint(equalTo: readableContentGuide.trailingAnchor, constant: -padding),
             ]
-        widthConstraints.forEach { $0.priority = 999 }
+        widthConstraints.forEach { $0.priority = UILayoutPriority(rawValue: 999) }
 
         NSLayoutConstraint.activate(widthConstraints + [
             leftLabel.topAnchor.constraint(equalTo: topAnchor),

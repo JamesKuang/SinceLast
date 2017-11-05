@@ -159,13 +159,13 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         return CommitsViewController(client: gitClient, currentUser: user, repository: favorite)
     }
 
-    private dynamic func tappedSettingsButton(_ sender: UIBarButtonItem) {
+    @objc private func tappedSettingsButton(_ sender: UIBarButtonItem) {
         let controller = SettingsViewController(gitService: gitClient.service, currentUserName: currentUser?.name)
         let navigationController = UINavigationController(rootViewController: controller)
         present(navigationController, animated: true)
     }
 
-    private dynamic func tappedAddFavorite(_ sender: UIBarButtonItem) {
+    @objc private func tappedAddFavorite(_ sender: UIBarButtonItem) {
         guard let user = self.currentUser else { return }
 
         let controller: UIViewController
@@ -180,7 +180,7 @@ final class FavoritesViewController: UIViewController, GitClientRequiring {
         present(navigationController, animated: true)
     }
 
-    private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
         fetchData(ignoringCache: true)
     }
 }

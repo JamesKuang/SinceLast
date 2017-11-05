@@ -20,7 +20,7 @@ final class ShortcutActionInteractor {
     }
 
     func setupShortcutsCreation() {
-        NotificationCenter.default.addObserver(forName: .persistentStorageContentDidChange, object: nil, queue: OperationQueue(), using: { notification in
+        NotificationCenter.default.addObserver(forName: .persistentStorageContentDidChange, object: nil, queue: OperationQueue.main, using: { notification in
             let storage = PersistentStorage<FavoriteRepository>()
             let favorites = storage.load() 
             let actionables = favorites[0..<min(4, favorites.count)]

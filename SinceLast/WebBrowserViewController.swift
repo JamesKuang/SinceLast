@@ -80,12 +80,12 @@ final class WebBrowserViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    dynamic fileprivate func close() {
+    @objc fileprivate func close() {
         webView.stopLoading()
         delegate?.controllerDidClose(self)
     }
 
-    dynamic private func findLoginFrom1Password(_ sender: UIBarButtonItem) {
+    @objc private func findLoginFrom1Password(_ sender: UIBarButtonItem) {
         OnePasswordExtension.shared().fillItem(intoWebView: webView, for: self, sender: sender, showOnlyLogins: true, completion: { success, error in
             if !success, let error = error {
                 print("Failed to fill into webview: <\(error)>")

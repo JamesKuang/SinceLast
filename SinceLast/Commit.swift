@@ -23,7 +23,7 @@ extension Commit {
 extension Commit {
     var shortSHA: String {
         let index = hash.index(hash.startIndex, offsetBy: 7)
-        return hash.substring(to: index)
+        return String(hash[..<index])
     }
 }
 

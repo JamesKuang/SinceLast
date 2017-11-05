@@ -134,7 +134,7 @@ final class GitServicesAuthorizationViewController: UIViewController {
         return button
     }
 
-    dynamic func tappedSignIn(sender: UIButton) {
+    @objc func tappedSignIn(sender: UIButton) {
         guard let index = signInButtons.index(of: sender) else { fatalError("Button not found") }
         let service = self.services[index]
         startAuthentication(with: service)

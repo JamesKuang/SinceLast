@@ -117,11 +117,11 @@ final class RepositoryOwnersViewController: UIViewController, GitClientRequiring
         return RepositoriesViewController(owner: repositoryOwner, client: gitClient, dismissable: false)
     }
 
-    private dynamic func tappedCloseButton(_ sender: UIBarButtonItem) {
+    @objc private func tappedCloseButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true)
     }
 
-    private dynamic func refreshControlValueChanged(_ sender: UIRefreshControl) {
+    @objc private func refreshControlValueChanged(_ sender: UIRefreshControl) {
         fetchData()
     }
 }

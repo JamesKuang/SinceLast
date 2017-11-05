@@ -2,12 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Github</key>
+	<dict>
+		<key>key</key>
+		<string>69de116d1713ae0655fe</string>
+		<key>secret</key>
+		<string>3d7e1e07862b7c7baf935ebf2dc3188407a6ed4b</string>
+	</dict>
 	<key>Bitbucket</key>
 	<dict>
 		<key>key</key>
-		<string>fake-key</string>
+		<string>zT4f33fTd7zHnJgPLV</string>
 		<key>secret</key>
-		<string>fake-secret</string>
+		<string>EbtusRY7UHZHQhyKp4nXUmeEDMCG7UYL</string>
 	</dict>
 </dict>
 </plist>

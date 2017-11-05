@@ -81,7 +81,7 @@ final class AppCoordinator {
         }
     }
 
-    private dynamic func didLogoutGitService(_ notification: Notification) {
+    @objc private func didLogoutGitService(_ notification: Notification) {
         guard case .authorized(let gitClient) = authState else { return }
 
         let tokenStorage = TokenStorage(service: gitClient.service)
